@@ -12,20 +12,24 @@ echo ""
 echo -n '\e[37m'
 echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
-BASEDIR=$(dirname "$0")
+BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"
+. $BASEDIR/scripts/scriptutils.sh
+INFO "BASEDIR IS :: " $BASEDIR
 
 # Prompt for installing apts before going ahead with the dotfiles
 read -p "Install programs from apt? Y/n " option
 echo
 case "$option" in
     y|Y ) echo "Yes";
-      $BASEDIR/apts.sh
+      $BASEDIR/scripts/apts.sh
 esac
 echo
 
+INFO "Creating symlinks for all config files"
+
 # Install dotfiles
-dotfiles=".zshrc .Xresources .gitconfig"
+dotfiles=".zshrc .Xresources .gitconfig .emacs.d"
 for dotfile in $dotfiles; do
-  printf "Installing %s .... \n" $dotfile
-  #ln -svf 2> /dev/null
+  INFO "Installing $dotfile .... \n"
+  ln -svf $BASEDIR/files/$dotfile ~/$dotfile 2>&1
 done
