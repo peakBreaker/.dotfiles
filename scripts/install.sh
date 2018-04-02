@@ -28,8 +28,9 @@ echo
 INFO "Creating symlinks for all config files"
 
 # Install dotfiles
-dotfiles=".zshrc .Xresources .gitconfig .emacs.d"
+dotfiles=".spacemacs .zshrc .Xresources .gitconfig"
 for dotfile in $dotfiles; do
-  INFO "Installing $dotfile .... \n"
-  ln -svf $BASEDIR/files/$dotfile ~/$dotfile 2>&1
+  INFO "Installing $dotfile ...."
+  ln -svf "$BASEDIR/files/$dotfile" "$HOME/${dotfile##*/}" 2>&1
+  SUCCESS "Successfully installed dotfile :: $dotfile ! \n"
 done
