@@ -127,8 +127,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(doom-city-lights
+                         doom-nord) 
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -313,8 +313,8 @@ you should place your code here."
 
 
   ;; Install fots and icons
-  (all-the-icons-install-fonts)
-
+  ; (all-the-icons-install-fonts)
+  ; todo: This needs only to be dont once
   ;; Configurations for doom-themes
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
