@@ -85,3 +85,6 @@ source $ZSH/oh-my-zsh.sh
 #
 ### Uncomment the two cmds and paste this block in your .bashrc or equiv. ###
 
+## Swap escape and caps lock keys - super useful for vim
+setxkbmap -option caps:swapescape
+
