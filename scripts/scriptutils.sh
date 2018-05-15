@@ -13,9 +13,9 @@ LOG()
   local log_level="$2"
   local log_color="$3"
   
-  # Default level to "info"
-  [[ -z ${log_level} ]] && log_level="INFO";
-  [[ -z ${log_color} ]] && log_color="${LOG_INFO_COLOR}";
+  # # Default level to "info"
+  # [[ -z ${log_level} ]] && log_level="INFO";
+  # [[ -z ${log_color} ]] && log_color="${LOG_INFO_COLOR}";
 
   echo "${log_color}[$(date +"%Y-%m-%d %H:%M:%S %Z")] [${log_level}]${LOG_DEFAULT_COLOR} ${log_text} ";
   return 0;
