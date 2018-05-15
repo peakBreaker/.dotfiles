@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 echo -n '\e[32m'
 echo "                   _    ____                 _             "
 echo "                  | |  |  _ \               | |            "
@@ -12,6 +12,10 @@ echo ""
 echo -n '\e[37m'
 echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
+## Some configs for the script exec
+dotfiles=".spacemacs .zshrc .Xresources .gitconfig"
+
+## Get basedir and run the script
 BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"
 . $BASEDIR/scripts/scriptutils.sh
 INFO "BASEDIR IS :: " $BASEDIR
@@ -25,12 +29,27 @@ case "$option" in
 esac
 echo
 
-INFO "Creating symlinks for all config files"
+read -p "Create symlinks to .dotfiles? Y/n " option
+echo
+case "$option" in
+    y|Y ) echo "Yes";
+	INFO "Creating symlinks for all config files"
 
-# Install dotfiles
-dotfiles=".spacemacs .zshrc .Xresources .gitconfig"
-for dotfile in $dotfiles; do
-  INFO "Installing $dotfile ...."
-  ln -svf "$BASEDIR/files/$dotfile" "$HOME/${dotfile##*/}" 2>&1
-  SUCCESS "Successfully installed dotfile :: $dotfile ! \n"
-done
+	# Install dotfiles
+	for dotfile in $dotfiles; do
+	  INFO "Installing $dotfile ...."
+	  ln -svf "$BASEDIR/files/$dotfile" "$HOME/${dotfile##*/}" 2>&1
+	  SUCCESS "Successfully installed dotfile :: $dotfile ! \n"
+	done
+esac
+echo
+
+# Install the .config
+read -p "Install .config files? Y/n " option
+echo
+case "$option" in
+    y|Y ) echo "Yes";
+  INFO "Installing .config directory"
+  ERROR "NOT YET IMPLEMENTED"
+esac
+echo
