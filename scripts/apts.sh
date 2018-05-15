@@ -40,3 +40,12 @@ sudo apt install spotify-client
 #sudo apt-get install vagrant
 # sudo apt-get install lib32ncurses5
 # sudo apt install -y nodejs
+
+# Install ranger and utils for it
+sudo apt install ranger caca-utils highlight atool w3m poppler-utils mediainfo
+
+# Install yank
+sudo apt install yank
+
+# Install neofetch
+sudo apt install neofetch
