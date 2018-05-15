@@ -1,4 +1,11 @@
 
+"                      #      mmmmm                       #                   
+" mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm 
+" #" "#  #"  #  "   #  # m"   #mmmm"  #"  " #"  #  "   #  # m"   #"  #   #"  "
+" #   #  #""""  m"""#  #"#    #    #  #     #""""  m"""#  #"#    #""""   #    
+" ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #    
+" #                                                                           
+
 let mapleader = " "
 " load plugin
 	execute pathogen#infect()
