@@ -1,39 +1,66 @@
-XTerm*selectToClipboard: true
-
-! --- Colorization --- !
 ! special
-*.foreground:   #98d1ce
-*.background:   #0a0f14
-*.cursorColor:  #98d1ce
+*.foreground:   #34302d
+*.background:   #f5e7de
+*.cursorColor:  #34302d
 
 ! black
-*.color0:       #0a0f14
-*.color8:       #10151b
+*.color0:       #666661
+*.color8:       #7f7f7a
 
 ! red
-*.color1:       #c33027
-*.color9:       #d26939
+*.color1:       #992e2e
+*.color9:       #b23636
 
 ! green
-*.color2:       #26a98b
-*.color10:      #081f2d
+*.color2:       #4c3226
+*.color10:      #664233
 
 ! yellow
-*.color3:       #edb54b
-*.color11:      #245361
+*.color3:       #a67c53
+*.color11:      #bf8f60
 
 ! blue
-*.color4:       #195465
-*.color12:      #093748
+*.color4:       #4c7399
+*.color12:      #5986b2
 
 ! magenta
-*.color5:       #4e5165
-*.color13:      #888ba5
+*.color5:       #bf9986
+*.color13:      #d9ae98
 
 ! cyan
-*.color6:       #33859d
-*.color14:      #599caa
+*.color6:       #d97742
+*.color14:      #f2854a
 
 ! white
-*.color7:       #98d1ce
-*.color15:      #d3ebe9
+*.color7:       #34302d
+*.color15:      #4c4742
+
+!! URxvt specific settings
+
+!! URxvt.intensityStyles:    false
+!! URxvt.background:       [70]#000000
+URxvt.depth:        32
+URxvt.font:         xft:monospace:size=11
+!! URxvt.scrollBar:    false
+!! URxvt.cursorColor:  white
+
+!! Extensions
+URxvt.perl-ext-common:  default,matcher,tabbed,resize-font,url-select,keyboard-select
+URxvt.colorUL:      #4682B4
+!! resize-font
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show 
+!! URxvt.resize-font.smaller:  C-Down
+!! URxvt.resize-font.bigger:   C-Up
+!! url-select
+!!URxvt.keysym.M-u:   perl:url-select:select_next
+!!URxvt.url-select.launcher: linkhandler
+!!URxvt.url-select.underline: true
+!! keyboard-select:
+!!URxvt.keysym.M-Escape: perl:keyboard-select:activate
+!! Matcher
+!!URxvt.url-launcher: linkhandler
+!!URxvt.matcher.button:   1
+

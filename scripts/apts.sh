@@ -49,3 +49,6 @@ sudo apt install yank
 
 # Install neofetch
 sudo apt install neofetch
+
+# Install urxvt
+sudo apt install rxvt-unicode
