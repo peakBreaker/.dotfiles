@@ -1,12 +1,26 @@
-
+" .vimrc
+" My personal vimrc file
+" Author: Anders L. Hurum <andershurum@gmail.com>
+" Source: github.com/peakbreaker/.dotfiles
+" 
+" Usually nowadays I'm living in spacemacs, but sometimes vim is needed (for
+" example when I'm doing some edits on a server), so I thought I'd do a
+" somewhat not horrible vimrc.
+"
+" Note that this file is considered a WIP at all times
+"
 "                      #      mmmmm                       #                   
 " mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm 
 " #" "#  #"  #  "   #  # m"   #mmmm"  #"  " #"  #  "   #  # m"   #"  #   #"  "
 " #   #  #""""  m"""#  #"#    #    #  #     #""""  m"""#  #"#    #""""   #    
 " ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #    
 " #                                                                           
+" #
+
+" Basic configs ----------------------------------------------------------- {{{
 
 let mapleader = " "
+
 " load plugin
 	execute pathogen#infect()
 	execute pathogen#helptags()
@@ -16,12 +30,103 @@ let mapleader = " "
 	filetype off
 	"filetype plugin on
 	syntax on
+	set encoding=utf-8
+
+" UI Basics
 	set number
 	set relativenumber
+	set ruler
+	set cursorline       " Highlight current line
+	set visualbell       " Blink cursor on error instead of beeping (grr)
+	set title
+	set textwidth=79
+" Editing basics
+	set wrap
 
-" Splits
+" Theme
+	colorscheme badwolf
+
+" Color scheme (terminal)
+set t_Co=256
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+
+" Splits at the bottom right
 	set splitbelow
 	set splitright
+
+" Spaces / Tabs
+	set tabstop=4 " number of spaces in one tab
+	set softtabstop=4 " num spaces in tab when editing
+	set expandtab       " tabs are spaces
+
+" }}}
+
+" Folding ----------------------------------------------------------------- {{{
+	set foldlevelstart=0
+" }}}
+
+" Commenting -------------------------------------------------------------- {{{
+
+hell:comment_map = {
+    \   "c": '\/\/',
+    \   "cpp": '\/\/',
+    \   "go": '\/\/',
+    \   "java": '\/\/',
+    \   "javascript": '\/\/',
+    \   "lua": '--',
+    \   "scala": '\/\/',
+    \   "php": '\/\/',
+    \   "python": '#',
+    \   "ruby": '#',
+    \   "rust": '\/\/',
+    \   "sh": '#',
+    \   "desktop": '#',
+    \   "fstab": '#',
+    \   "conf": '#',
+    \   "profile": '#',
+    \   "bashrc": '#',
+    \   "bash_profile": '#',
+    \   "mail": '>',
+    \   "eml": '>',
+    \   "bat": 'REM',
+    \   "ahk": ';',
+    \   "vim": '"',
+    \   "tex": '%',
+    \ }
+
+function! ToggleComment()
+    if has_key(s:comment_map, &filetype)
+        let comment_leader = s:comment_map[&filetype]
+        if getline('.') =~ '^\s*$'
+	    return
+	endif
+        if getline('.') =~ '^\s*' . comment_leader
+            " Uncomment the line
+	    execute 'silent s/\v\s*\zs' . comment_leader . '\s*\ze//'
+        else
+            " Comment the line
+            execute 'silent s/\v^(\s*)/\1' . comment_leader . ' /'
+	endif
+    else
+        echo "No comment leader found for filetype"
+    endif
+endfunction
+
+nnoremap <Leader>t :call ToggleComment()<CR>
+vnoremap <Leader>t :call ToggleComment()<CR>
+
+" Filetype-specific ------------------------------------------------------- {{{
+
+" Vim {{{
+augroup ft_vim
+	au!
+	au FileType vim setlocal foldmethod=marker keywordprg=:help
+augroup END
+" }}}
+
+" }}}
 
 " Shortcuts
 
@@ -29,22 +134,12 @@ let mapleader = " "
 " Security
 set modelines=0
 
-" Show file stats
-set ruler
-
-" Blink cursor on error instead of beeping (grr)
-set visualbell
 
 " Encoding
-set encoding=utf-8
 
 " Whitespace
-set wrap
-set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
 set shiftwidth=2
-set softtabstop=2
 set expandtab
 set noshiftround
 
@@ -98,11 +193,6 @@ set listchars=tab:▸\ ,eol:¬
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
-" Color scheme (terminal)
-set t_Co=256
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
 " put
 https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
 " in ~/.vim/colors/ and uncomment:
