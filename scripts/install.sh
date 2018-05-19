@@ -13,7 +13,7 @@ echo -n '\e[37m'
 echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
 ## Some configs for the script exec
-dotfiles=".spacemacs .zshrc .Xresources .gitconfig"
+dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .vim"
 
 ## Get basedir and run the script
 BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"

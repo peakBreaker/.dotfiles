@@ -45,12 +45,7 @@ let mapleader = " "
 
 " Theme
 	colorscheme badwolf
-
-" Color scheme (terminal)
-set t_Co=256
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
+    hi Normal guibg=NONE ctermbg=NONE
 
 " Splits at the bottom right
 	set splitbelow
