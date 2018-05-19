@@ -17,6 +17,21 @@
 " #                                                                           
 " #
 
+" Plugins ----------------------------------------------------------------- {{{
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+    Plug 'dylanaraps/wal.vim'
+    colorscheme wal
+call plug#end()
+
+" }}}
+
 " Basic configs ----------------------------------------------------------- {{{
 
 let mapleader = " "
@@ -44,10 +59,6 @@ let mapleader = " "
 " Editing basics
 	set wrap
 
-" Theme
-	colorscheme badwolf
-    hi Normal guibg=NONE ctermbg=NONE
-
 " Splits at the bottom right
 	set splitbelow
 	set splitright
@@ -62,6 +73,7 @@ let mapleader = " "
 " Folding ----------------------------------------------------------------- {{{
 	set foldlevelstart=0
 " }}}
+
 
 " Commenting -------------------------------------------------------------- {{{
 " source: https://stackoverflow.com/a/24046914/2571881
