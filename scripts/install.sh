@@ -14,6 +14,7 @@ echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
 ## Some configs for the script exec
 dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .vim .urxvt"
+dotconfigs="ranger"
 
 ## Get basedir and run the script
 BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"
@@ -33,12 +34,12 @@ read -p "Create symlinks to .dotfiles? Y/n " option
 echo
 case "$option" in
     y|Y ) echo "Yes";
-	INFO "Creating symlinks for all config files"
+	INFO "Creating symlinks for single dotfiles"
 
 	# Install dotfiles
 	for dotfile in $dotfiles; do
 	  INFO "Installing $dotfile ...."
-	  ln -svf "$BASEDIR/files/$dotfile" "$HOME/${dotfile##*/}" 2>&1
+	  ln -svf "$BASEDIR/files/$dotfile" "$HOME/.config/${dotfile##*/}" 2>&1
 	  SUCCESS "Successfully installed dotfile :: $dotfile ! \n"
 	done
 esac
@@ -49,7 +50,13 @@ read -p "Install .config files? Y/n " option
 echo
 case "$option" in
     y|Y ) echo "Yes";
-  INFO "Installing .config directory"
-  ERROR "NOT YET IMPLEMENTED"
+    
+    INFO "Creating symlinks for files in .config directory"
+    # Link the dotfiles
+    for dotconfig in $dotconfigs; do
+        INFO "Installing $dotconfig ...."
+        ln -svf $BASEDIR/.config/$dotconfig/* $HOME/.config/$dotconfig/ 2>&1
+        SUCCESS "Successfully installed dotfiles from :: $dotconfig ! \n"
+    done
 esac
 echo
