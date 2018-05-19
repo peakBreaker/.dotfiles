@@ -115,3 +115,6 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+## Add to path
+export PATH=$PATH:$HOME/.local/bin/

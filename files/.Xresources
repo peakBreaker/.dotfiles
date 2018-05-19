@@ -38,11 +38,15 @@
 !! URxvt specific settings
 
 !! URxvt.intensityStyles:    false
-!! URxvt.background:       [70]#000000
-URxvt.depth:        32
 URxvt.font:         xft:monospace:size=11
-!! URxvt.scrollBar:    false
+URxvt.scrollBar:    false
 !! URxvt.cursorColor:  white
+URxvt*transparent: true
+URxvt*shading:     15
+URxvt.tintColor:   white
+URxvt.foreground: white
+!!urxvt*depth: 32
+!!URxvt.background:       #f5e7de
 
 !! Extensions
 URxvt.perl-ext-common:  default,matcher,resize-font,keyboard-select
