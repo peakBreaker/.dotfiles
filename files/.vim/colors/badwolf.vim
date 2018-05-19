@@ -272,8 +272,7 @@ call s:HL('Function',   'orange', '', 'none')
 " Preprocessor stuff is lime, to make it pop.
 "
 " This includes imports in any given language, because they should usually be
-" grouped together at the beginning of a file.  If they're in the middle of
-some
+" grouped together at the beginning of a file.  If they're in the middle of some
 " other code they should stand out, because something tricky is
 " probably going on.
 call s:HL('PreProc',   'lime', '', 'none')
@@ -367,10 +366,8 @@ endif
     call s:HL('CtrlPStats', 'coal', 'tardis', 'bold')
 
     " TODO: CtrlP extensions.
-    " CtrlPTabExtra  : the part of each line that’s not matched against
-(Comment)
-    " CtrlPqfLineCol : the line and column numbers in quickfix mode
-(|s:HL-Search|)
+    " CtrlPTabExtra  : the part of each line that’s not matched against (Comment)
+    " CtrlPqfLineCol : the line and column numbers in quickfix mode (|s:HL-Search|)
     " CtrlPUndoT     : the elapsed time in undo mode (|s:HL-Directory|)
     " CtrlPUndoBr    : the square brackets [] in undo mode (Comment)
     " CtrlPUndoNr    : the undo number inside [] in undo mode (String)
@@ -558,10 +555,8 @@ call s:HL('texZone', 'brightgravel', '', 'none')
 augroup badwolf_tex
     au!
 
-    au BufRead,BufNewFile *.tex syn region texMathZoneV start="\\("
-end="\\)\|%stopzone\>" keepend contains=@texMathZoneGroup
-    au BufRead,BufNewFile *.tex syn region texMathZoneX start="\$"
-skip="\\\\\|\\\$" end="\$\|%stopzone\>" keepend contains=@texMathZoneGroup
+    au BufRead,BufNewFile *.tex syn region texMathZoneV start="\\("end="\\)\|%stopzone\>" keepend contains=@texMathZoneGroup
+    au BufRead,BufNewFile *.tex syn region texMathZoneX start="\$" skip="\\\\\|\\\$" end="\$\|%stopzone\>" keepend contains=@texMathZoneGroup
 augroup END
 
 " }}}

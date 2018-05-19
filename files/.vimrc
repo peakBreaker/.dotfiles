@@ -40,6 +40,7 @@ let mapleader = " "
 	set visualbell       " Blink cursor on error instead of beeping (grr)
 	set title
 	set textwidth=79
+
 " Editing basics
 	set wrap
 
@@ -63,8 +64,8 @@ let mapleader = " "
 " }}}
 
 " Commenting -------------------------------------------------------------- {{{
-
-hell:comment_map = {
+" source: https://stackoverflow.com/a/24046914/2571881
+let s:comment_map = {
     \   "c": '\/\/',
     \   "cpp": '\/\/',
     \   "go": '\/\/',
@@ -88,7 +89,7 @@ hell:comment_map = {
     \   "bat": 'REM',
     \   "ahk": ';',
     \   "vim": '"',
-    \   "tex": '%',
+    \   "tex": '%'
     \ }
 
 function! ToggleComment()
@@ -187,8 +188,3 @@ set listchars=tab:▸\ ,eol:¬
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
-
-" put
-https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
-" colorscheme solarized
