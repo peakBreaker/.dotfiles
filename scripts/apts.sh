@@ -50,5 +50,5 @@ sudo apt install yank
 # Install neofetch
 sudo apt install neofetch
 
-# Install urxvt
-sudo apt install rxvt-unicode
+# Install urxvt with 256 colors
+sudo apt install rxvt-unicode-256color
