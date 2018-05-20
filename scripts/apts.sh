@@ -42,7 +42,7 @@ sudo apt install spotify-client
 # sudo apt install -y nodejs
 
 # Install ranger and utils for it
-sudo apt install ranger caca-utils highlight atool w3m poppler-utils mediainfo
+sudo apt install ranger caca-utils highlight atool w3m w3m-img poppler-utils mediainfo
 
 # Install yank
 sudo apt install yank
@@ -50,5 +50,8 @@ sudo apt install yank
 # Install neofetch
 sudo apt install neofetch
 
-# Install urxvt with 256 colors
-sudo apt install rxvt-unicode-256color
+# Install urxvt with 256 colors 
+sudo apt install rxvt-unicode-256color 
+
+# Install tmux
+sudo apt install tmux
