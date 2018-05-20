@@ -13,7 +13,8 @@ echo -n '\e[37m'
 echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
 ## Some configs for the script exec
-dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .vim .urxvt"
+dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .vim .urxvt
+.tmux.conf"
 dotconfigs="ranger"
 
 ## Get basedir and run the script
@@ -39,7 +40,7 @@ case "$option" in
 	# Install dotfiles
 	for dotfile in $dotfiles; do
 	  INFO "Installing $dotfile ...."
-	  ln -svf "$BASEDIR/files/$dotfile" "$HOME/.config/${dotfile##*/}" 2>&1
+	  ln -svf "$BASEDIR/files/$dotfile" "$HOME/${dotfile##*/}" 2>&1
 	  SUCCESS "Successfully installed dotfile :: $dotfile ! \n"
 	done
 esac
