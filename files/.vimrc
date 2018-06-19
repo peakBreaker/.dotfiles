@@ -27,7 +27,7 @@ endif
 
 call plug#begin()
     Plug 'dylanaraps/wal.vim'
-    colorscheme wal
+    Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 
 " }}}
@@ -35,10 +35,6 @@ call plug#end()
 " Basic configs ----------------------------------------------------------- {{{
 
 let mapleader = " "
-
-" load plugin
-	execute pathogen#infect()
-	execute pathogen#helptags()
 
 " Some basics
 	set nocompatible
@@ -55,6 +51,7 @@ let mapleader = " "
 	set visualbell       " Blink cursor on error instead of beeping (grr)
 	set title
 	set textwidth=79
+    colorscheme wal
 
 " Editing basics
 	set wrap
@@ -73,7 +70,6 @@ let mapleader = " "
 " Folding ----------------------------------------------------------------- {{{
 	set foldlevelstart=0
 " }}}
-
 
 " Commenting -------------------------------------------------------------- {{{
 " source: https://stackoverflow.com/a/24046914/2571881
@@ -124,6 +120,7 @@ endfunction
 
 nnoremap <Leader>t :call ToggleComment()<CR>
 vnoremap <Leader>t :call ToggleComment()<CR>
+" }}}
 
 " Filetype-specific ------------------------------------------------------- {{{
 
