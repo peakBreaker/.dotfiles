@@ -42,6 +42,7 @@ do
 end
 -- }}}
 
+
 -- {{{ Autostart windowless processes
 local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
@@ -750,3 +751,20 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 do
   awful.spawn(terminal.." -hold -e ~/.config/awesome/startup.sh")
 end
+
+-- Naughty
+-- Changing spotify notifications.
+naughty.config.presets.spotify = { 
+    -- if you want to disable Spotify notifications completely, return false
+    callback = function(args)
+        return true
+    end,
+
+    -- Adjust the size of the notification
+    height = 100,
+    width  = 400,
+    -- Guessing the value, find a way to fit it to the proper size later
+    icon_size = 90
+}
+table.insert(naughty.dbus.config.mapping, {{appname = "Spotify"}, naughty.config.presets.spotify})
+-- }}}
