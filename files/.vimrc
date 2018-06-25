@@ -7,6 +7,8 @@
 " example when I'm doing some edits on a server), so I thought I'd do a
 " somewhat not horrible vimrc.
 "
+" Whenever a line has been thoughtfully considered and added, it is indented
+"
 " Note that this file is considered a WIP at all times
 "
 "                      #      mmmmm                       #                   
@@ -28,7 +30,16 @@ endif
 call plug#begin()
     Plug 'dylanaraps/wal.vim'
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 call plug#end()
+
+" Configuring Plugins --------------------------------------------------- {{{
+
+" Ultisnips
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+
+" }}}
 
 " }}}
 
@@ -47,7 +58,7 @@ let mapleader = " "
 	set number
 	set relativenumber
 	set ruler
-	set cursorline       " Highlight current line
+	set nocursorline       " Do not highlight current line (doest work so well with all themes)
 	set visualbell       " Blink cursor on error instead of beeping (grr)
 	set title
 	set textwidth=79
@@ -55,6 +66,16 @@ let mapleader = " "
 
 " Editing basics
 	set wrap
+
+" Searching
+    " nnoremap / /\v
+    " vnoremap / /\v
+set hlsearch
+set incsearch
+    set ignorecase " Disabling case sensitiveness
+    set smartcase  " And enabling smart case sensitiveness
+set showmatch
+map <leader><space> :let @/=''<cr> " clear search
 
 " Splits at the bottom right
 	set splitbelow
@@ -133,6 +154,8 @@ augroup END
 
 " }}}
 
+
+
 " Shortcuts
 
 
@@ -171,15 +194,6 @@ set laststatus=2
 set showmode
 set showcmd
 
-" Searching
-nnoremap / /\v
-vnoremap / /\v
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set showmatch
-map <leader><space> :let @/=''<cr> " clear search
 
 " Remap help key.
 inoremap <F1> <ESC>:set invfullscreen<CR>a
