@@ -30,6 +30,8 @@ endif
 call plug#begin()
     Plug 'dylanaraps/wal.vim'
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 call plug#end()
 
@@ -38,6 +40,9 @@ call plug#end()
 " Ultisnips
     let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
+
+" Airline linebar
+    let g:airline_theme='wal'
 
 " }}}
 
