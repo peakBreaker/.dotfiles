@@ -1,4 +1,4 @@
-" .vimrc
+" .vmrc
 " My personal vimrc file
 " Author: Anders L. Hurum <andershurum@gmail.com>
 " Source: github.com/peakbreaker/.dotfiles
@@ -187,10 +187,15 @@ augroup END
 
 " }}}
 
+" Hotkeys  ---------------------------------------------------------------- {{{
 
+" Switching between windows quicker
+  map <C-J> <C-W>j
+  map <C-K> <C-W>k
+  nmap <c-h> <c-w>h
+  nmap <c-l> <c-w>l
 
-" Shortcuts
-
+" }}}
 
 " Security
 set modelines=0
