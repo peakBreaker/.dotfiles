@@ -48,6 +48,7 @@ call plug#end()
 
 " Quick run via <F5>
   nnoremap <F5> :call <SID>compile_and_run()<CR>
+  nnoremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
 
   function! s:compile_and_run()
       exec 'w'
