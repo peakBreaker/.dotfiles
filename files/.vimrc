@@ -29,6 +29,7 @@ endif
 
 call plug#begin()
     Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
     Plug 'dylanaraps/wal.vim'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'vim-airline/vim-airline'
