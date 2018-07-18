@@ -1,4 +1,4 @@
-" .vmrc
+" .vimrc
 " My personal vimrc file
 " Author: Anders L. Hurum <andershurum@gmail.com>
 " Source: github.com/peakbreaker/.dotfiles
@@ -48,10 +48,12 @@ call plug#end()
 
 " Quick run via <F5>
   nnoremap <F5> :call <SID>compile_and_run()<CR>
+  nnoremap <F6> :call AsyncStop<CR>
   nnoremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
 
   function! s:compile_and_run()
       exec 'w'
+      exec "AsyncStop"
       if &filetype == 'c'
           exec "AsyncRun! gcc % -o %<; time ./%<"
       elseif &filetype == 'cpp'
@@ -201,7 +203,7 @@ augroup END
     nnoremap <space>ga :Git add %:p<CR><CR>
     nnoremap <space>gs :Gstatus<CR>
     nnoremap <space>gc :Gcommit -v -q<CR>
-    " nnoremap <space>gt :Gcommit -v -q %:p<CR>
+    nnoremap <space>gt :Gcommit -v -q %:p<CR>
     nnoremap <space>gd :Gdiff<CR>
     " nnoremap <space>ge :Gedit<CR>
     " nnoremap <space>gr :Gread<CR>
@@ -215,6 +217,10 @@ augroup END
     nnoremap <space>gpl :Dispatch! git pull<CR>
     xnoremap dp :diffput<cr>
     xnoremap do :diffget<cr> 
+
+" Copying and pasting with system clipboard
+    vnoremap <C-c> "+y
+    map <C-v> "+p
 
 " }}}
 
