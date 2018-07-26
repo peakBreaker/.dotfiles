@@ -11,3 +11,6 @@ files/.emacs.d/*
 !files/.emacs.d/init.el
 !files/.emacs.d/custom.el
 !files/.emacs.d/themes
+
+#Ignore vim plugins
+files/.vim/plugged

@@ -118,3 +118,8 @@ fi
 
 ## Add to path
 export PATH=$PATH:$HOME/.local/bin/
+
+# Set vim as default editor 
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
