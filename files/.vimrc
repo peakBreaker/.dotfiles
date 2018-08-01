@@ -205,10 +205,21 @@ augroup END
 
 " For vimmagit
     map <leader>gs :Magit <CR>
+    map <leader>cc CC
 
 " Copying and pasting with system clipboard
     vnoremap <C-c> "+y
     map <C-v> "+p
+
+" Navigation hotkeys
+    nmap Ø [[
+    nmap Æ ]]
+    nmap ø {
+    nmap æ }
+
+" Move up/down editor lines
+    nnoremap j gj
+    nnoremap k gk
 
 " }}}
 
