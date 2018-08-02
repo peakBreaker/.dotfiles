@@ -217,6 +217,16 @@ augroup END
     nmap ø {
     nmap æ }
 
+" Easier brackets
+    imap ø {
+    imap æ }
+    imap Ø [
+    imap Æ ]
+    imap <C-ø> (
+    imap <C-æ> )
+    inoremap <leader>æ æ
+    inoremap <leader>ø ø
+
 " Move up/down editor lines
     nnoremap j gj
     nnoremap k gk
@@ -239,9 +249,6 @@ set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
-" Move up/down editor lines
-nnoremap j gj
-nnoremap k gk
 
 " Allow hidden buffers
 set hidden

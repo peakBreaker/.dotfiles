@@ -14,3 +14,4 @@ files/.emacs.d/*
 
 #Ignore vim plugins
 files/.vim/plugged
+files/.vim/.netrwhist

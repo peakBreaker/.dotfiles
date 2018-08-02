@@ -19,8 +19,8 @@
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 (add-to-list 'exec-path "/usr/local/bin")
 
-(require 'init-utils)
-(require 'init-elpa)
+; (require 'init-utils)
+; (require 'init-elpa)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
