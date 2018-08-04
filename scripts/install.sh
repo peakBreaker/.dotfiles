@@ -12,24 +12,44 @@ echo ""
 echo -n '\e[37m'
 echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 
+
 ## Some configs for the script exec
-dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .vim .urxvt
-.tmux.conf"
+dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .urxvt"
 dotconfigs="ranger"
+
 
 ## Get basedir and run the script
 BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"
-. $BASEDIR/scripts/scriptutils.sh
+. $BASEDIR/scripts/scriptutils.sh # Contains debugging utils
 INFO "BASEDIR IS :: " $BASEDIR
 
-# Prompt for installing apts before going ahead with the dotfiles
-read -p "Install programs from apt? Y/n " option
+
+## Get the OS distro
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  OS=$ID
+  echo "DETECTED OS :: $NAME"
+  # Optionally add config file here or similar
+else
+  echo "FOUND NO OS FILE"
+  exit -1
+fi
+
+
+# Install packages
+read -p "Install packages? Y/n " option
 echo
-case "$option" in
-    y|Y ) echo "Yes";
-      $BASEDIR/scripts/apts.sh
+case "$option" in y|Y ) echo "INSTALLING PACKAGES FOR OS ID :: $OS";
+
+  while read p; do
+    if [ $OS=arch ]; then
+      sudo pacman -S --noconfirm $p
+    else
+        echo "OS NOT SET -- NO PACKAGES TO INSTALL"
+    fi
+  done<$BASEDIR/scripts/${OS}_packages.list
 esac
-echo
+
 
 read -p "Create symlinks to .dotfiles? Y/n " option
 echo
