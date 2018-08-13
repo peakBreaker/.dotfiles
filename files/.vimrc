@@ -209,7 +209,7 @@ augroup END
 
 " Copying and pasting with system clipboard
     vnoremap <C-c> "+y
-    map <C-v> "+p
+    "map <C-v> "+p
 
 " Navigation hotkeys
     nmap Ø [[
