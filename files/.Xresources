@@ -18,12 +18,13 @@ URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 
 ! do not specify italic font - its broken, urxvt will make italic automatically
-urxvt.font: xft:DejaVu Sans Mono:size=11
-    xft:unifont:medium
-urxvt.boldfont: xft:DejaVu Sans Mono:bold:size=11
+URxvt*font: xft:Source Code Pro:bold:size=11:antialias=true:hinting=true
+URxvt*boldFont: xft:Source Code Pro:bold:size=12:antialias=true:hinting=true
+URxvt*italicFont: xft:Source Code Pro:style=Oblique:size=12:antialias=true:hinting=true
+URxvt*boldItalicFont: xft:Source Code Pro:style=Bold Oblique:size=12:antialias=true:hinting=true
 
 ! needed to fix font spacing
-URxvt.letterSpace: 0
+URxvt.letterSpace: -5
 URxvt.lineSpace: 2
 URxvt.tripleclickwords: true
 URxvt.insecure: true
