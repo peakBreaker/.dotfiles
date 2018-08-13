@@ -13,5 +13,6 @@ files/.emacs.d/*
 !files/.emacs.d/themes
 
 #Ignore vim plugins
-files/.vim/plugged
-files/.vim/.netrwhist
+files/.vim/
+#files/.vim/plugged
+#files/.vim/.netrwhist
