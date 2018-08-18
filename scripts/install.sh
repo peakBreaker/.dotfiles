@@ -51,8 +51,7 @@ esac
 
 read -p "Create symlinks to .dotfiles? Y/n " option
 echo
-case "$option" in
-    y|Y ) echo "Yes";
+case "$option" in y|Y ) echo "\t\t-- CREATING LINKS TO DOTCONFIGS!";
 	INFO "Creating symlinks for single dotfiles"
 
 	# Install dotfiles

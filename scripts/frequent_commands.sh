@@ -12,3 +12,6 @@ makepkg -s
 pacman -U dropbox*.pkg.tar.xz
 cd ../../ 
 rm -rf dropbox_install_tmp.XXX
+
+# add to groups
+sudo usermod -a -G <groups> <user>
