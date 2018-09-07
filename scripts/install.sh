@@ -17,12 +17,10 @@ echo "--- Welcome to my dotfiles repo for autoinstalling devenv ---"
 dotfiles=".spacemacs .zshrc .Xresources .gitconfig .vimrc .urxvt"
 dotconfigs="ranger"
 
-
 ## Get basedir and run the script
 BASEDIR="$( cd "$(dirname "$0")/.." ; pwd -P )"
 . $BASEDIR/scripts/scriptutils.sh # Contains debugging utils
 INFO "BASEDIR IS :: " $BASEDIR
-
 
 ## Get the OS distro
 if [ -f /etc/os-release ]; then

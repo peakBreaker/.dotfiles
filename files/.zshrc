@@ -51,7 +51,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    vi-mode
+    )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -82,7 +85,8 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-#
+alias n="npx" # npm run module shortcut
+
 ### Uncomment the two cmds and paste this block in your .bashrc or equiv. ###
 
 ## Swap escape and caps lock keys - super useful for vim
@@ -133,3 +137,17 @@ cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
 source ~/.cache/wal/colors-tty.sh
+
+# Better searching in command mode
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+
+# Beginning search with arrow keys
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
