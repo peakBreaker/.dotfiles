@@ -85,7 +85,8 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-#
+alias n="npx" # npm run module shortcut
+
 ### Uncomment the two cmds and paste this block in your .bashrc or equiv. ###
 
 ## Swap escape and caps lock keys - super useful for vim

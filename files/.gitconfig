@@ -2,20 +2,28 @@
 	name = Anders L. Hurum
 	email = andershurum@gmail.com
 [alias]
+     s = status
+     c = commit -e
+     ch = checkout
      aa = add --all
      ap = add --patch
-     ch = checkout
+     d = diff
+     ds = diff --staged
+
+     l = log
+     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
      rb = rebase
      rbs = rebase --skip
      rbc = rebase --continue
-     rba = rebase --abort
-     s = status
-     c = commit -e
-     d = diff
+  rba = rebase --abort
+
+     st = stash
+     stpa = stash push -a
+     stpam = stash push -a -m
+     stpop = stash pop
+     stap = stash apply
      pl = pull
-     ds = diff --staged
-     l = log
-     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
     initignore = !read -p 'Ignore languages: ' langignore && \
         wget -O .gitignore "https://www.gitignore.io/api/${langignore}" && \
         git add .gitignore && \
