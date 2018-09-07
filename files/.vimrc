@@ -80,7 +80,6 @@ call plug#end()
 " }}}
 
 " }}}
-
 " Basic configs ----------------------------------------------------------- {{{
 
 let mapleader = " "
@@ -92,6 +91,10 @@ let mapleader = " "
 	syntax on
 	set encoding=utf-8
 
+" Enable modelines
+    set modeline
+    set modelines=3
+
 " UI Basics
 	set number
 	set relativenumber
@@ -100,6 +103,7 @@ let mapleader = " "
 	set visualbell       " Blink cursor on error instead of beeping (grr)
 	set title
 	set textwidth=79
+    set wildmenu
     colorscheme wal
 
 " Editing basics
@@ -125,11 +129,9 @@ map <leader><space> :let @/=''<cr> " clear search
 	set expandtab       " tabs are spaces
 
 " }}}
-
 " Folding ----------------------------------------------------------------- {{{
 	set foldlevelstart=0
 " }}}
-
 " Commenting -------------------------------------------------------------- {{{
 " source: https://stackoverflow.com/a/24046914/2571881
 let s:comment_map = {
@@ -180,7 +182,6 @@ endfunction
 nnoremap <Leader>t :call ToggleComment()<CR>
 vnoremap <Leader>t :call ToggleComment()<CR>
 " }}}
-
 " Filetype-specific ------------------------------------------------------- {{{
 
 " Vim {{{
@@ -191,7 +192,6 @@ augroup END
 " }}}
 
 " }}}
-
 " Hotkeys  ---------------------------------------------------------------- {{{
 
 " Switching between windows quicker
@@ -208,35 +208,18 @@ augroup END
     map <leader>cc CC
 
 " Copying and pasting with system clipboard
-    vnoremap <C-c> "+y
-    "map <C-v> "+p
-
-" Navigation hotkeys
-    nmap Ø [[
-    nmap Æ ]]
-    nmap ø {
-    nmap æ }
-
-" Easier brackets
-    imap ø {
-    imap æ }
-    imap Ø [
-    imap Æ ]
-    imap <C-ø> (
-    imap <C-æ> )
-    inoremap <leader>æ æ
-    inoremap <leader>ø ø
+    vnoremap <leader>c "+y
+    nmap <leader>v "+p
 
 " Move up/down editor lines
     nnoremap j gj
     nnoremap k gk
 
+" When indenting we dont want to deselect
+    vnoremap < <gv
+    vnoremap > >gv
+
 " }}}
-
-" Security
-set modelines=0
-
-" Encoding
 
 " Whitespace
 set formatoptions=tcqrn1
