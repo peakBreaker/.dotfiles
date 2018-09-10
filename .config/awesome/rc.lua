@@ -237,7 +237,7 @@ globalkeys = awful.util.table.join(
               {description = "Play/pause", group = "Spotify"}), --  XF86AudioPlay
     awful.key({ modkey, altkey }, "n", sendToSpotify("Next"),
               {description = "Next song", group = "Spotify"}), -- XF86AudioNext
-    awful.key({ modkey, altkey }, "l", sendToSpotify("Previous"),
+    awful.key({ modkey, altkey }, "b", sendToSpotify("Previous"),
               {description = "Previous song", group = "Spotify"}), -- XF86AudioPrev
     awful.key({ modkey, altkey }, "s", sendToSpotify("Stop"),
               {description = "Stop playing", group = "Spotify"}), -- XF86AudioPrev
@@ -289,25 +289,25 @@ globalkeys = awful.util.table.join(
     ),
 
     -- By direction client focus
-    awful.key({ modkey }, "j",
+    awful.key({ altkey, modkey }, "j",
         function()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus down", group = "client"}),
-    awful.key({ modkey }, "k",
+    awful.key({ altkey, modkey }, "k",
         function()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus up", group = "client"}),
-    awful.key({ modkey }, "h",
+    awful.key({ altkey, modkey }, "h",
         function()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end,
         {description = "focus left", group = "client"}),
-    awful.key({ modkey }, "l",
+    awful.key({ altkey, modkey }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
