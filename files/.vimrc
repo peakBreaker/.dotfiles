@@ -1,3 +1,4 @@
+" vim: set norelativenumber:
 " .vimrc
 " My personal vimrc file
 " Author: Anders L. Hurum <andershurum@gmail.com>
