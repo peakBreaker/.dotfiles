@@ -30,8 +30,7 @@ width="$2"           # Width of the preview pane (number of fitting characters)
 height="$3"          # Height of the preview pane (number of fitting characters)
 cached="$4"          # Path that should be used to cache image previews
 preview_images="$5"  # "True" if image previews are enabled, "False" otherwise.
-echo "preview images : $preview_images"
-exit 6;;
+
 maxln=200    # Stop after $maxln lines.  Can be used like ls | head -n $maxln
 
 # Find out something about the file:
@@ -56,14 +55,9 @@ safepipe() { "$@"; test $? = 0 -o $? = 141; }
 # Image previews, if enabled in ranger.
 if [ "$preview_images" = "True" ]; then
     case "$mimetype" in
-        # Image previews for SVG files, disabled by default.
-        ###image/svg+xml)
-        ###   convert "$path" "$cached" && exit 6 || exit 1;;
-        # Image previews for image files. w3mimgdisplay will be called for all
-        # image files (unless overriden as above), but might fail for
-        # unsupported types.
+        image/svg+xml)
+           convert "$path" "$cached" && exit 6 || exit 1;;
         image/*)
-            echo "Previewing image!"
             exit 7;;
         # Image preview for video, disabled by default.:
         ###video/*)
