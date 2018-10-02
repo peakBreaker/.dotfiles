@@ -1,5 +1,6 @@
 # vim: filetype=python:
 # vim: set foldmethod=marker:
+# vim: set number:
 #
 # peakBreaker i3 config
 # 
@@ -67,51 +68,68 @@ bar {
 ## }}}
 
 ## Basic keybindings ------------------------------------------------ {{{
-#
 # start a terminal
 bindsym $mod+Return exec urxvt
-#
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-#
 # kill focused window
 bindsym $mod+Shift+c kill
 # float
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
-#
-bindsym $mod+Escape		workspace prev
+### Managing I3 --------------------------------------- {{{
 bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Are you sure you want to leave i3?" "i3-msg exit"
 # bindsym $mod+BackSpace
 bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Are you sure you want to reboot?" "$reboot"
 # STOP/HIDE EVERYTHING:
 bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec $truepause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e ranger
-
 # reload the configuration file
 bindsym $mod+Shift+t reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# Lock i3
+bindsym Control+$mod+Shift+l exec i3lock -c 000000
+### }}}
+## }}}
+
+## Navigation ------------------------------------------------------- {{{
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+### Cursor keys alternative --------------------------- {{{
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+### }}}
+# Switching between workspaces on output
+bindsym $mod+Control+j workspace prev_on_output
+bindsym $mod+Control+k workspace next_on_output
+# Working with multi monitors
+bindsym $mod+Control+h focus output left
+bindsym $mod+Control+l focus output right
 ## }}}
 
 ## Command/keybased keybindings ------------------------------------- {{{
-
+# Function hotkeys
+bindsym $mod+F1		exec --no-startup-id zathura ~/.config/i3/i3_guide.pdf
+bindsym $mod+F2		restart
+bindsym $mod+F3		exec --no-startup-id displayselect
+bindsym $mod+F4		exec --no-startup-id $hibernate
+bindsym $mod+F5		exec --no-startup-id $netrefresh
+bindsym $mod+F6		exec --no-startup-id $term -e transmission-remote-cli
+bindsym $mod+F7		exec --no-startup-id td-toggle
+bindsym $mod+F8		exec --no-startup-id ~/.config/mutt/etc/mailsync.sh
+bindsym $mod+F9		exec --no-startup-id dmenumount
+bindsym $mod+F10	exec --no-startup-id dmenuumount
+bindsym $mod+F11	exec --no-startup-id dmenuarchwiki
+bindsym $mod+F12 exec $term -e sudo -A wifi-menu
 ## }}}
 
 ## Workspace keybindings -------------------------------------------- {{{
 bindsym $mod+r exec dmenu_run
-# Working with multi monitors
-bindsym $mod+Control+h focus output left
-bindsym $mod+Control+l focus output right
 # Set workplace vars
 set $ws1 "1"
 set $ws2 "2"
@@ -161,9 +179,9 @@ bindsym $mod+Shift+Right move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Control+a layout tabbed
+bindsym $mod+Control+s layout stacking
+bindsym $mod+Control+d layout toggle split
 ## }}}
 
 ## Client modes ----------------------------------------------------- {{{
@@ -200,11 +218,20 @@ mode "move" {
     bindsym Escape mode "default"
     bindsym $mod+Control+m mode "default"
 }
+# Mode time tracking
+bindsym $mod+Control+t mode "time"
+mode "time" {
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Control+m mode "default"
+}
 ## }}}
 
 ## Media keys ------------------------------------------------------- {{{
 
 ## }}}
+
 ## Deprecated ------------------------------------------------------- {{{
 # Use Mouse+$mod to drag floating windows to their wanted position
 #floating_modifier $mod

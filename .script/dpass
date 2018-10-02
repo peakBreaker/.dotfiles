@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#dmenu -p "$1" -fa 'Consolas:size=10' -nf '#204a87' -nb '#204a87' -sf black -sb '#babdb6' <&-
+
+# shellcheck disable=2046
+caller="$(ps -o comm= -p $(ps -o ppid= -p $$))"
+prompt="${1:-[$caller]}"
+promptfg=black promptbg=red hidden=white
+font="Liberation Sans-12:Bold"
+
+dmenu -p "$prompt" -fn "$font" \
+  -nf "$hidden" -nb "$hidden" -sf "$promptfg" -sb "$promptbg" <&-
