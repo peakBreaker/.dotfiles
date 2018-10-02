@@ -5,16 +5,33 @@
 # Constants
 
 # Functions
+# Functionality functions
+t_configure() {
+  echo -n "Configuring time tracker.. "
+  watson config options.stop_on_start 1
+  echo "OK!"
+}
 
 t_track() {
   # First get the args
-  activity=$1
-  u_comment="${@:3}"
-  echo "Initializing time tracking\n\t--> Activity: $activity\n\t-->Comment: $u_comment"
-  # Stop the timer if its running
-
-  # Start the tracker
-
+  activity=$2
+  tags="${@:3}"
+  echo "Initializing time tracking\n\t--> Activity: $activity\n\t-->Tags: $tags\n"
+  # Prompt user for tags
+  u_tags="$tags $(dmenu -p "Tags:" <&- && echo)"
+  echo "Tags concatenated :: $u_tags\n"
+  # Create the array
+  IFS=', ' read -r -a array <<< "$u_tags"
+  # Prepend to array of tags
+  echo "Looping over array:\n"
+  cnt=${#array[@]}
+  for ((i=0;i<cnt;i++)); do
+    f_tags="$f_tags +${array[i]}"
+    echo "\t--> Array $i : ${array[i]}\n"
+  done
+  # Finally start the time tracker
+  echo "Tags final :: $f_tags"
+  watson start $activity $f_tags
 }
 
 t_sync() {
@@ -22,14 +39,20 @@ t_sync() {
     watson_sync
 }
 
-t_daily_wrapup() {
+t_end_session() {
     # Prompts the user for daily goals reached
     echo "commencing daily wrapup"
+    u_daily=$(dmenu -p "results from session:" <&- && echo)
+    u_reached_goals=$(dmenu -p "Did you reach all goals?[Y/N]" <&- && echo)
+    u_prod=$(dmenu -p "Self eval productivity [0-10]" <&- && echo)
+    watson stop
 }
 
-t_morning_prompt() {
+t_start_session() {
     # Prompts the user for daily goals
     echo "commencing morning prompt"
+    t_track track morning_routine AUTO 
+
 }
 
 main() {
@@ -37,11 +60,12 @@ main() {
   success=$(case $c_type in
     "track") echo $(t_track $@) ;;
     "sync") echo $(t_sync) ;;
-    "fin") echo $(t_daily_wrapup) ;;
-    "start") echo $(t_morning_prompt) ;;
+    "end") echo $(t_end_session) ;;
+    "start") echo $(t_start_session) ;;
+    "config") echo $(t_configure) ;;
     *) echo "Invalid argument" ;;
   esac)
-  echo "Ran time tracking script with result : $success"
+  echo -e "Ran time tracking script with result : $success"
 }
 
 main $@
