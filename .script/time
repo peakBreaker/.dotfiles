@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Time tracking script
+
+# Constants
+
+# Functions
+
+t_track() {
+  # First get the args
+  activity=$1
+  u_comment="${@:3}"
+  echo "Initializing time tracking\n\t--> Activity: $activity\n\t-->Comment: $u_comment"
+  # Stop the timer if its running
+
+  # Start the tracker
+
+}
+
+t_sync() {
+    # Sync with crick
+    watson_sync
+}
+
+t_daily_wrapup() {
+    # Prompts the user for daily goals reached
+    echo "commencing daily wrapup"
+}
+
+t_morning_prompt() {
+    # Prompts the user for daily goals
+    echo "commencing morning prompt"
+}
+
+main() {
+  c_type="$1"
+  success=$(case $c_type in
+    "track") echo $(t_track $@) ;;
+    "sync") echo $(t_sync) ;;
+    "fin") echo $(t_daily_wrapup) ;;
+    "start") echo $(t_morning_prompt) ;;
+    *) echo "Invalid argument" ;;
+  esac)
+  echo "Ran time tracking script with result : $success"
+}
+
+main $@
