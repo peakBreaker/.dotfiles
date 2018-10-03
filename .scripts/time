@@ -46,26 +46,33 @@ t_sync() {
 # Functionality
 t_track() {
   # First get the passed args
-  tags="${@:2}"
+  if [ "$2" == "QUIET" ]; then
+    echo "Running quiet mode\n"
+    t_project=$3
+    u_tags="${@:4}"
+    u_tags="$u_tags AUTO"
+  else
+    tags="${@:2}"
 
-  # Get category
-  for category in ${CATEGORIES[*]}; do
-      t_prompt="$t_prompt\n$category"
-  done
-  t_prompt=${t_prompt:2} # strip away starting newline
-  t_project=$(echo -e "$t_prompt" | dmenu -i -p "$1")
-  echo "user selected project: $t_project\n"
+    # Get category
+    for category in ${CATEGORIES[*]}; do
+        t_prompt="$t_prompt\n$category"
+    done
+    t_prompt=${t_prompt:2} # strip away starting newline
+    t_project=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+    echo "user selected project: $t_project\n"
 
-  # Prompt user for tags, first select subcategory
-  t_prompt=($echo $(local_select_subcat $t_project))
-  t_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
-  echo "user selected tag: $t_tag\n"
+    # Prompt user for tags, first select subcategory
+    t_prompt=($echo $(local_select_subcat $t_project))
+    t_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+    echo "user selected tag: $t_tag\n"
 
-  # Get user input tag and concatenate all tags
-  u_tag="$(dmenu -p "User Comment:" <&- && echo)"
-  [ -z $u_tag ] && u_tag="u_null" || u_tag="u_$u_tag"
-  u_tags="$tags $t_tag $u_tag"
-  echo "Tags concatenated :: $u_tags\n"
+    # Get user input tag and concatenate all tags
+    u_tag="$(dmenu -p "User Comment:" <&- && echo)"
+    [ -z $u_tag ] && u_tag="u_null" || u_tag="u_$u_tag"
+    u_tags="$tags $t_tag $u_tag"
+    echo "Tags concatenated :: $u_tags\n"
+  fi
 
   # Prepend + to all tags
   IFS=', ' read -r -a array <<< "$u_tags"

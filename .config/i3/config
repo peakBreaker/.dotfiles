@@ -24,6 +24,9 @@ set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
+# time and locker
+set $timetracker $HOME/.scripts/time
+set $fuzzylocker $HOME/.scripts/fuzzy_lock
 #
 # Xresources Colors
 set_from_resource $darkblack	color0  #000000
@@ -88,7 +91,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Lock i3
-bindsym Control+$mod+Shift+l exec i3lock -c 000000
+bindsym Control+$mod+Shift+l exec $timetracker track QUIET OTHER I3LOCK; exec $fuzzylocker && exec $timetracker track
 ### }}}
 ## }}}
 
@@ -219,14 +222,16 @@ mode "grab" {
     bindsym $mod+Control+m mode "default"
 }
 # Mode time tracking
-bindsym $mod+Control+t mode "time"
-mode "time" {
+set $timemenu "Timetracker: [t]rack [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
+bindsym $mod+Control+t mode $timemenu
+mode $timemenu {
     bindsym $mod+Control+t exec $HOME/.scripts/time track WM; mode "default"
-    bindsym t exec $HOME/.scripts/time track WM; mode "default"
-    bindsym s exec $HOME/.scripts/time start; mode "default"
-    bindsym e exec $HOME/.scripts/time end; mode "default"
-    bindsym u exec $HOME/.scripts/time sync; mode "default"
-    bindsym c exec $HOME/.scripts/time config; mode "default"
+    bindsym t exec $timetracker track WM; mode "default"
+    bindsym b exec $timetracker track QUIET OTHER I3LOCK; exec $fuzzylocker && exec $timetracker track; mode "default"
+    bindsym s exec $timetracker start; mode "default"
+    bindsym e exec $timetracker end; mode "default"
+    bindsym u exec $timetracker sync; mode "default"
+    bindsym c exec $timetracker config; mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
