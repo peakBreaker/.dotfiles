@@ -3,39 +3,39 @@
 # Time tracking script
 
 # Constants
-CATEGORIES=( "AMEDIA" "CLIENT" "PERSONAL" "LIFE" "OTHER" )
-AMEDIA_SUBCAT=( "PLANNED_DEV" "STRAT&PLANNING" "BREAK" "MEETING" "LEARN&RESEARCH" "OTHER" "U_" )
-CLIENT_SUBCAT=( "SENSARIO" )
-PERSONAL_SUBCAT=( "EXERCISE" "COURSES" "READING" )
-$(echo -e "No\nYes\nMaybe" | dmenu -i -p "$1" -nb darkred -sb red -sf white -nf gray -fn mono)
 
-# Functionality functions
+## Categories
+CATEGORIES=( AMEDIA CLIENT PERS LIFE OTHER )
+AMEDIA_SUBCAT=( "PLANNED_DEV" "STRAT&PLANNING" "BREAK" "MEETING" "LEARN&RESEARCH" "OTHER" )
+CLIENT_SUBCAT=( "SENS_MEET" "SENS_DEV" )
+PERS_SUBCAT=( "EXERCISE" "COURSES" "READING" )
+LIFE_SUBCAT=( "LEISURE" "MORNING_ROUTINE" )
+OTHER_SUBCAT=( "OTHER" "ERROR" )
+
+# Local functions
+local_select_subcat() {
+  # First get the correct array
+  case $1 in 
+    AMEDIA) local_category=${AMEDIA_SUBCAT[*]} ;;
+    CLIENT) local_category=${CLIENT_SUBCAT[*]} ;;
+    PERS) local_category=${PERS_SUBCAT[*]} ;;
+    LIFE) local_category=${LIFE_SUBCAT[*]} ;;
+    *) local_category=${OTHER_SUBCAT[*]} ;;
+  esac
+  # Loop over it and get the correct prompt
+  for category in ${local_category[*]}; do
+    l_prompt="$l_prompt\n$category"
+  done
+  l_prompt=${l_prompt:2} # strip away starting newline
+  # Echo the result to stdout for the function
+  echo "$l_prompt"
+}
+
+# Utils
 t_configure() {
   echo -n "Configuring time tracker.. "
   watson config options.stop_on_start 1
   echo "OK!"
-}
-
-t_track() {
-  # First get the args
-  activity=$2
-  tags="${@:3}"
-  echo "Initializing time tracking\n\t--> Activity: $activity\n\t-->Tags: $tags\n"
-  # Prompt user for tags
-  u_tags="$tags $(dmenu -p "Tags:" <&- && echo)"
-  echo "Tags concatenated :: $u_tags\n"
-  # Create the array
-  IFS=', ' read -r -a array <<< "$u_tags"
-  # Prepend to array of tags
-  echo "Looping over array:\n"
-  cnt=${#array[@]}
-  for ((i=0;i<cnt;i++)); do
-    f_tags="$f_tags +${array[i]}"
-    echo "\t--> Array $i : ${array[i]}\n"
-  done
-  # Finally start the time tracker
-  echo "Tags final :: $f_tags"
-  watson start $activity $f_tags
 }
 
 t_sync() {
@@ -43,20 +43,58 @@ t_sync() {
     watson_sync
 }
 
+# Functionality
+t_track() {
+  # First get the passed args
+  tags="${@:2}"
+
+  # Get category
+  for category in ${CATEGORIES[*]}; do
+      t_prompt="$t_prompt\n$category"
+  done
+  t_prompt=${t_prompt:2} # strip away starting newline
+  t_project=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+  echo "user selected project: $t_project\n"
+
+  # Prompt user for tags, first select subcategory
+  t_prompt=($echo $(local_select_subcat $t_project))
+  t_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+  echo "user selected tag: $t_tag\n"
+
+  # Get user input tag and concatenate all tags
+  u_tag="$(dmenu -p "User Comment:" <&- && echo)"
+  [ -z $u_tag ] && u_tag="u_null" || u_tag="u_$u_tag"
+  u_tags="$tags $t_tag $u_tag"
+  echo "Tags concatenated :: $u_tags\n"
+
+  # Prepend + to all tags
+  IFS=', ' read -r -a array <<< "$u_tags"
+  cnt=${#array[@]}
+  for ((i=0;i<cnt;i++)); do
+    f_tags="$f_tags +${array[i]}"
+  done
+
+  # Finally start the time tracker
+  echo "Tags final :: [ $f_tags]"
+  watson start $t_project $f_tags
+}
+
 t_end_session() {
     # Prompts the user for daily goals reached
-    echo "commencing daily wrapup"
-    u_daily=$(dmenu -p "results from session:" <&- && echo)
-    u_reached_goals=$(dmenu -p "Did you reach all goals?[Y/N]" <&- && echo)
-    u_prod=$(dmenu -p "Self eval productivity [0-10]" <&- && echo)
+    # u_daily=$(dmenu -p "results from session:" <&- && echo)
+    # u_goals=$(dmenu -p "Did you reach all goals?[Y/N]" <&- && echo)
+    # u_prod=$(dmenu -p "Self eval productivity [0-10]" <&- && echo)
+    # Stop the time tracker
     watson stop
 }
 
 t_start_session() {
     # Prompts the user for daily goals
-    echo "commencing morning prompt"
-    t_track track morning_routine AUTO 
-
+    # u_plan=$(dmenu -p "Planned activities:" <&- && echo)
+    # u_goals=$(dmenu -p "Goals of the day" <&- && echo)
+    # u_prod=$(dmenu -p "How are you feeling? [0-10]" <&- && echo)
+    # Start the time tracker
+    t_track track
 }
 
 main() {
