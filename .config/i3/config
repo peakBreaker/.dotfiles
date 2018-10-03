@@ -188,22 +188,22 @@ bindsym $mod+Control+d layout toggle split
 # resize window (you can also use the mouse for that)
 bindsym $mod+Control+r mode "resize"
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Up resize grow height 10 px or 10 ppt
-        bindsym Down resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+Control+r mode "default"
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Up resize grow height 10 px or 10 ppt
+    bindsym Down resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Control+r mode "default"
 }
 # Mode floating window mode
-bindsym $mod+Control+m mode "move" focus floating
-mode "move" {
+bindsym $mod+Control+g mode "grab" focus floating
+mode "grab" {
     bindsym $mod+Tab focus right
     bindsym Left  move left
     bindsym Down  move down
@@ -221,6 +221,12 @@ mode "move" {
 # Mode time tracking
 bindsym $mod+Control+t mode "time"
 mode "time" {
+    bindsym $mod+Control+t exec $HOME/.scripts/time track WM; mode "default"
+    bindsym t exec $HOME/.scripts/time track WM; mode "default"
+    bindsym s exec $HOME/.scripts/time start; mode "default"
+    bindsym e exec $HOME/.scripts/time end; mode "default"
+    bindsym u exec $HOME/.scripts/time sync; mode "default"
+    bindsym c exec $HOME/.scripts/time config; mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
