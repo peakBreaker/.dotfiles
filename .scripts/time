@@ -3,8 +3,12 @@
 # Time tracking script
 
 # Constants
+CATEGORIES=( "AMEDIA" "CLIENT" "PERSONAL" "LIFE" "OTHER" )
+AMEDIA_SUBCAT=( "PLANNED_DEV" "STRAT&PLANNING" "BREAK" "MEETING" "LEARN&RESEARCH" "OTHER" "U_" )
+CLIENT_SUBCAT=( "SENSARIO" )
+PERSONAL_SUBCAT=( "EXERCISE" "COURSES" "READING" )
+$(echo -e "No\nYes\nMaybe" | dmenu -i -p "$1" -nb darkred -sb red -sf white -nf gray -fn mono)
 
-# Functions
 # Functionality functions
 t_configure() {
   echo -n "Configuring time tracker.. "

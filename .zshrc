@@ -61,8 +61,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 #
-## Swap escape and caps lock keys - super useful for vim
-setxkbmap -option caps:swapescape
 ## }}}
 
 ## ALIASES ---------------------------------------------------------- {{{
