@@ -16,7 +16,7 @@
      rb = rebase
      rbs = rebase --skip
      rbc = rebase --continue
-  rba = rebase --abort
+     rba = rebase --abort
 
      st = stash
      stpa = stash push -a

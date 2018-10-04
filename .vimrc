@@ -4,10 +4,6 @@
 " Author: Anders L. Hurum <andershurum@gmail.com>
 " Source: github.com/peakbreaker/.dotfiles
 " 
-" Usually nowadays I'm living in spacemacs, but sometimes vim is needed (for
-" example when I'm doing some edits on a server), so I thought I'd do a
-" somewhat not horrible vimrc.
-"
 " Whenever a line has been thoughtfully considered and added, it is indented
 "
 " Note that this file is considered a WIP at all times
@@ -29,6 +25,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+    Plug 'zivyangll/git-blame.vim'
+    Plug 'dkprice/vim-easygrep'
     Plug 'jreybert/vimagit'
     Plug 'airblade/vim-gitgutter'
     Plug 'dylanaraps/wal.vim'
@@ -201,6 +199,11 @@ augroup END
     nmap <c-h> <c-w>h
     nmap <c-l> <c-w>l
 
+" Git blaming
+    vmap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
+    vmap <leader>B ygv :!git log --pretty=format:"<..> %s %H" -L <C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>:<C-R>=expand("%:p")<CR> --abbrev-commit \| grep "<..>"
+    " vmap <leader>B :!git blame <C-R>=expand("%:p")<CR> \| sed -n '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>' p
+
 " For folding
     nmap <Tab> za
 
@@ -246,14 +249,6 @@ set laststatus=2
 " Last line
 set showmode
 set showcmd
-
-
-" Remap help key.
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap <F1> :set invfullscreen<CR>
-vnoremap <F1> :set invfullscreen<CR>
-
-" Textmate holdouts
 
 " Formatting
 map <leader>q gqip

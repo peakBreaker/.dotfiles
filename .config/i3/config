@@ -75,9 +75,6 @@ bar {
 bindsym $mod+Return exec urxvt
 # kill focused window
 bindsym $mod+Shift+c kill
-# float
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
 ### Managing I3 --------------------------------------- {{{
 bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Are you sure you want to leave i3?" "i3-msg exit"
 # bindsym $mod+BackSpace
@@ -205,13 +202,17 @@ mode "resize" {
     bindsym $mod+Control+r mode "default"
 }
 # Mode floating window mode
-bindsym $mod+Control+g mode "grab" focus floating
-mode "grab" {
-    bindsym $mod+Tab focus right
-    bindsym Left  move left
-    bindsym Down  move down
-    bindsym Up    move up
-    bindsym Right move right
+bindsym $mod+space focus mode_toggle
+set $windowmenu "Windowgrab: [f]loat [s]tick [hjkl]Move [Shift]+[hjkl]Resize [Tab] Focus Right"
+bindsym $mod+Control+g mode $windowmenu focus floating
+mode $windowmenu {
+    bindsym Tab focus right
+    bindsym s sticky toggle
+    bindsym f floating toggle
+    bindsym Shift+h resize shrink width 10 px or 10 ppt
+    bindsym Shift+k resize grow height 10 px or 10 ppt
+    bindsym Shift+j resize shrink height 10 px or 10 ppt
+    bindsym Shift+l resize grow width 10 px or 10 ppt
     bindsym h     move left
     bindsym j     move down
     bindsym k     move up
@@ -222,12 +223,13 @@ mode "grab" {
     bindsym $mod+Control+m mode "default"
 }
 # Mode time tracking
-set $timemenu "Timetracker: [t]rack [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
+set $timemenu "Timetracker: [t]rack [a]media break [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
 bindsym $mod+Control+t mode $timemenu
 mode $timemenu {
     bindsym $mod+Control+t exec $HOME/.scripts/time track WM; mode "default"
     bindsym t exec $timetracker track WM; mode "default"
-    bindsym b exec $timetracker track QUIET OTHER I3LOCK; exec $fuzzylocker && exec $timetracker track; mode "default"
+    bindsym b exec $timetracker track QUIET OTHER BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
+    bindsym a exec $timetracker track QUIET WORK BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
     bindsym s exec $timetracker start; mode "default"
     bindsym e exec $timetracker end; mode "default"
     bindsym u exec $timetracker sync; mode "default"

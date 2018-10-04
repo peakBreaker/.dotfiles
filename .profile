@@ -17,5 +17,5 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 	pgrep -x i3 || exec startx
 fi
 
-# Swap escape and caps lock keys - super useful for vim
-setxkbmap -option caps:swapescape
+# Prompt the user for time 
+.scripts/time track
