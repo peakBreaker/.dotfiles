@@ -1,12 +1,13 @@
 " vim: set norelativenumber:
 " .vimrc
+"
 " My personal vimrc file
+"
 " Author: Anders L. Hurum <andershurum@gmail.com>
 " Source: github.com/peakbreaker/.dotfiles
-" 
-" Whenever a line has been thoughtfully considered and added, it is indented
-"
-" Note that this file is considered a WIP at all times
+" Website: https://peakbreaker.com
+" Email: andershurum@gmail.com
+" Github: https://github.com/peakbreaker
 "
 "                      #      mmmmm                       #                   
 " mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm 
@@ -15,6 +16,8 @@
 " ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #    
 " #                                                                           
 " #
+"
+" Whenever a line has been thoughtfully considered and added, it is indented
 
 " Plugins ----------------------------------------------------------------- {{{
 

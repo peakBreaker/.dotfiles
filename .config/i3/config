@@ -1,33 +1,47 @@
 # vim: filetype=python:
 # vim: set foldmethod=marker:
-# vim: set number:
+# vim: set norelativenumber:
 #
-# peakBreaker i3 config
-# 
+# My personal i3 config
+#
+# Author: Anders L. Hurum <andershurum@gmail.com>
+# Source: github.com/peakbreaker/.dotfiles
 # Website: https://peakbreaker.com
 # Email: andershurum@gmail.com
 # Github: https://github.com/peakbreaker
-
+# 
+#                       #      mmmmm                       #                   
+#  mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm 
+#  #" "#  #"  #  "   #  # m"   #mmmm"  #"  " #"  #  "   #  # m"   #"  #   #"  "
+#  #   #  #""""  m"""#  #"#    #    #  #     #""""  m"""#  #"#    #""""   #    
+#  ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #    
+#  #                                                                           
+#  #
+# 
+#
 # This config will use env vars such as $BROWSER and $TERMINAL
 
 ## Basics ----------------------------------------------------------- {{{
+
 # i3 Gaps
 for_window [class="^.*"] border pixel 2
 gaps inner 10
 gaps outer 10
+
 # Basic abstractions
 # Allmighty mod key
 set $mod Mod4
 set $term --no-startup-id $TERMINAL
-#set $stoprec --no-startup-id dmenurecord kill
-set $shutdown sudo -A shutdown -h now
-set $reboot sudo -A reboot
-set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
-set $hibernate sudo -A systemctl suspend
 # time and locker
 set $timetracker $HOME/.scripts/time
 set $fuzzylocker $HOME/.scripts/fuzzy_lock
-#
+#set $stoprec --no-startup-id dmenurecord kill
+set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
+set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $suspend exec i3lock -c 000000; --no-startup-id sudo -A systemctl suspend
+set $hibernate exec i3lock -c 000000; --no-startup-id sudo -A systemctl hibernate
+
 # Xresources Colors
 set_from_resource $darkblack	color0  #000000
 set_from_resource $black	color8  #000000
@@ -46,6 +60,7 @@ set_from_resource $cyan		color14 #000000
 set_from_resource $darkwhite	color7  #000000
 set_from_resource $white	color15 #000000
 set $transparent #00000000
+
 #                       BORDER		BACKGROUND	TEXT		INDICATOR   CHILD_BORDER
 client.focused		$red		$red		$magenta	$darkmagenta		$darkblue
 client.unfocused	$transparent	$blue		$white		$darkblue		$darkblack
@@ -68,30 +83,18 @@ bar {
 	mode dock
 	modifier None
 }
-## }}}
 
+## }}}
 ## Basic keybindings ------------------------------------------------ {{{
 # start a terminal
 bindsym $mod+Return exec urxvt
 # kill focused window
 bindsym $mod+Shift+c kill
-### Managing I3 --------------------------------------- {{{
-bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Are you sure you want to leave i3?" "i3-msg exit"
-# bindsym $mod+BackSpace
-bindsym $mod+Shift+BackSpace exec --no-startup-id prompt "Are you sure you want to reboot?" "$reboot"
-# STOP/HIDE EVERYTHING:
-bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec $truepause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e ranger
-# reload the configuration file
-bindsym $mod+Shift+t reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Lock i3
-bindsym Control+$mod+Shift+l exec $timetracker track QUIET OTHER I3LOCK; exec $fuzzylocker && exec $timetracker track
-### }}}
+bindsym Control+$mod+Shift+l exec $fuzzylocker
+# STOP/HIDE EVERYTHING:
+bindsym Control+$mod+Delete	exec --no-startup-id lmc truemute ; exec $truepause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e ranger
 ## }}}
-
 ## Navigation ------------------------------------------------------- {{{
 # Change focus
 bindsym $mod+h focus left
@@ -111,7 +114,6 @@ bindsym $mod+Control+k workspace next_on_output
 bindsym $mod+Control+h focus output left
 bindsym $mod+Control+l focus output right
 ## }}}
-
 ## Command/keybased keybindings ------------------------------------- {{{
 # Function hotkeys
 bindsym $mod+F1		exec --no-startup-id zathura ~/.config/i3/i3_guide.pdf
@@ -127,7 +129,6 @@ bindsym $mod+F10	exec --no-startup-id dmenuumount
 bindsym $mod+F11	exec --no-startup-id dmenuarchwiki
 bindsym $mod+F12 exec $term -e sudo -A wifi-menu
 ## }}}
-
 ## Workspace keybindings -------------------------------------------- {{{
 bindsym $mod+r exec dmenu_run
 # Set workplace vars
@@ -164,8 +165,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 ## }}}
-
 ## Client keybindings ----------------------------------------------- {{{
+
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -178,32 +179,57 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Control+a layout tabbed
-bindsym $mod+Control+s layout stacking
-bindsym $mod+Control+d layout toggle split
-## }}}
 
-## Client modes ----------------------------------------------------- {{{
-# resize window (you can also use the mouse for that)
-bindsym $mod+Control+r mode "resize"
-mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym j resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Up resize grow height 10 px or 10 ppt
-    bindsym Down resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
-    # back to normal: Enter or Escape or $mod+r
-    bindsym Return mode "default"
+## }}}
+## Modes ------------------------------------------------------------ {{{
+
+# Menu
+set $modemenu "Modes: la[y]out [s]ystem window[g]rabbing [t]ime [i]3manager"
+bindsym $mod+Control+m mode $modemenu
+mode $modemenu {
+    bindsym y mode $layoutmenu
+    bindsym s mode $systemmenu
+    bindsym g mode $windowmenu
+    bindsym t mode $timemenu
     bindsym Escape mode "default"
-    bindsym $mod+Control+r mode "default"
 }
+
+# Mode layout
+set $layoutmenu "Layout: [t]abbed [s]tacked s[p]lit"
+bindsym $mod+Control+y mode $layoutmenu
+mode $layoutmenu {
+    bindsym $mod+Control+y layout toggle split
+    bindsym t layout tabbed
+    bindsym s layout stacking
+    bindsym p layout toggle split
+    bindsym Escape mode "default"
+}
+set $i3menu "I3 Management: [e]xit [r]estart re[l]oad"
+bindsym $mod+Control+i mode $i3menu
+mode $i3menu {
+    bindsym $mod+Control+i restart
+    bindsym l reload
+    bindsym r restart
+    bindsym e exec i3-msg exit
+    bindsym Escape mode "default"
+}
+
+# Mode System control
+set $systemmenu "System: [S]uspend [H]ibernate [L]ock [N]etrefresh [Shift+s]hutdown [Shift+r]eboot"
+bindsym $mod+Control+s mode $systemmenu
+mode $systemmenu {
+    bindsym Shift+s exec watson stop; exec $shutdown; mode "default"
+    bindsym Shift+r exec watson stop; exec $reboot; mode "default"
+    bindsym s exec watson stop; exec $suspend ; mode "default"
+    bindsym h exec watson stop; exec $hibernate ; mode "default"
+    bindsym l exec watson stop; exec $fuzzylocker; mode "default"
+    bindsym l exec $netrefresh; mode "default"
+    bindsym Escape mode "default"
+}
+
 # Mode floating window mode
 bindsym $mod+space focus mode_toggle
-set $windowmenu "Windowgrab: [f]loat [s]tick [hjkl]Move [Shift]+[hjkl]Resize [Tab] Focus Right"
+set $windowmenu "Windowgrab: [f]loat [s]tick [hjkl]Move [Shift]+[hjkl]Resize [Tab]Focus Right"
 bindsym $mod+Control+g mode $windowmenu focus floating
 mode $windowmenu {
     bindsym Tab focus right
@@ -217,34 +243,28 @@ mode $windowmenu {
     bindsym j     move down
     bindsym k     move up
     bindsym l     move right
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+Control+m mode "default"
 }
+
 # Mode time tracking
-set $timemenu "Timetracker: [t]rack [a]media break [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
+set $timemenu "Timetracker: [t]rack [w]ork_break [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
 bindsym $mod+Control+t mode $timemenu
 mode $timemenu {
-    bindsym $mod+Control+t exec $HOME/.scripts/time track WM; mode "default"
+    bindsym $mod+Control+t exec $timetracker QUIET WORK INTERRUPT; mode "default"
     bindsym t exec $timetracker track WM; mode "default"
     bindsym b exec $timetracker track QUIET OTHER BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
-    bindsym a exec $timetracker track QUIET WORK BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
+    bindsym w exec $timetracker track QUIET WORK BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
     bindsym s exec $timetracker start; mode "default"
     bindsym e exec $timetracker end; mode "default"
     bindsym u exec $timetracker sync; mode "default"
     bindsym c exec $timetracker config; mode "default"
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+Control+m mode "default"
 }
-## }}}
 
+## }}}
 ## Media keys ------------------------------------------------------- {{{
 
 ## }}}
-
 ## Deprecated ------------------------------------------------------- {{{
 # Use Mouse+$mod to drag floating windows to their wanted position
 #floating_modifier $mod

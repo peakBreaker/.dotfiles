@@ -97,8 +97,6 @@ fi
 ## }}}
 
 ## PATH SETTING AND ENV VARS ---------------------------------------- {{{
-export SUDO_ASKPASS="$HOME/.script/dpass"
-#  sudo -A $(dmenu)
 ## Add to path
 export PATH=$PATH:$HOME/.local/bin/
 # SSH Path
