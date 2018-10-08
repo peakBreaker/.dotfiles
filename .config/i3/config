@@ -215,7 +215,7 @@ mode $i3menu {
 }
 
 # Mode System control
-set $systemmenu "System: [S]uspend [H]ibernate [L]ock [N]etrefresh [Shift+s]hutdown [Shift+r]eboot"
+set $systemmenu "System: [s]uspend [h]ibernate [l]ock [n]etrefresh [Shift+s]hutdown [Shift+r]eboot [shift]+[u]s/[n]o keyboard"
 bindsym $mod+Control+s mode $systemmenu
 mode $systemmenu {
     bindsym Shift+s exec watson stop; exec $shutdown; mode "default"
@@ -223,7 +223,9 @@ mode $systemmenu {
     bindsym s exec watson stop; exec $suspend ; mode "default"
     bindsym h exec watson stop; exec $hibernate ; mode "default"
     bindsym l exec watson stop; exec $fuzzylocker; mode "default"
-    bindsym l exec $netrefresh; mode "default"
+    bindsym n exec $netrefresh; mode "default"
+    bindsym Shift+n exec "setxkbmap -layout no"; mode "default"
+    bindsym Shift+u exec "setxkbmap -layout us"; mode "default"
     bindsym Escape mode "default"
 }
 
@@ -254,10 +256,11 @@ mode $timemenu {
     bindsym t exec $timetracker track WM; mode "default"
     bindsym b exec $timetracker track QUIET OTHER BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
     bindsym w exec $timetracker track QUIET WORK BREAK; exec $fuzzylocker && exec $timetracker track; mode "default"
-    bindsym s exec $timetracker start; mode "default"
-    bindsym e exec $timetracker end; mode "default"
+    # bindsym s exec $timetracker start; mode "default" # Not yet implemented
+    # bindsym e exec $timetracker end; mode "default"
     bindsym u exec $timetracker sync; mode "default"
     bindsym c exec $timetracker config; mode "default"
+    # keybinding for showing status
     bindsym Escape mode "default"
 }
 
