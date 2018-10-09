@@ -21,6 +21,7 @@
 
 " Plugins ----------------------------------------------------------------- {{{
 
+" Autoinstall Plug if its not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,16 +29,27 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-    Plug 'zivyangll/git-blame.vim'
-    Plug 'dkprice/vim-easygrep'
-    Plug 'jreybert/vimagit'
-    Plug 'airblade/vim-gitgutter'
+" Theming
+    Plug 'junegunn/vim-emoji'
     Plug 'dylanaraps/wal.vim'
-    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'skywind3000/asyncrun.vim'
+
+" Autocomplete/running & other utils
     Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'skywind3000/asyncrun.vim'
+
+" Git
+    Plug 'jreybert/vimagit'
+    Plug 'zivyangll/git-blame.vim'
+    Plug 'airblade/vim-gitgutter'
+
+" Filesystem/Project handling
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'dkprice/vim-easygrep'
+
+" Programming lang specifics
+    Plug 'nvie/vim-flake8'
 call plug#end()
 
 " Configuring Plugins --------------------------------------------------- {{{
@@ -51,8 +63,8 @@ call plug#end()
 
 " Quick run via <F5>
   nnoremap <F5> :call <SID>compile_and_run()<CR>
-  nnoremap <F6> :call AsyncStop<CR>
-  nnoremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
+  nnoremap <F6> :AsyncStop<CR>
+  nnoremap <F4> :call asyncrun#quickfix_toggle(8)<cr>
 
   function! s:compile_and_run()
       exec 'w'
@@ -84,32 +96,32 @@ call plug#end()
 " }}}
 " Basic configs ----------------------------------------------------------- {{{
 
-let mapleader = " "
-
 " Some basics
-	set nocompatible
-	filetype off
-	"filetype plugin on
-	syntax on
-	set encoding=utf-8
+    let mapleader = " "
+    set nocompatible
+    filetype off
+
+"filetype plugin on
+    syntax on
+    set encoding=utf-8
 
 " Enable modelines
     set modeline
     set modelines=3
 
 " UI Basics
-	set number
-	set relativenumber
-	set ruler
-	set nocursorline       " Do not highlight current line (doest work so well with all themes)
-	set visualbell       " Blink cursor on error instead of beeping (grr)
-	set title
-	set textwidth=79
+    set number
+    set relativenumber
+    set ruler
+    set nocursorline       " Do not highlight current line (doest work so well with all themes)
+    set visualbell       " Blink cursor on error instead of beeping (grr)
+    set title
+    set textwidth=79
     set wildmenu
     colorscheme wal
 
 " Editing basics
-	set wrap
+	set nowrap
 
 " Searching
     " nnoremap / /\v
@@ -129,6 +141,13 @@ map <leader><space> :let @/=''<cr> " clear search
 	set tabstop=4 " number of spaces in one tab
 	set softtabstop=4 " num spaces in tab when editing
 	set expandtab       " tabs are spaces
+
+" Makes vim jimp to last position when reopening file
+" I love this - Anders
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
 
 " }}}
 " Folding ----------------------------------------------------------------- {{{
@@ -191,6 +210,17 @@ augroup ft_vim
 	au!
 	au FileType vim setlocal foldmethod=marker keywordprg=:help
 augroup END
+
+augroup python
+    au!
+    au filetype python let python_highlight_all=1
+    " Linting
+    autocmd BufWritePost *.py call Flake8()
+    let g:flake8_show_quickfix=0  " don't show
+    let g:flake8_show_in_gutter=1  " show
+    let g:flake8_show_in_file=1  " show
+augroup END
+
 " }}}
 
 " }}}
