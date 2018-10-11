@@ -50,6 +50,9 @@ call plug#begin()
 
 " Programming lang specifics
     Plug 'nvie/vim-flake8'
+
+" Superpowers
+    Plug 'tpope/vim-surround'
 call plug#end()
 
 " Configuring Plugins --------------------------------------------------- {{{
@@ -210,18 +213,19 @@ augroup ft_vim
 	au!
 	au FileType vim setlocal foldmethod=marker keywordprg=:help
 augroup END
+" }}}
 
+" Python {{{
 augroup python
     au!
     au filetype python let python_highlight_all=1
     " Linting
-    autocmd BufWritePost *.py call Flake8()
-    let g:flake8_show_quickfix=0  " don't show
-    let g:flake8_show_in_gutter=1  " show
-    let g:flake8_show_in_file=1  " show
+    " autocmd BufWritePost *.py call Flake8()
+    let g:flake8_show_quickfix=0
+    let g:flake8_show_in_gutter=1
+    let g:flake8_show_in_file=0 
 augroup END
-
-" }}}
+" }}}
 
 " }}}
 " Hotkeys  ---------------------------------------------------------------- {{{
@@ -255,6 +259,9 @@ augroup END
 " When indenting we dont want to deselect
     vnoremap < <gv
     vnoremap > >gv
+
+" Other
+    nmap <leader>w :wqa<CR>
 
 " }}}
 

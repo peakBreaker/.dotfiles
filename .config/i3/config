@@ -249,7 +249,7 @@ mode $windowmenu {
 }
 
 # Mode time tracking
-set $timemenu "Timetracker: [t]rack [w]ork_break [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure"
+set $timemenu "Timetracker: [t]rack [w]ork_break [b]reak [s]tart_session [e]nd_session [u]pdate [c]onfigure [s]top"
 bindsym $mod+Control+t mode $timemenu
 mode $timemenu {
     bindsym $mod+Control+t exec $timetracker QUIET WORK INTERRUPT; mode "default"
@@ -260,6 +260,7 @@ mode $timemenu {
     # bindsym e exec $timetracker end; mode "default"
     bindsym u exec $timetracker sync; mode "default"
     bindsym c exec $timetracker config; mode "default"
+    bindsym s exec watson stop; mode "default"
     # keybinding for showing status
     bindsym Escape mode "default"
 }
