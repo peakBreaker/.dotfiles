@@ -18,40 +18,56 @@ esac done
 
 # DEFAULTS:
 [ -z ${cachefile+x} ] && cachefile=$HOME/.scripts/.workcache.csv && touch $cachefile
-[ -z ${retreiveNum+x} ] && retreiveNum=$(wc -l <$cachefile) 
-retreiveNum = $retreiveNum + 1
-
+[ -z ${retreiveNum+x} ] && retreiveNum=$(wc -l <$cachefile)
 [ -z ${openFile+x} ] && openFile="false"
 [ -z ${list+x} ] && list="false"
 # Debug one of the params
 echo "cachefile is : $cachefile"
 echo "retreivenum is : $retreiveNum"
 
+wrl()
+{
+    less $cachefile
+}
+
+wrw()
+{
+    # Get dir
+    current_wd=$(pwd)
+    echo "Saving workdir for $current_wd"
+    # Program path
+    retreiveNum=$((1 + $(wc -l <$cachefile)))
+    echo "$retreiveNum,$current_wd,$@" >> $cachefile
+}
+
+wro()
+{
+	while IFS=, read -r num workpath files; do
+      if [ "$1" = "$num" ];then
+        cd $workpath 
+        openfiles="$files"
+      fi
+	done < $cachefile ;
+    # Open files in vim
+    if [[ -z {$openfiles+x} ]]; then
+      echo "Index invalid or didnt have files"
+    else 
+      eval "vim -O ${openfiles}"
+    fi
+}
+
 # PROGRAM START
 main () 
 {
     # List files if it is set
-    [[ $list = "true" ]] && less $cachefile && exit
+    [[ $list = "true" ]] && wrl && exit
 
-    # Get dir
-    current_wd=$(pwd)
-    echo "Saving workdir for $current_wd"
-
-    # Program path
     if [ "$openFile" = "false" ]; then echo "Proceeding to workdir lookup"; else
-      echo "$retreiveNum,$current_wd,$openFile" >> $cachefile
-      exit
-    fi 
+        wrw $openFile
+        exit
+    fi
 
     # Retreive
-	while IFS=, read -r num workpath files; do
-      if [ "$retreiveNum" = "$num" ];then
-        cd $workpath 
-        openfiles=$files
-      fi
-	done < $cachefile ;
-    [[ -z $openfiles ]] || vim -O $openfiles
-    # echo "No matches found"
+    wro $retreiveNum
 }
-
-main $@
+[[ $_ != $0 ]] && echo "Script is being sourced" || main $@
