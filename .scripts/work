@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# GET ARGS
+while getopts ":r:f:hl" o; do case "${o}" in
+	h) 
+    echo -e "Optional arguments for custom use:"
+    echo -e "  -f: File"
+    echo -e "  -r: Retreive number"
+    echo -e "  -l: Worker program to call"
+    echo -e "  -h: Show this message"
+    exit 
+    ;;
+	f) openFile="$openFile ${OPTARG}" ;;
+	r) retreiveNum=${OPTARG} ;;
+	l) list="true" ;; # Flag, sets var true
+	*) echo "-$OPTARG is not a valid option." && exit ;;
+esac done
+
+# DEFAULTS:
+[ -z ${cachefile+x} ] && cachefile=$HOME/.scripts/.workcache.csv && touch $cachefile
+[ -z ${retreiveNum+x} ] && retreiveNum=$(wc -l <$cachefile) 
+retreiveNum = $retreiveNum + 1
+
+[ -z ${openFile+x} ] && openFile="false"
+[ -z ${list+x} ] && list="false"
+# Debug one of the params
+echo "cachefile is : $cachefile"
+echo "retreivenum is : $retreiveNum"
+
+# PROGRAM START
+main () 
+{
+    # List files if it is set
+    [[ $list = "true" ]] && less $cachefile && exit
+
+    # Get dir
+    current_wd=$(pwd)
+    echo "Saving workdir for $current_wd"
+
+    # Program path
+    if [ "$openFile" = "false" ]; then echo "Proceeding to workdir lookup"; else
+      echo "$retreiveNum,$current_wd,$openFile" >> $cachefile
+      exit
+    fi 
+
+    # Retreive
+	while IFS=, read -r num workpath files; do
+      if [ "$retreiveNum" = "$num" ];then
+        cd $workpath 
+        openfiles=$files
+      fi
+	done < $cachefile ;
+    [[ -z $openfiles ]] || vim -O $openfiles
+    # echo "No matches found"
+}
+
+main $@
