@@ -124,7 +124,8 @@ call plug#end()
     colorscheme wal
 
 " Editing basics
-	set nowrap
+    set wrap
+    set formatoptions=qron1
 
 " Searching
     " nnoremap / /\v
@@ -262,11 +263,11 @@ augroup END
 
 " Other
     nmap <leader>w :wqa<CR>
+    nmap <leader>qq :qa!<CR>
 
 " }}}
 
 " Whitespace
-set formatoptions=tcqrn1
 set shiftwidth=2
 set noshiftround
 
