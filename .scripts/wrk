@@ -21,33 +21,26 @@ esac done
 [ -z ${retreiveNum+x} ] && retreiveNum=$(wc -l <$cachefile)
 [ -z ${openFile+x} ] && openFile="false"
 [ -z ${list+x} ] && list="false"
-# Debug one of the params
-echo "cachefile is : $cachefile"
-echo "retreivenum is : $retreiveNum"
 
+# FUNCTIONALITY
 wrl()
 {
     less $cachefile
 }
 
-wrw()
-{
-    # Get dir
-    current_wd=$(pwd)
-    echo "Saving workdir for $current_wd"
-    # Program path
-    retreiveNum=$((1 + $(wc -l <$cachefile)))
-    echo "$retreiveNum,$current_wd,$@" >> $cachefile
-}
-
 wro()
 {
+    # Lets wro take arg and cache the argument
+    [ -z ${1+x} ] && [ -z ${wrn+x} ] && wrl && return || wrn=$1
+
+    # Read the csv
 	while IFS=, read -r num workpath files; do
       if [ "$1" = "$num" ];then
         cd $workpath 
         openfiles="$files"
       fi
 	done < $cachefile ;
+
     # Open files in vim
     if [[ -z {$openfiles+x} ]]; then
       echo "Index invalid or didnt have files"
@@ -56,12 +49,27 @@ wro()
     fi
 }
 
-# PROGRAM START
+wrw()
+{
+    # Get dir
+    current_wd=$(pwd)
+    # Program path
+    retreiveNum=$((1 + $(wc -l <$cachefile)))
+    echo "$retreiveNum,$current_wd,$@" >> $cachefile
+    wro $retreiveNum
+}
+
+# PROGRAM MAIN
 main () 
 {
+    # Debug one of the params
+    echo "cachefile is : $cachefile"
+    echo "retreivenum is : $retreiveNum"
+
     # List files if it is set
     [[ $list = "true" ]] && wrl && exit
 
+    # Write new entry
     if [ "$openFile" = "false" ]; then echo "Proceeding to workdir lookup"; else
         wrw $openFile
         exit
@@ -70,4 +78,5 @@ main ()
     # Retreive
     wro $retreiveNum
 }
-[[ $_ != $0 ]] && echo "Script is being sourced" || main $@
+
+[[ $_ != $0 ]] || main $@

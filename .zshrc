@@ -35,7 +35,6 @@ setxkbmap -option caps:swapescape
 ## }}}
 ## ALIASES ---------------------------------------------------------- {{{
 
-alias zshconfig="vim ~/.zshrc"
 alias n="npx" # npm run module shortcut
 alias p="sudo pacman"
 alias SS="sudo systemctl"
@@ -50,6 +49,7 @@ alias mkd="mkdir -pv"
 alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
+alias so="source"
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
@@ -160,3 +160,4 @@ bindkey "^[[B" down-line-or-beginning-search
 # HIST_STAMPS="mm/dd/yyyy"
 ## }}}
 source ~/.shortcuts
+source ~/.scripts/wrk
