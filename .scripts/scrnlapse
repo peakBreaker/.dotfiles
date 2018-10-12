@@ -1,0 +1,21 @@
+#!/bin/bash
+i=0
+
+# Make sure the dir is here
+scrndir=".screenlapse"
+mkdir $scrndir
+
+# Loop forever
+while :
+do
+    # Increment the counter and debug
+    i=$((i+1))
+	echo "$i : Taking screenshot.. Press [CTRL+C] to stop.."
+    
+    # Capture the focused window
+    image="./screencapture/$i.png"
+    scrot -u -d 1 $image
+
+    # Resize and pad the image
+    convert $image -resize 1920x1080 -background black -gravity center -extent 1920x1080 $image
+done
