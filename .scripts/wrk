@@ -28,6 +28,11 @@ wrl()
     less $cachefile
 }
 
+wre()
+{
+    vim $cachefile
+}
+
 wro()
 {
     # Lets wro take arg and cache the argument
@@ -54,7 +59,7 @@ wrw()
     # Get dir
     current_wd=$(pwd)
     # Program path
-    retreiveNum=$((1 + $(wc -l <$cachefile)))
+    retreiveNum=$(($(wc -l <$cachefile) -1))
     echo "$retreiveNum,$current_wd,$@" >> $cachefile
     wro $retreiveNum
 }
