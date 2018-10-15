@@ -53,6 +53,9 @@ call plug#begin()
 
 " Superpowers
     Plug 'tpope/vim-surround'
+    Plug 'vim-scripts/ZoomWin'
+    Plug 'janko-m/vim-test'
+    Plug 'antoyo/vim-licenses'
 call plug#end()
 
 " Configuring Plugins --------------------------------------------------- {{{
@@ -225,6 +228,7 @@ augroup python
     let g:flake8_show_quickfix=0
     let g:flake8_show_in_gutter=1
     let g:flake8_show_in_file=0 
+    nmap <leader>tt :TestSuite -s<CR>
 augroup END
 " }}}
 
@@ -260,6 +264,13 @@ augroup END
 " When indenting we dont want to deselect
     vnoremap < <gv
     vnoremap > >gv
+
+" For vimtests
+    nmap <leader>tn :TestNearest<CR>
+    nmap <leader>tf :TestFile<CR>
+    nmap <leader>ts :TestSuite<CR>
+    nmap <leader>tl :TestLast<CR>
+    nmap <leader>tg :TestVisit<CR>
 
 " Other
     nmap <leader>w :wqa<CR>
