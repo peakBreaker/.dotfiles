@@ -241,6 +241,11 @@ augroup END
     nmap <c-h> <c-w>h
     nmap <c-l> <c-w>l
 
+" Buffers
+    nmap <leader>bp :prev<CR>
+    nmap <leader>bn :next<CR>
+    nmap <leader>bb :buffers<CR>:buffer<space>
+
 " Git blaming
     vmap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
     vmap <leader>B ygv :!git log --pretty=format:"<..> %s %H" -L <C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>:<C-R>=expand("%:p")<CR> --abbrev-commit \| grep "<..>"
