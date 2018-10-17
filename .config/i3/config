@@ -39,8 +39,9 @@ set $fuzzylocker $HOME/.scripts/fuzzy_lock
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $shutdown sudo -A shutdown -h now
 set $reboot sudo -A reboot
-set $suspend exec i3lock -c 000000; --no-startup-id sudo -A systemctl suspend
-set $hibernate exec i3lock -c 000000; --no-startup-id sudo -A systemctl hibernate
+# Remember to add permissions for passwordless suspend in visudo file
+set $suspend exec i3lock -c 000000 ; exec --no-startup-id sudo systemctl suspend
+set $hibernate exec i3lock -c 000000 ; exec --no-startup-id sudo systemctl hibernate
 
 # Xresources Colors
 set_from_resource $darkblack	color0  #000000

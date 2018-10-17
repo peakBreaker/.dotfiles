@@ -50,6 +50,7 @@ alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and re
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
+alias sc="sc-im"
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
@@ -58,7 +59,8 @@ alias ccat="highlight --out-format=ansi" # Color cat - print file with syntax hi
 
 # Internet
 alias yt="youtube-dl --add-metadata -ic" # Download video link
-alias yta="youtube-dl --add-metadata -xic" # Download only audio
+alias yta="youtube-dl -x --audio-format mp3 --add-metadata -xic" # Download only audio
+
 alias YT="youtube-viewer"
 alias ethspeed="speedometer -r enp0s25"
 alias wifispeed="speedometer -r wlp3s0"

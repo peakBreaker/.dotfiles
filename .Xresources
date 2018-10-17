@@ -38,7 +38,7 @@ URxvt.background:       [70]#000000
 URxvt.depth:		32
 URxvt.cursorColor:	white
 ! do not specify italic font - its broken, urxvt will make italic automatically
-URxvt*font: xft:Source Code Pro:bold:size=11:antialias=true:hinting=true
+URxvt*font: xft:adobe-source-code-pro:size=11
 
 ! needed to fix font spacing
 URxvt.letterSpace: -5
