@@ -130,31 +130,60 @@ call plug#end()
     set wrap
     set formatoptions=qron1
 
+" Colored column
+    highlight ColorColumn ctermbg=magenta
+    call matchadd('ColorColumn', '\%79v', 100)
+
+" Tabs and spaces highlighting
+    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    set list
+
 " Searching
-    " nnoremap / /\v
-    " vnoremap / /\v
-set hlsearch
-set incsearch
+    set incsearch " Search incrementally
+    set hlsearch " Highlight search
     set ignorecase " Disabling case sensitiveness
     set smartcase  " And enabling smart case sensitiveness
-set showmatch
-map <leader><space> :let @/=''<cr> " clear search
+    " Clear search
+    noremap <leader>n :let @/=''<cr> 
+    noremap <leader>N :let @/=''<cr> 
+    " Blink the targeted match
+    highlight WhiteOnRed ctermbg=red 
+    nnoremap <silent> n n:call HLNext(0.2)<CR>
+    nnoremap <silent> N N:call HLNext(0.2)<CR>
+    function! HLNext (blinktime)
+        let [bufnum, lnum, col, off] = getpos('.')
+        let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+        let target_pat = '\c\%#'.@/
+        let blinks = 3
+        for n in range(1,blinks)
+            let red = matchadd('WhiteOnRed', target_pat, 101)
+            redraw
+            exec 'sleep ' . float2nr(a:blinktime / (2*blinks) * 1000) . 'm'
+            call matchdelete(red)
+            redraw
+            exec 'sleep ' . float2nr(a:blinktime / (2*blinks) * 1000) . 'm'
+        endfor
+    endfunction
+
 
 " Splits at the bottom right
-	set splitbelow
-	set splitright
+    set splitbelow
+    set splitright
 
 " Spaces / Tabs
-	set tabstop=4 " number of spaces in one tab
-	set softtabstop=4 " num spaces in tab when editing
-	set expandtab       " tabs are spaces
+    set tabstop=4 " number of spaces in one tab
+    set softtabstop=4 " num spaces in tab when editing
+    set expandtab       " tabs are spaces
 
 " Makes vim jimp to last position when reopening file
-" I love this - Anders
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
+
+" Jump to matching brackety when inserting one
+    set showmatch
+    set matchtime=3
 
 " }}}
 " Folding ----------------------------------------------------------------- {{{
@@ -193,15 +222,15 @@ function! ToggleComment()
     if has_key(s:comment_map, &filetype)
         let comment_leader = s:comment_map[&filetype]
         if getline('.') =~ '^\s*$'
-	    return
-	endif
+        return
+    endif
         if getline('.') =~ '^\s*' . comment_leader
             " Uncomment the line
-	    execute 'silent s/\v\s*\zs' . comment_leader . '\s*\ze//'
+        execute 'silent s/\v\s*\zs' . comment_leader . '\s*\ze//'
         else
             " Comment the line
             execute 'silent s/\v^(\s*)/\1' . comment_leader . ' /'
-	endif
+    endif
     else
         echo "No comment leader found for filetype"
     endif
@@ -242,21 +271,22 @@ augroup END
     nmap <c-l> <c-w>l
 
 " Buffers
-    nmap <leader>bp :prev<CR>
-    nmap <leader>bn :next<CR>
-    nmap <leader>bb :buffers<CR>:buffer<space>
+    nnoremap <leader>bp :prev<CR>
+    nnoremap <leader>bn :next<CR>
+    nnoremap <leader>bb :buffers<CR>:buffer<space>
+    nnoremap <leader>bd :buffers<CR>:bdelete<space>
 
 " Git blaming
-    vmap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
-    vmap <leader>B ygv :!git log --pretty=format:"<..> %s %H" -L <C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>:<C-R>=expand("%:p")<CR> --abbrev-commit \| grep "<..>"
+    vnoremap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
+    vnoremap <leader>B ygv :!git log --pretty=format:"<..> %s %H" -L <C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>:<C-R>=expand("%:p")<CR> --abbrev-commit \| grep "<..>"
     " vmap <leader>B :!git blame <C-R>=expand("%:p")<CR> \| sed -n '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>' p
 
 " For folding
     nmap <Tab> za
+    nnoremap <expr> <leader><Tab> &foldlevel ? 'zM' :'zR'
 
 " For vimmagit
-    map <leader>gs :Magit <CR>
-    map <leader>cc CC
+    nnoremap <leader>gs :Magit <CR>
 
 " Copying and pasting with system clipboard
     vnoremap <leader>c "+y
@@ -271,15 +301,18 @@ augroup END
     vnoremap > >gv
 
 " For vimtests
-    nmap <leader>tn :TestNearest<CR>
-    nmap <leader>tf :TestFile<CR>
-    nmap <leader>ts :TestSuite<CR>
-    nmap <leader>tl :TestLast<CR>
-    nmap <leader>tg :TestVisit<CR>
+    nnoremap <leader>tn :TestNearest<CR>
+    nnoremap <leader>tf :TestFile<CR>
+    nnoremap <leader>ts :TestSuite<CR>
+    nnoremap <leader>tl :TestLast<CR>
+    nnoremap <leader>tg :TestVisit<CR>
 
 " Other
-    nmap <leader>w :wqa<CR>
-    nmap <leader>qq :qa!<CR>
+    nnoremap <leader>w :wqa<CR>
+    nnoremap <leader>qq :qa!<CR>
+    " Switch : and ;
+    nnoremap ; :
+    nnoremap : ;
 
 " }}}
 
@@ -309,10 +342,3 @@ set showcmd
 
 " Formatting
 map <leader>q gqip
-
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
