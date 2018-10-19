@@ -2,7 +2,7 @@
 
 # GET ARGS
 while getopts ":r:f:hl" o; do case "${o}" in
-	h) 
+    h) 
     echo -e "Optional arguments for custom use:"
     echo -e "  -f: File"
     echo -e "  -r: Retreive number"
@@ -10,10 +10,10 @@ while getopts ":r:f:hl" o; do case "${o}" in
     echo -e "  -h: Show this message"
     exit 
     ;;
-	f) openFile="$openFile ${OPTARG}" ;;
-	r) retreiveNum=${OPTARG} ;;
-	l) list="true" ;; # Flag, sets var true
-	*) echo "-$OPTARG is not a valid option." && exit ;;
+    f) openFile="$openFile ${OPTARG}" ;;
+    r) retreiveNum=${OPTARG} ;;
+    l) list="true" ;; # Flag, sets var true
+    *) echo "-$OPTARG is not a valid option." && exit ;;
 esac done
 
 # DEFAULTS:
@@ -39,17 +39,18 @@ wro()
     [ -z ${1+x} ] && [ -z ${wrn+x} ] && wrl && return || wrn=$1
 
     # Read the csv
-	while IFS=, read -r num workpath files; do
-      if [ "$1" = "$num" ];then
-        cd $workpath 
+    while IFS=, read -r num workpath files; do
+      if [ "$wrn" = "$num" ];then
+        openpath=$workpath
         openfiles="$files"
       fi
-	done < $cachefile ;
+    done < $cachefile ;
 
     # Open files in vim
     if [[ -z {$openfiles+x} ]]; then
       echo "Index invalid or didnt have files"
     else 
+      cd $openpath
       eval "vim -O ${openfiles}"
     fi
 }
