@@ -6,25 +6,35 @@ from datetime import datetime, date, time, timedelta
 
 import pandas as pd
 
+CAT = {'AMEDIA': [
+    "INTERRUPT", "HOTFIX", "PLANNED_DEV", "LEARN&RESEARCH", "STRAT&PLANNING", "BREAK", "MEETING", "OTHER" 
+    ]}
+
 def parse_date(d):
     # Example: '2018-10-08T09:12:16+02:00'
     d = datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z')
     d = d.replace(tzinfo=None)
     return d
 
-def calc_elapsed(start, end):
-    e = parse_date(end) - parse_date(start)
-    print('Elapsed: Calculated elapsed time')
-    print(e)
-
 def parse_tags(data):
     "Splits the tags into columns"
     pass
-# ---
 
-CAT = {'AMEDIA': [
-    "INTERRUPT", "HOTFIX", "PLANNED_DEV", "LEARN&RESEARCH", "STRAT&PLANNING", "BREAK", "MEETING", "OTHER" 
-    ]}
+def elapsed(tf):
+    "Calculates overall timeframe and elapsed within"
+
+    # First get the overall stretch
+    first = tf.iloc[[0]]['start'].iloc[0]
+    last = tf.iloc[[-1]]['stop'].iloc[0]
+    whole = last - first
+    print('ELAPSED: From first to last in tf: %s' % whole)
+
+    # Next we apply a lambda to calc elapsed for each frame
+    tf['elapsed'] = tf.apply(lambda r: r['stop'] - r['start'], axis=1)
+    print(tf)
+
+    # And finally sum
+    return tf
 
 def get_timeframes(df, start, end):
     'segments out the time tracked between start & end'
@@ -32,7 +42,7 @@ def get_timeframes(df, start, end):
     print("%s to %s" % (start, end))
     # Calc in cases where the frame stretches mult days
     df.loc[(df['stop'] > start) & (df['start'] < start), 'start'] = start
-    df.loc[(df['stop'] < end) & (df['start'] > end), 'stop'] = end
+    df.loc[(df['stop'] > end) & (df['start'] < end), 'stop'] = end
     # get all the frames
     df = df[(df['start'] >= start) & (df['stop'] <= end)]
     print(df)
@@ -58,12 +68,17 @@ def main():
     dft['stop'] = dft['stop'].apply(parse_date)
     print(dft.tail(5))
     print(dft.dtypes)
-    
+
     today = date.today()
     tomorrow = datetime.combine(today+timedelta(days=1), time())
+    yest = datetime.combine(today+timedelta(days=-1), time())
     today = datetime.combine(today, time(hour=11))
-    tf = get_timeframes(dft, today, tomorrow)
-    print(tf)
+    # tf = get_timeframes(dft, today, tomorrow)
+    tf = get_timeframes(dft, yest, today)
+    # Calculate elapsed
+    print('Getting last row:')
+    print('Calculating elapsed:')
+    elapsed(tf)
 
 if __name__ == '__main__':
     main()

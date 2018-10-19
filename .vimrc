@@ -257,7 +257,7 @@ augroup python
     let g:flake8_show_quickfix=0
     let g:flake8_show_in_gutter=1
     let g:flake8_show_in_file=0 
-    nmap <leader>tt :TestSuite -s<CR>
+    nnoremap <leader>tt :TestSuite -s<CR>
 augroup END
 " }}}
 
