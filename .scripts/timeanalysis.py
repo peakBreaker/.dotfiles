@@ -7,8 +7,11 @@ from datetime import datetime, date, time, timedelta
 import pandas as pd
 
 CAT = {'AMEDIA': [
-    "INTERRUPT", "HOTFIX", "PLANNED_DEV", "LEARN&RESEARCH", "STRAT&PLANNING", "BREAK", "MEETING", "OTHER" 
-    ]}
+    "INTERRUPT", "HOTFIX", "PLANNED_DEV", "LEARN&RESEARCH", "STRAT&PLANNING", "BREAK", "MEETING", "OTHER"
+    ],
+    }
+CAT['WORK'] = CAT['AMEDIA']
+
 
 def parse_date(d):
     # Example: '2018-10-08T09:12:16+02:00'
@@ -16,9 +19,14 @@ def parse_date(d):
     d = d.replace(tzinfo=None)
     return d
 
-def parse_tags(data):
+
+def parse_tags(row):
     "Splits the tags into columns"
-    pass
+    for idx, u in enumerate(CAT.get(row['project'], {})):
+        if u in row['tags']:
+            return CAT[row['project']][idx]
+    return None
+
 
 def elapsed(tf):
     "Calculates overall timeframe and elapsed within"
@@ -29,12 +37,11 @@ def elapsed(tf):
     whole = last - first
     print('ELAPSED: From first to last in tf: %s' % whole)
 
-    # Next we apply a lambda to calc elapsed for each frame
-    tf['elapsed'] = tf.apply(lambda r: r['stop'] - r['start'], axis=1)
+    # Next we apply a lambda to calc elapsed for each frame and return
+    tf['Elapsed'] = tf.apply(lambda r: r['stop'] - r['start'], axis=1)
     print(tf)
-
-    # And finally sum
     return tf
+
 
 def get_timeframes(df, start, end):
     'segments out the time tracked between start & end'
@@ -47,6 +54,7 @@ def get_timeframes(df, start, end):
     df = df[(df['start'] >= start) & (df['stop'] <= end)]
     print(df)
     return df
+
 
 def main():
 
@@ -62,6 +70,9 @@ def main():
     dft = pd.DataFrame(timeData)
     # print(dft.tail(1))
     # print(dft.dtypes)
+    print('MAIN: Setting unique tags')
+    dft['UniqueTag'] = dft.apply(parse_tags, axis=1)
+    print(dft)
 
     print('Main: After dateparsing')
     dft['start'] = dft['start'].apply(parse_date)
@@ -79,6 +90,10 @@ def main():
     print('Getting last row:')
     print('Calculating elapsed:')
     elapsed(tf)
+    sumtime = tf['Elapsed'].sum()
+    tf['PercTime'] = tf.apply(lambda r: 100 * r['Elapsed'] / sumtime, axis=1)
+    print(tf)
+
 
 if __name__ == '__main__':
     main()
