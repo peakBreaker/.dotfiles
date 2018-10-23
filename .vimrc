@@ -129,10 +129,11 @@ call plug#end()
 " Editing basics
     set wrap
     set formatoptions=qron1
+    set iskeyword-=_
 
 " Colored column
     highlight ColorColumn ctermbg=magenta
-    call matchadd('ColorColumn', '\%79v', 100)
+    call matchadd('ColorColumn', '\%80v', 100)
 
 " Tabs and spaces highlighting
     exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"

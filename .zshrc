@@ -51,6 +51,8 @@ alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
+alias w="watson"
+alias ws="watson status"
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
