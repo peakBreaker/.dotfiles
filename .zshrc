@@ -35,6 +35,22 @@ setxkbmap -option caps:swapescape
 ## }}}
 ## ALIASES ---------------------------------------------------------- {{{
 
+envg() {
+    # Configures system to google cloud
+    echo -n "Setting up gcloud aliases.. "
+    alias c="gcloud"
+    alias cconf="gcloud config"
+    alias cconfls="gcloud config list"
+    alias ch="echo -e '--- Configured for GCLOUD SDK ---\n\tc:gcloud\n\tcconf:config\n\tcconfls:ls config\n\tch:help'"
+    echo "OK!"
+
+    # If init is provided, set up a new project
+    if [ "$1" = 'init' ]; then
+      echo "Initializing new gcloud project!"
+
+    fi
+}
+
 alias n="npx" # npm run module shortcut
 alias p="sudo pacman"
 alias SS="sudo systemctl"
@@ -53,6 +69,7 @@ alias so="source"
 alias sc="sc-im"
 alias w="watson"
 alias ws="watson status"
+
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
