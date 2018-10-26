@@ -5,8 +5,8 @@
 # Constants
 
 ## Categories
-CATEGORIES=( AMEDIA CLIENT PERS LIFE OTHER )
-AMEDIA_SUBCAT=(  "INTERRUPT" "HOTFIX" "PLANNED_DEV" "LEARN&RESEARCH" "STRAT&PLANNING" "BREAK" "MEETING" "OTHER" )
+CATEGORIES=( WORK CLIENT PERS LIFE OTHER )
+WORK_SUBCAT=(  "INTERRUPT" "HOTFIX" "PLANNED_DEV" "LEARN&RESEARCH" "STRAT&PLANNING" "BREAK" "MEETING" "OTHER" )
 CLIENT_SUBCAT=( "SENS_MEET" "SENS_DEV" )
 PERS_SUBCAT=( "EXERCISE" "COURSES" "READING" )
 LIFE_SUBCAT=( "LEISURE" "MORNING_ROUTINE" )
@@ -16,7 +16,7 @@ OTHER_SUBCAT=( "OTHER" "ERROR" ) # Fallback
 local_select_subcat() {
   # First get the correct array
   case $1 in 
-    AMEDIA) local_category=${AMEDIA_SUBCAT[*]} ;;
+    WORK) local_category=${WORK_SUBCAT[*]} ;;
     CLIENT) local_category=${CLIENT_SUBCAT[*]} ;;
     PERS) local_category=${PERS_SUBCAT[*]} ;;
     LIFE) local_category=${LIFE_SUBCAT[*]} ;;
@@ -40,7 +40,7 @@ t_configure() {
 
 t_sync() {
     # Sync with crick
-    watson_sync
+    watson sync
 }
 
 # Functionality

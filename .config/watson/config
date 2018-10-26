@@ -1,0 +1,6 @@
+[backend]
+url = https://api.crick.io/watson
+
+[options]
+stop_on_start = 1
+

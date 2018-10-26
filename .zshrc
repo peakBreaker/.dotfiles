@@ -62,13 +62,15 @@ alias ka="killall"
 alias g="git"
 alias trem="transmission-remote"
 alias mkd="mkdir -pv"
-alias ref="shortcuts.sh && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
+alias ref="shortcuts && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
 alias bw="wal -i ~/.config/wall.png" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
+
 alias w="watson"
 alias ws="watson status"
+alias wl="watson log"
 
 
 # Adding color
