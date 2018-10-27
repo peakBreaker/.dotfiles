@@ -9,6 +9,7 @@ import pandas as pd
 # Constants
 ANALYSIS_FRAME_DAYS = 1
 START_DATE = date(2018, 10, 5)
+STRF_FORMAT = '%Y-%m-%d'
 
 # Construct our main data collections
 main_dfs = {
@@ -22,10 +23,15 @@ main_dfs = {
       }
 
 for p in main_dfs.keys():
-    main_dfs[p]['date'] = (START_DATE,)
+    main_dfs[p]['date'] = (datetime.combine(START_DATE, time()),)
+    print(main_dfs[p])
     main_dfs[p]['datetime'] = pd.to_datetime(main_dfs[p]['date'])
     main_dfs[p].set_index('datetime', inplace=True)
     main_dfs[p].drop(['date'], axis=1, inplace=True)
+    print(START_DATE.strftime(STRF_FORMAT))
+    print(main_dfs[p])
+    print(main_dfs[p].loc[START_DATE.strftime(STRF_FORMAT)])
+
 
 def parse_date(d):
     # Example: '2018-10-08T09:12:16+02:00'
@@ -111,49 +117,56 @@ def main():
         # e_df = e_df.append(_df, ignore_index=True)
     # print(e_df)
 
-    # Iterate and analyze per day
-    print('Analyzing from date: %s' % START_DATE)
-    d_ptr = datetime.combine(START_DATE, time())
+    for p in main_dfs.keys():
+        # Construct the columns
+        u_meta = ['TOTAL', 'UNACCOUNTED']
+        uniques = [u for u in list(main_dfs[p])] + u_meta
+        u_prc = [u + '_prc' for u in uniques]
 
-    while d_ptr < datetime.today():
-        # First increment the nxt pointer
-        d_nxt = datetime.combine(d_ptr+timedelta(days=ANALYSIS_FRAME_DAYS), time())
+        # Iterate and analyze per day
+        # print('Analyzing from date: %s' % START_DATE)
+        d_ptr = datetime.combine(START_DATE, time())
 
-        # Next up we get the dataframe for the given day
-        tf = get_timeframes(df, d_ptr, d_nxt)
-        for p in main_dfs.keys():
-            whole = elapsed(tf, p)
-            print('Elapsed for %s :: %s' % (d_ptr, whole))
-            main_dfs[p].iloc[d_ptr]
+        t_data = {}
+        while d_ptr < datetime.today():
+            # First increment the nxt pointer
+            d_nxt = datetime.combine(d_ptr+timedelta(days=ANALYSIS_FRAME_DAYS), time())
 
-            columns=[u for u in list(main_dfs[p])
+            # Next up we filter the timeframe by date
+            tf = get_timeframes(df, d_ptr, d_nxt)
 
+            # And by project
+            tf = tf[(tf['project'] == p)]
 
-        # Finally incr the date pointer by setting it to the nxt pointer
-        d_ptr = d_nxt
+            tot_tracked = tf['Elapsed'].sum() if not tf.empty else 0
+            start_to_end = elapsed(tf)
 
-    return
+            # Calculate the time per unique for the project
+            t_data[d_ptr] = [tf[tf['UniqueTag'] == u]['Elapsed'].sum()
+                             for u in uniques]
+            t_data[d_ptr][uniques.index('UNACCOUNTED')] = start_to_end - \
+                    tot_tracked
+            t_data[d_ptr][uniques.index('TOTAL')] = start_to_end
 
-    # today = date.today()
-    # tomorrow = datetime.combine(today+timedelta(days=1), time())
-    # yest = datetime.combine(today+timedelta(days=-1), time())
-    # today = datetime.combine(today, time(hour=11))
-    # tf = get_timeframes(dft, today, tomorrow)
+            # Calculate the percentages
+            if tf.empty:
+                t_data[d_ptr] += [0 for u in uniques]
+            else:
+                t_data[d_ptr] += [tf[tf['UniqueTag'] == u]['Elapsed'].sum()*100 /
+                                  start_to_end for u in uniques]
+            t_data[d_ptr][len(uniques) + u_prc.index('UNACCOUNTED_prc')] = (
+                start_to_end - tot_tracked) * 100 / start_to_end if not tf.empty else 0
+            t_data[d_ptr][len(uniques) + u_prc.index('TOTAL_prc')] = 100
+            # Finally incr the date pointer by setting it to the nxt pointer
+            d_ptr = d_nxt
 
-    # Calculate elapsed
-    print('Getting last row:')
-    print('Calculating elapsed:')
-    elapsed(tf)
-    sumtime = tf['Elapsed'].sum()
-    tf['PercTime'] = tf.apply(lambda r: 100 * r['Elapsed'] / sumtime, axis=1)
-    print(tf)
+        # Construct a dataframe similar to main df
+        print()
 
-    # Group by project and uniquetag, start by making our result df
-    # TODO: Rework to use multi-index
-
-
-    e_df['Elapsed'] = e_df.apply(groupdf, axis=1, args=(tf,))
-    print(e_df)
+        # Add it to the main df
+        main_dfs[p] = pd.DataFrame.from_dict(t_data, orient='index', columns=uniques+u_prc)
+        print(main_dfs[p])
+        main_dfs[p].to_csv('./report/%s.csv' % p)
 
 if __name__ == '__main__':
     main()
