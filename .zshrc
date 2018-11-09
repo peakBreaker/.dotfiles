@@ -68,9 +68,9 @@ alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
 
-alias w="watson"
+alias wa="watson"
 alias ws="watson status"
-alias wl="watson log"
+alias wl="watson log -c"
 
 
 # Adding color
