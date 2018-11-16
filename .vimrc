@@ -63,6 +63,8 @@ call plug#end()
 " Ultisnips
     let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:ultisnips_python_style="numpy"
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", "peakbreaker-snippets"]
 
 " Airline linebar
     let g:airline_theme='wal'
