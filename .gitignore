@@ -12,7 +12,47 @@ files/.emacs.d/*
 !files/.emacs.d/custom.el
 !files/.emacs.d/themes
 
-#Ignore vim plugins
-files/.vim/
+#Ignore vim stuff
+.vim/
+!.vim/peakbreaker-snippets
+.viminf*
+.sc-iminfo
+
+# Generated
+.config/watson
+.shortcuts
+.config/ranger/shortcuts.conf
+.oh-my-zsh
+.gem
+.bundle
+.npm
+.bash_history
+.zsh_history
+.recently-used
+.zshrc.pre-oh-my-zsh
+.wget-hsts
+.screenlapse*/
+.cache/
+.zcompdump*
+.esd_auth
+.lesshst
+
+# Programs and installs
+venv/
+.local/
+.dropbox*/
+
+# Stuff I dont want under VC
+.ssh
+.w3m
+.config/KeePass
+
+# User folders
+Documents/
+Downloads/
+Dropbox/
+Pictures/
+Videos/
+
 #files/.vim/plugged
 #files/.vim/.netrwhist
