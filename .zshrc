@@ -63,7 +63,8 @@ alias g="git"
 alias trem="transmission-remote"
 alias mkd="mkdir -pv"
 alias ref="shortcuts && source ~/.bashrc" # Refresh shortcuts manually and reload bashrc
-alias bw="wal -i ~/.config/wall.png" # Rerun pywal
+alias bwl="wal -i ~/.config/wall.jpg -l --saturate 0.65" # Rerun pywal
+alias bwd="wal -i ~/.config/wall.jpg --saturate 0.65" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
@@ -126,7 +127,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 export VISUAL=vim
 export EDITOR="$VISUAL"
 # Set some important env vars
-export TERMINAL=urxvt
+export TERMINAL="st"
 export BROWSER=firefox
 ## }}}
 ## PYWAL ------------------------------------------------------------ {{{
@@ -184,3 +185,4 @@ bindkey "^[[B" down-line-or-beginning-search
 ## }}}
 source ~/.shortcuts
 source ~/.scripts/wrk
+PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin/
