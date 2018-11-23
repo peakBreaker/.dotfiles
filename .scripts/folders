@@ -1,10 +1,15 @@
 # You can add comments to these files with #
 fh  ~/
+fb  ~/Documents/www/peakBreaker.github.io/
 fd  ~/Documents
 fw  ~/Documents/Work
+fp  ~/Documents/Personal
 fD  ~/Downloads
 fm  ~/Music
 fpp ~/Pictures
 fvv ~/Videos
 fs  ~/.scripts
 fcf ~/.config
+
+# Work shortcuts
+fw1 ~/Documents/Work/data-airflow-composer/

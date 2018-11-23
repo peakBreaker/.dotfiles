@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-PIQUEINDEX=~/Documents/personal/.pique/index.csv
-PIQUELOGS=~/Documents/personal/.pique/logs.csv
+PIQUEINDEX=~/Documents/personal/pique/index.csv
+PIQUELOGS=~/Documents/personal/pique/logs.csv
 
 
 piq_ls() # Shows the index of shirts
 {
-    less $PIQUEINDEX
+    cat $PIQUEINDEX
 }
 
 piq_new() # Logs a new shirt
