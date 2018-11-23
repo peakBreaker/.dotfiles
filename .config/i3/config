@@ -116,6 +116,7 @@ bindsym $mod+Control+h focus output left
 bindsym $mod+Control+l focus output right
 ## }}}
 ## Command/keybased keybindings ------------------------------------- {{{
+
 # Function hotkeys
 bindsym $mod+F1		exec --no-startup-id zathura ~/.config/i3/i3_guide.pdf
 bindsym $mod+F2		restart
@@ -129,6 +130,9 @@ bindsym $mod+F9		exec --no-startup-id dmenumount
 bindsym $mod+F10	exec --no-startup-id dmenuumount
 bindsym $mod+F11	exec --no-startup-id dmenuarchwiki
 bindsym $mod+F12 exec $term -e sudo -A wifi-menu
+# Launching scripts
+bindsym $mod+Control+1 exec --no-startup-id dmenuunicode
+
 ## }}}
 ## Workspace keybindings -------------------------------------------- {{{
 bindsym $mod+r exec dmenu_run
