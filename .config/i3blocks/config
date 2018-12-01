@@ -1,0 +1,22 @@
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+[pacman]
+label=📦
+command=i3pacman
+interval=once
+signal=8
+
+[battery]
+command=i3battery BAT0
+interval=5
+
+[time]
+label=📅
+command=i3date
+interval=30
+
+[internet]
+command=i3internet
+interval=10
