@@ -87,8 +87,11 @@ bar {
 
 ## }}}
 ## Basic keybindings ------------------------------------------------ {{{
-# start a terminal
+# Start programs
 bindsym $mod+Return exec $term
+bindsym $mod+Q exec $BROWSER
+bindsym $mod+A exec $term -e $EDITOR
+bindsym $mod+E exec $term -e ranger
 # kill focused window
 bindsym $mod+Shift+c kill
 # Lock i3

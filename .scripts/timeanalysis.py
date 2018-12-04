@@ -10,6 +10,7 @@ import pandas as pd
 ANALYSIS_FRAME_DAYS = 1
 START_DATE = date(2018, 10, 5)
 STRF_FORMAT = '%Y-%m-%d'
+REPORTS_FOLDER = './reports/'
 
 # Construct our main data collections
 main_dfs = {
@@ -166,7 +167,8 @@ def main():
         # Add it to the main df
         main_dfs[p] = pd.DataFrame.from_dict(t_data, orient='index', columns=uniques+u_prc)
         print(main_dfs[p])
-        main_dfs[p].to_csv('./report/%s.csv' % p)
+        # Finally save the project dataframe
+        main_dfs[p].to_csv(REPORTS_FOLDER + ('/%s.csv' % p))
 
 if __name__ == '__main__':
     main()

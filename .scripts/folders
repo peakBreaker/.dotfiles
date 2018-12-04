@@ -11,5 +11,10 @@ fvv ~/Videos
 fs  ~/.scripts
 fcf ~/.config
 
+# Sensario
+fcs ~/Documents/Clients/Sensario
+fse ~/Documents/Clients/Sensario/Embedded
+fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
+
 # Work shortcuts
 fw1 ~/Documents/Work/data-airflow-composer/
