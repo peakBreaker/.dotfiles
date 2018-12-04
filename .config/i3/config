@@ -111,6 +111,8 @@ bindsym $mod+Right focus right
 # Switching between workspaces on output
 bindsym $mod+Control+j workspace prev_on_output
 bindsym $mod+Control+k workspace next_on_output
+# Creating new workspace
+bindsym $mod+Control+n exec --no-startup-id i3new_workspace
 # Working with multi monitors
 bindsym $mod+Control+h focus output left
 bindsym $mod+Control+l focus output right

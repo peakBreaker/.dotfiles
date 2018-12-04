@@ -1,0 +1,13 @@
+#!/bin/bash
+# Based on https://github.com/lufterc/i3-new-workspace
+
+WS_JSON=$(i3-msg -t get_workspaces)
+NUM_WORKSPACES=$(i3-msg -t get_workspaces | tr ',' '\n' | grep -c num)
+
+for i in $(seq 1 $(expr $NUM_WORKSPACES + 1)) ; do
+    if [[ $WS_JSON != *"\"num\":$i"* ]] ; then
+        echo $i
+        i3-msg workspace number $i
+        break
+    fi
+done
