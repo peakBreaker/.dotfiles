@@ -16,22 +16,23 @@ REPORTS_FOLDER = './reports/'
 main_dfs = {
        'WORK': pd.DataFrame(columns=["INTERRUPT", "HOTFIX", "PLANNED_DEV",
                                      "LEARN&RESEARCH", "STRAT&PLANNING",
-                                     "BREAK", "MEETING", "OTHER"]),
+                                     "SUPPORT", "BREAK", "MEETING", "OTHER"]),
        'CLIENT': pd.DataFrame(columns=["SENS_MEET", "SENS_DEV"]),
-       'PERS': pd.DataFrame(columns=["EXERCISE", "COURSES", "READING"]),
+       'PERS': pd.DataFrame(columns=["EXERCISE", "COURSES", "READING", "DEVENV"]),
        'LIFE': pd.DataFrame(columns=["LEISURE", "MORNING_ROUTINE"]),
        'OTHER': pd.DataFrame(columns=["OTHER", "ERROR"])
       }
 
+# Create the datetime index for each dataframe
 for p in main_dfs.keys():
     main_dfs[p]['date'] = (datetime.combine(START_DATE, time()),)
-    print(main_dfs[p])
+    #print(main_dfs[p])
     main_dfs[p]['datetime'] = pd.to_datetime(main_dfs[p]['date'])
     main_dfs[p].set_index('datetime', inplace=True)
     main_dfs[p].drop(['date'], axis=1, inplace=True)
-    print(START_DATE.strftime(STRF_FORMAT))
-    print(main_dfs[p])
-    print(main_dfs[p].loc[START_DATE.strftime(STRF_FORMAT)])
+    # print(START_DATE.strftime(STRF_FORMAT))
+    # print(main_dfs[p])
+    # print(main_dfs[p].loc[START_DATE.strftime(STRF_FORMAT)])
 
 
 def parse_date(d):
@@ -51,6 +52,9 @@ def parse_tags(row):
 
 def elapsed(tf, project=None):
     "Calculates overall elapsed from start to fin over a timeframe"
+    # First sort the df
+    if not tf.empty:
+        tf = tf.sort_values(by='start')
 
     # Calculate the valid indexes
     if project is None:
@@ -61,6 +65,7 @@ def elapsed(tf, project=None):
 
     # Check that the tf or idx selector is empty
     if tf.empty or idx_selector == []:
+        # print('index selector empty!')
         return 0
 
     s_col, e_col = (idx_selector[0], idx_selector[-1])  # Clever, eh?
@@ -68,6 +73,8 @@ def elapsed(tf, project=None):
     # Calculate the time between first and last valid row
     first = tf.iloc[[s_col]]['start'].iloc[0]
     last = tf.iloc[[e_col]]['stop'].iloc[0]
+    # print(tf)
+    # print('ELAPSED: calculated elapsed :: %s - %s = %s' % (last, first, str(last-first)))
     return last - first
 
 
@@ -91,12 +98,12 @@ def groupdf(row, _df):
     u, p = (row['UniqueTag'], row['project'])
 
     # Filter
-    print('Checking if %s and %s is in dataframe.. ' % (u, p), end='')
+    # print('Checking if %s and %s is in dataframe.. ' % (u, p), end='')
     if u not in _df['UniqueTag'].values or p not in _df['project'].values:
-        print('Nope!')
+        # print('Nope!')
         return 0
     else:
-        print('Yep!')
+        # print('Yep!')
         return _df[(_df['UniqueTag'] == u) & (_df['project'] == p)]['Elapsed'].sum()
 
 
@@ -119,6 +126,7 @@ def main():
     # print(e_df)
 
     for p in main_dfs.keys():
+        #print('Analyzing dataframe for project :: %s' % p)
         # Construct the columns
         u_meta = ['TOTAL', 'UNACCOUNTED']
         uniques = [u for u in list(main_dfs[p])] + u_meta
@@ -129,7 +137,9 @@ def main():
         d_ptr = datetime.combine(START_DATE, time())
 
         t_data = {}
+        print("Analyzing from date :: %s" % d_ptr)
         while d_ptr < datetime.today():
+            #print('Analyzing time spent for %s' % d_ptr)
             # First increment the nxt pointer
             d_nxt = datetime.combine(d_ptr+timedelta(days=ANALYSIS_FRAME_DAYS), time())
 
@@ -146,7 +156,7 @@ def main():
             t_data[d_ptr] = [tf[tf['UniqueTag'] == u]['Elapsed'].sum()
                              for u in uniques]
             t_data[d_ptr][uniques.index('UNACCOUNTED')] = start_to_end - \
-                    tot_tracked
+                tot_tracked
             t_data[d_ptr][uniques.index('TOTAL')] = start_to_end
 
             # Calculate the percentages
@@ -161,12 +171,9 @@ def main():
             # Finally incr the date pointer by setting it to the nxt pointer
             d_ptr = d_nxt
 
-        # Construct a dataframe similar to main df
-        print()
-
         # Add it to the main df
         main_dfs[p] = pd.DataFrame.from_dict(t_data, orient='index', columns=uniques+u_prc)
-        print(main_dfs[p])
+        print(main_dfs[p].head())
         # Finally save the project dataframe
         main_dfs[p].to_csv(REPORTS_FOLDER + ('/%s.csv' % p))
 
