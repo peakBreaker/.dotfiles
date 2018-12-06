@@ -34,6 +34,7 @@ call plug#begin()
     Plug 'dylanaraps/wal.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+    Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Autocomplete/running & other utils
     Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -50,6 +51,7 @@ call plug#begin()
 
 " Programming lang specifics
     Plug 'nvie/vim-flake8'
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Superpowers
     Plug 'tpope/vim-surround'
@@ -108,6 +110,9 @@ call plug#end()
     let mapleader = " "
     set nocompatible
     filetype off
+
+" Wildmode autocomplete
+    set wildmode=longest,list,full
 
 "filetype plugin on
     syntax on

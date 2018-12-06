@@ -24,7 +24,7 @@
      stpop = stash pop
      stap = stash apply
      pl = pull
-    initignore = !read -p 'Ignore languages: ' langignore && \
+    initignore = !read -p 'Ignore languages (seperate w/ "," no spaces): ' langignore && \
         wget -O .gitignore "https://www.gitignore.io/api/${langignore}" && \
         git add .gitignore && \
         git commit -m\"[AUTO] Added gitignore - ignoring for lang :: [${langignore}]\"

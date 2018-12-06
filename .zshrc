@@ -1,17 +1,17 @@
 # vim: set foldmethod=marker:
 ## OH MY ZSH CONFIG ------------------------------------------------- {{{
-# Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+
+# Basic configs, add plugins
+export ZSH=$HOME/.oh-my-zsh
 plugins=(git vi-mode)
 source $ZSH/oh-my-zsh.sh
+
+# Adding powerlevel9k
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir newline vcs)
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_COLOR_SCHEME='light'
+source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+
 ## }}}
 ## VARIOUS ---------------------------------------------------------- {{{
 # User configuration
@@ -51,6 +51,7 @@ envg() {
     fi
 }
 
+# Essentials
 alias n="npx" # npm run module shortcut
 alias p="sudo pacman"
 alias SS="sudo systemctl"
@@ -69,10 +70,10 @@ alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
 
+# Nice terminal programs
 alias wa="watson"
 alias ws="watson status"
 alias wl="watson log -c"
-
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
