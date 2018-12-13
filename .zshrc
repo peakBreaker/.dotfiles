@@ -52,7 +52,6 @@ envg() {
 }
 
 # Essentials
-alias n="npx" # npm run module shortcut
 alias p="sudo pacman"
 alias SS="sudo systemctl"
 alias v="vim"
@@ -69,6 +68,19 @@ alias bwd="wal -i ~/.config/wall.jpg --saturate 0.65" # Rerun pywal
 alias pi="bash ~/.larbs/wizard/wizard.sh"
 alias so="source"
 alias sc="sc-im"
+alias pingg="ping 8.8.8.8" # ping google dns
+alias n="npx" # npm run module shortcut
+
+# Docker
+alias dck="docker"
+alias dckls='echo "---- CONTAINERS ---- \n" && docker ps -a && echo "\n---- IMAGES ----\n" && docker images -a'
+alias dcklsc="docker ps -a"
+alias dcklsi="docker images -a"
+alias dck-print-env="env | grep DOCKER_"
+alias dck-stop-all="docker container stop $(docker container ls -a -q)"
+alias dck-containers-clean="docker container rm $(docker ps -a -q)"
+alias dck-images-clean="docker image rm $(docker images -a -q)"
+alias dck-all-clean='docker stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
 
 # Nice terminal programs
 alias wa="watson"
@@ -83,7 +95,6 @@ alias ccat="highlight --out-format=ansi" # Color cat - print file with syntax hi
 # Internet
 alias yt="youtube-dl --add-metadata -ic" # Download video link
 alias yta="youtube-dl -x --audio-format mp3 --add-metadata -xic" # Download only audio
-
 alias YT="youtube-viewer"
 alias ethspeed="speedometer -r enp0s25"
 alias wifispeed="speedometer -r wlp3s0"
