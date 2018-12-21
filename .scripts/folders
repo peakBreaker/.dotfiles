@@ -15,6 +15,7 @@ fcf ~/.config
 fcs ~/Documents/Clients/Sensario
 fse ~/Documents/Clients/Sensario/Embedded
 fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
+fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
 fw1 ~/Documents/Work/data-airflow-composer/

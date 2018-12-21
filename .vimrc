@@ -136,7 +136,6 @@ call plug#end()
 " Editing basics
     set wrap
     set formatoptions=qron1
-    set iskeyword-=_
 
 " Colored column
     highlight ColorColumn ctermbg=magenta
