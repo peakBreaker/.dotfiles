@@ -196,5 +196,7 @@ bindkey "^[[B" down-line-or-beginning-search
 # HIST_STAMPS="mm/dd/yyyy"
 ## }}}
 source ~/.shortcuts
+source ~/.kubectl_aliases
 source ~/.scripts/wrk
+
 PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin/
