@@ -278,6 +278,12 @@ mode $timemenu {
 ## Media keys ------------------------------------------------------- {{{
 
 ## }}}
+## Startup  ------------------------------------------------------- {{{
+exec $HOME/.screenlayout/displays.sh
+exec wal -i $HOME/.config/wall.jpg --saturate 0.6
+exec .scripts/time track QUIET OTHER CPU_START
+exec dunst
+# }}}
 ## Deprecated ------------------------------------------------------- {{{
 # Use Mouse+$mod to drag floating windows to their wanted position
 #floating_modifier $mod

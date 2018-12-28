@@ -3,14 +3,8 @@ separator_block_width=15
 markup=pango
 
 [memory]
-command=i3memory
+command=i3mem
 label=MEM
-interval=30
-
-[memory]
-command=i3memory
-label=SWAP
-instance=swap
 interval=30
 
 [pacman]
