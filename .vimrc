@@ -29,11 +29,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+" Personal plugin
+    Plug 'peakBreaker/peakPlugin'
+
 " Theming
     Plug 'junegunn/vim-emoji'
     Plug 'dylanaraps/wal.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+
+" Syntax
+    Plug 'cespare/vim-toml'
     Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Autocomplete/running & other utils
@@ -42,7 +48,7 @@ call plug#begin()
 
 " Git
     Plug 'jreybert/vimagit'
-    Plug 'zivyangll/git-blame.vim'
+    Plug 'zivyangll/git-blame.vim' " deprecate?
     Plug 'airblade/vim-gitgutter'
 
 " Filesystem/Project handling
@@ -194,7 +200,7 @@ endif
 
 " }}}
 " Folding ----------------------------------------------------------------- {{{
-	set foldlevelstart=0
+    set foldlevelstart=0
 " }}}
 " Commenting -------------------------------------------------------------- {{{
 " source: https://stackoverflow.com/a/24046914/2571881
@@ -243,31 +249,14 @@ function! ToggleComment()
     endif
 endfunction
 
-nnoremap <Leader>t :call ToggleComment()<CR>
-vnoremap <Leader>t :call ToggleComment()<CR>
-" }}}
-" Filetype-specific ------------------------------------------------------- {{{
+" function! pasteregister()
+  " let r = input('Register: ')
+  " execute ''
 
-" Vim {{{
-augroup ft_vim
-	au!
-	au FileType vim setlocal foldmethod=marker keywordprg=:help
-augroup END
-" }}}
+" endfunction
 
-" Python {{{
-augroup python
-    au!
-    au filetype python let python_highlight_all=1
-    " Linting
-    " autocmd BufWritePost *.py call Flake8()
-    let g:flake8_show_quickfix=0
-    let g:flake8_show_in_gutter=1
-    let g:flake8_show_in_file=0 
-    nnoremap <leader>tt :TestSuite -s<CR>
-augroup END
-" }}}
-
+nnoremap <Leader>/ :call ToggleComment()<CR>
+vnoremap <Leader>/ :call ToggleComment()<CR>
 " }}}
 " Hotkeys  ---------------------------------------------------------------- {{{
 
@@ -320,6 +309,8 @@ augroup END
     " Switch : and ;
     nnoremap ; :
     nnoremap : ;
+    " Jumping forward in history
+
 
 " }}}
 
