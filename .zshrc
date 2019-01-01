@@ -2,15 +2,16 @@
 ## OH MY ZSH CONFIG ------------------------------------------------- {{{
 
 # Basic configs, add plugins
-export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME=avit
 plugins=(git vi-mode)
+export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 # Adding powerlevel9k
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir newline vcs)
-POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_COLOR_SCHEME='light'
-source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir newline vcs)
+#POWERLEVEL9K_MODE='awesome-fontconfig'
+#POWERLEVEL9K_COLOR_SCHEME='light'
+#source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 
 ## }}}
 ## VARIOUS ---------------------------------------------------------- {{{

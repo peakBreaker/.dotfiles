@@ -41,6 +41,8 @@ call plug#begin()
 " Syntax
     Plug 'cespare/vim-toml'
     Plug 'PotatoesMaster/i3-vim-syntax'
+    Plug 'posva/vim-vue'
+    Plug 'ap/vim-css-color'
 
 " Autocomplete/running & other utils
     Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -280,6 +282,9 @@ vnoremap <Leader>/ :call ToggleComment()<CR>
 " For folding
     nmap <Tab> za
     nnoremap <expr> <leader><Tab> &foldlevel ? 'zM' :'zR'
+
+" For jumping to definition
+    nmap <C-[> <C-t>
 
 " For vimmagit
     nnoremap <leader>gs :Magit <CR>

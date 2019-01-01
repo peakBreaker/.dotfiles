@@ -12,10 +12,16 @@ fs  ~/.scripts
 fcf ~/.config
 
 # Sensario
+fC  ~/Documents/Clients
 fcs ~/Documents/Clients/Sensario
 fse ~/Documents/Clients/Sensario/Embedded
 fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
 fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
-fw1 ~/Documents/Work/data-airflow-composer/
+fw1 ~/Documents/Work/data-airflow-composer
+
+# Personal
+fpt ~/Documents/Personal/tut
+fp1 ~/Documents/Personal/PIES
+fp2 ~/Documents/Personal/nansenml
