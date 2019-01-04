@@ -142,6 +142,8 @@ export EDITOR="$VISUAL"
 # Set some important env vars
 export TERMINAL="st"
 export BROWSER=firefox
+export GOPATH=$(echo $(go env | awk '$1 ~ /^GOPATH/ {print}' | sed -e 's/[^"]*[^"]//' -e 's/"//g'))
+export DOTFILES_INSTALLED='true'
 ## }}}
 ## PYWAL ------------------------------------------------------------ {{{
 # Import colorscheme from 'wal' asynchronously

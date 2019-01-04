@@ -10,6 +10,7 @@ fpp ~/Pictures
 fvv ~/Videos
 fs  ~/.scripts
 fcf ~/.config
+fG  $GOPATH
 
 # Sensario
 fC  ~/Documents/Clients
@@ -20,6 +21,7 @@ fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
 fw1 ~/Documents/Work/data-airflow-composer
+fw2 $GOPATH/src/github.com/amedia/noctambulant/
 
 # Personal
 fpt ~/Documents/Personal/tut

@@ -1,4 +1,3 @@
-# vim: filetype=python:
 # vim: set foldmethod=marker:
 # vim: set norelativenumber:
 #
@@ -123,20 +122,20 @@ bindsym $mod+Control+l focus output right
 ## Command/keybased keybindings ------------------------------------- {{{
 
 # Function hotkeys
-bindsym $mod+F1		exec --no-startup-id zathura ~/.config/i3/i3_guide.pdf
-bindsym $mod+F2		restart
-bindsym $mod+F3		exec --no-startup-id displayselect
-bindsym $mod+F4		exec --no-startup-id $hibernate
-bindsym $mod+F5		exec --no-startup-id $netrefresh
-bindsym $mod+F6		exec --no-startup-id $term -e transmission-remote-cli
-bindsym $mod+F7		exec --no-startup-id td-toggle
-bindsym $mod+F8		exec --no-startup-id ~/.config/mutt/etc/mailsync.sh
-bindsym $mod+F9		exec --no-startup-id dmenumount
-bindsym $mod+F10	exec --no-startup-id dmenuumount
-bindsym $mod+F11	exec --no-startup-id dmenuarchwiki
-bindsym $mod+F12 exec $term -e sudo -A wifi-menu
+# bindsym $mod+F1		exec --no-startup-id zathura ~/.config/i3/i3_guide.pdf
+# bindsym $mod+F3		exec --no-startup-id displayselect
+# bindsym $mod+F4		exec --no-startup-id $hibernate
+# bindsym $mod+F5		exec --no-startup-id $netrefresh
+# bindsym $mod+F6		exec --no-startup-id $term -e transmission-remote-cli
+# bindsym $mod+F7		exec --no-startup-id td-toggle
+# bindsym $mod+F8		exec --no-startup-id ~/.config/mutt/etc/mailsync.sh
+# bindsym $mod+F9		exec --no-startup-id dmenumount
+# bindsym $mod+F10	exec --no-startup-id dmenuumount
+# bindsym $mod+F11	exec --no-startup-id dmenuarchwiki
+# bindsym $mod+F12        exec $term -e sudo -A wifi-menu
 # Launching scripts
-bindsym $mod+Control+1 exec --no-startup-id dmenuunicode
+bindsym $mod+Control+1  exec dmenuunicode
+bindsym $mod+C          exec clipmenu
 
 ## }}}
 ## Workspace keybindings -------------------------------------------- {{{
@@ -279,10 +278,10 @@ mode $timemenu {
 
 ## }}}
 ## Startup  ------------------------------------------------------- {{{
-exec $HOME/.screenlayout/displays.sh
-exec wal -i $HOME/.config/wall.jpg --saturate 0.6
-exec .scripts/time track QUIET OTHER CPU_START
-exec dunst
+exec --no-startup-id $HOME/.screenlayout/displays.sh
+exec --no-startup-id wal -i $HOME/.config/wall.jpg --saturate 0.6
+exec --no-startup-id .scripts/time track QUIET OTHER CPU_START
+exec --no-startup-id dunst &
 # }}}
 ## Deprecated ------------------------------------------------------- {{{
 # Use Mouse+$mod to drag floating windows to their wanted position
