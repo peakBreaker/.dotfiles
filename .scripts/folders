@@ -22,6 +22,7 @@ fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 # Work shortcuts
 fw1 ~/Documents/Work/data-airflow-composer
 fw2 $GOPATH/src/github.com/amedia/noctambulant/
+fw3 ~/Documents/Work/adpdocs
 
 # Personal
 fpt ~/Documents/Personal/tut
