@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+notify-send "⏰ Starting Pomodoro ⏰"; echo "starting pomodoro";
+
+sleep 1500 && i3lock -c 000000; sleep 300 && killall i3lock; i3lock -c ff0000 && echo "New pomodoro session starting" && \
+sleep 1500 && i3lock -c 000000; sleep 300 && killall i3lock; i3lock -c ff0000 && echo "New pomodoro session starting" && \
+sleep 1500 && i3lock -c 000000; sleep 300 && killall i3lock; i3lock -c ff0000 && echo "New pomodoro session starting" && \
+sleep 1500 && i3lock -c 000000; sleep 300 && killall i3lock; i3lock -c ff0000 && echo "New pomodoro session starting" && \
+
+notify-send "⏰ Pomodoro program exited ⏰";
