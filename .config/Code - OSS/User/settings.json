@@ -1,0 +1,8 @@
+{
+  "vim.normalModeKeyBindings": [
+        {
+            "before": [";"],
+            "after": [":"]
+        }
+    ]
+}
