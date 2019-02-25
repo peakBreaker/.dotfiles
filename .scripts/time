@@ -6,8 +6,10 @@
 
 ## Categories
 CATEGORIES=( WORK CLIENT PERS LIFE OTHER )
-WORK_SUBCAT=(  "INTERRUPT" "HOTFIX" "PLANNED_DEV" "LEARN&RESEARCH" "STRAT&PLANNING" "SUPPORT" "BREAK" "MEETING" "OTHER" )
-CLIENT_SUBCAT=( "SENS_MEET" "SENS_DEV" )
+WORK_SUBCAT=(  "SPECIFIC" "INTERRUPT" "HOTFIX" "PLANNED_DEV" "LEARN&RESEARCH" "STRAT&PLANNING" "SUPPORT" "BREAK" "MEETING" "OTHER" )
+WORK_SPECIFIC=( "1-57-GA" "1-72-AIRFLOW_MIGRATION" ) # project id, issue ref
+CLIENT_SUBCAT=( "SPECIFIC" "SENS_MEET" "SENS_DEV" )
+CLIENT_SPECIFIC=( "NA" )
 PERS_SUBCAT=( "EXERCISE" "COURSES" "READING" "BLOGGING" )
 LIFE_SUBCAT=( "LEISURE" "MORNING_ROUTINE" )
 OTHER_SUBCAT=( "OTHER" "ERROR" ) # Fallback
@@ -25,6 +27,24 @@ local_select_subcat() {
   # Loop over it and get the correct prompt
   for category in ${local_category[*]}; do
     l_prompt="$l_prompt\n$category"
+  done
+  l_prompt=${l_prompt:2} # strip away starting newline
+  # Echo the result to stdout for the function
+  echo "$l_prompt"
+}
+
+local_select_specific() {
+  # First get the correct array
+  case $1 in 
+    WORK) local_specific=${WORK_SPECIFIC[*]} ;;
+    CLIENT) local_specific=${CLIENT_SPECIFIC[*]} ;;
+    PERS) local_specific=${PERS_SPECIFIC[*]} ;;
+    LIFE) local_specific=${LIFE_SPECIFIC[*]} ;;
+    *) local_specific=${OTHER_SPECIFIC[*]} ;;
+  esac
+  # Loop over it and get the correct prompt
+  for specific in ${local_specific[*]}; do
+    l_prompt="$l_prompt\n$specific"
   done
   l_prompt=${l_prompt:2} # strip away starting newline
   # Echo the result to stdout for the function
@@ -67,10 +87,17 @@ t_track() {
     t_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
     echo "user selected tag: $t_tag\n"
 
+    # Get specific project?
+    if [ $t_tag == "SPECIFIC" ]; then
+      t_prompt=($echo $(local_select_specific $t_project))
+      s_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+      echo "user selected tag: $t_tag\n"
+    fi
+
     # Get user input tag and concatenate all tags
     u_tag="$(dmenu -p "User Comment:" <&- && echo)"
     [ -z $u_tag ] && u_tag="u_null" || u_tag="u_$u_tag"
-    u_tags="$tags $t_tag $u_tag"
+    u_tags="$tags $t_tag $s_tag $u_tag"
     echo "Tags concatenated :: $u_tags\n"
   fi
 
