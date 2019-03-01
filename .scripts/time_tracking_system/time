@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+
+# Time tracking script
+
+# Constants
+
+## Categories
+CATEGORIES=( WORK CLIENT PERS LIFE OTHER )
+WORK_SUBCAT=(  "SPECIFIC" "INTERRUPT" "HOTFIX" "PLANNED_DEV" "LEARN&RESEARCH" "STRAT&PLANNING" "TOOLS" "SUPPORT" "BREAK" "MEETING" "OTHER" )
+WORK_SPECIFIC=( "1-57-GA" "1-72-AIRFLOW_MIGRATION" "DS1-9-ABTESTER" ) # project id, issue ref
+CLIENT_SUBCAT=( "SPECIFIC" "SENS_MEET" "SENS_DEV" )
+CLIENT_SPECIFIC=( "NA" )
+PERS_SUBCAT=( "EXERCISE" "COURSES" "READING" "BLOGGING" )
+LIFE_SUBCAT=( "LEISURE" "MORNING_ROUTINE" )
+OTHER_SUBCAT=( "OTHER" "ERROR" ) # Fallback
+
+# Local functions
+local_select_subcat() {
+  # First get the correct array
+  case $1 in 
+    WORK) local_category=${WORK_SUBCAT[*]} ;;
+    CLIENT) local_category=${CLIENT_SUBCAT[*]} ;;
+    PERS) local_category=${PERS_SUBCAT[*]} ;;
+    LIFE) local_category=${LIFE_SUBCAT[*]} ;;
+    *) local_category=${OTHER_SUBCAT[*]} ;;
+  esac
+  # Loop over it and get the correct prompt
+  for category in ${local_category[*]}; do
+    l_prompt="$l_prompt\n$category"
+  done
+  l_prompt=${l_prompt:2} # strip away starting newline
+  # Echo the result to stdout for the function
+  echo "$l_prompt"
+}
+
+local_select_specific() {
+  # First get the correct array
+  case $1 in 
+    WORK) local_specific=${WORK_SPECIFIC[*]} ;;
+    CLIENT) local_specific=${CLIENT_SPECIFIC[*]} ;;
+    PERS) local_specific=${PERS_SPECIFIC[*]} ;;
+    LIFE) local_specific=${LIFE_SPECIFIC[*]} ;;
+    *) local_specific=${OTHER_SPECIFIC[*]} ;;
+  esac
+  # Loop over it and get the correct prompt
+  for specific in ${local_specific[*]}; do
+    l_prompt="$l_prompt\n$specific"
+  done
+  l_prompt=${l_prompt:2} # strip away starting newline
+  # Echo the result to stdout for the function
+  echo "$l_prompt"
+}
+
+# Utils
+t_configure() {
+  echo -n "Configuring time tracker.. "
+  watson config options.stop_on_start 1
+  echo "OK!"
+}
+
+t_sync() {
+    # Sync with crick
+    watson sync
+}
+
+# Functionality
+t_track() {
+  # First get the passed args
+  if [ "$2" == "QUIET" ]; then
+    echo "Running quiet mode\n"
+    t_project=$3
+    u_tags="${@:4}"
+    u_tags="$u_tags AUTO"
+  else
+    tags="${@:2}"
+
+    # Get category
+    for category in ${CATEGORIES[*]}; do
+        t_prompt="$t_prompt\n$category"
+    done
+    t_prompt=${t_prompt:2} # strip away starting newline
+    t_project=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+    echo "user selected project: $t_project\n"
+
+    # Prompt user for tags, first select subcategory
+    t_prompt=($echo $(local_select_subcat $t_project))
+    t_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+    echo "user selected tag: $t_tag\n"
+
+    # Get specific project?
+    if [ $t_tag == "SPECIFIC" ]; then
+      t_prompt=($echo $(local_select_specific $t_project))
+      s_tag=$(echo -e "$t_prompt" | dmenu -i -p "$1")
+      echo "user selected tag: $t_tag\n"
+    fi
+
+    # Get user input tag and concatenate all tags
+    u_tag="$(dmenu -p "User Comment:" <&- && echo)"
+    [ -z $u_tag ] && u_tag="u_null" || u_tag="u_$u_tag"
+    u_tags="$tags $t_tag $s_tag $u_tag"
+    echo "Tags concatenated :: $u_tags\n"
+  fi
+
+  # Prepend + to all tags
+  IFS=', ' read -r -a array <<< "$u_tags"
+  cnt=${#array[@]}
+  for ((i=0;i<cnt;i++)); do
+    f_tags="$f_tags +${array[i]}"
+  done
+
+  # Finally start the time tracker
+  echo "Tags final :: [ $f_tags]"
+  watson start $t_project $f_tags
+}
+
+t_end_session() {
+    # Prompts the user for daily goals reached
+    # u_daily=$(dmenu -p "results from session:" <&- && echo)
+    # u_goals=$(dmenu -p "Did you reach all goals?[Y/N]" <&- && echo)
+    # u_prod=$(dmenu -p "Self eval productivity [0-10]" <&- && echo)
+    # Stop the time tracker
+    watson stop
+}
+
+t_start_session() {
+    # Prompts the user for daily goals
+    # u_plan=$(dmenu -p "Planned activities:" <&- && echo)
+    # u_goals=$(dmenu -p "Goals of the day" <&- && echo)
+    # u_prod=$(dmenu -p "How are you feeling? [0-10]" <&- && echo)
+    # Start the time tracker
+    t_track track
+}
+
+main() {
+  c_type="$1"
+  success=$(case $c_type in
+    "track") echo $(t_track $@) ;;
+    "sync") echo $(t_sync) ;;
+    "end") echo $(t_end_session) ;;
+    "start") echo $(t_start_session) ;;
+    "config") echo $(t_configure) ;;
+    *) echo "Invalid argument" ;;
+  esac)
+  echo -e "Ran time tracking script with result : $success"
+}
+
+main $@
