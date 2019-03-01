@@ -302,11 +302,12 @@ vnoremap <Leader>/ :call ToggleComment()<CR>
     vnoremap > >gv
 
 " For vimtests
-    nnoremap <leader>tn :TestNearest<CR>
-    nnoremap <leader>tf :TestFile<CR>
-    nnoremap <leader>ts :TestSuite<CR>
+    nnoremap <leader>tn :TestNearest
+    nnoremap <leader>tf :TestFile
+    nnoremap <leader>ts :TestSuite
+    nnoremap <leader>tg :TestVisit
+    nnoremap <leader>tr :TestLast<CR>
     nnoremap <leader>tl :TestLast<CR>
-    nnoremap <leader>tg :TestVisit<CR>
 
 " Other
     nnoremap <leader>w :wqa<CR>
