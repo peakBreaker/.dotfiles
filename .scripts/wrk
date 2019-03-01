@@ -2,13 +2,13 @@
 
 # GET ARGS
 while getopts ":r:f:hl" o; do case "${o}" in
-    h) 
+    h)
     echo -e "Optional arguments for custom use:"
     echo -e "  -f: File"
     echo -e "  -r: Retreive number"
     echo -e "  -l: Worker program to call"
     echo -e "  -h: Show this message"
-    exit 
+    exit
     ;;
     f) openFile="$openFile ${OPTARG}" ;;
     r) retreiveNum=${OPTARG} ;;
@@ -60,7 +60,7 @@ wrw()
     # Get dir
     current_wd=$(pwd)
     # Program path
-    retreiveNum=$(($(wc -l <$cachefile) -1))
+    retreiveNum=$(($(wc -l <$cachefile) - 5))
     echo "$retreiveNum,$current_wd,$@" >> $cachefile
     wro $retreiveNum
 }
@@ -85,4 +85,5 @@ main ()
     wro $retreiveNum
 }
 
+# Run main only if we dont source
 [[ $_ != $0 ]] || main $@

@@ -4,6 +4,7 @@ fb  ~/Documents/www/peakBreaker.github.io/
 fd  ~/Documents
 fw  ~/Documents/Work
 fp  ~/Documents/Personal
+fC  ~/Documents/Clients
 fD  ~/Downloads
 fm  ~/Music
 fpp ~/Pictures
@@ -13,7 +14,6 @@ fcf ~/.config
 fG  $GOPATH
 
 # Sensario
-fC  ~/Documents/Clients
 fcs ~/Documents/Clients/Sensario
 fse ~/Documents/Clients/Sensario/Embedded
 fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
@@ -21,10 +21,15 @@ fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
 fw1 ~/Documents/Work/data-airflow-composer
-fw2 $GOPATH/src/github.com/amedia/noctambulant/
+fw11 ~/Documents/Work/data-airflow-jobs
+fw2 $GOPATH/src/github.com/amedia/noctambulant
 fw3 ~/Documents/Work/adpdocs
+# Data Science
+fwds ~/Documents/Work/DS/
+fwds1 ~/Documents/Work/DS/ds_AB_testing
 
 # Personal
 fpt ~/Documents/Personal/tut
 fp1 ~/Documents/Personal/PIES
 fp2 ~/Documents/Personal/nansenml
+fp3 ~/Documents/Personal/cheat-sheet

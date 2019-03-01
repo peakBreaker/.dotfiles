@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-PIQUEINDEX=~/Documents/personal/pique/index.csv
-PIQUELOGS=~/Documents/personal/pique/logs.csv
+PIQUEINDEX=~/Documents/Personal/pique/index.csv
+PIQUELOGS=~/Documents/Personal/pique/logs.csv
 
 
 piq_ls() # Shows the index of shirts
