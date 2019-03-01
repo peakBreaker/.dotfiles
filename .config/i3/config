@@ -32,8 +32,8 @@ gaps outer 10
 set $mod Mod4
 set $term --no-startup-id $TERMINAL
 # time and locker
-set $timetracker $HOME/.scripts/time
-set $fuzzylocker $HOME/.scripts/fuzzy_lock
+set $timetracker $HOME/.scripts/time_tracking_system/timetracker
+set $fuzzylocker $HOME/.scripts/i3scripts/fuzzy_lock
 #set $stoprec --no-startup-id dmenurecord kill
 set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $shutdown sudo -A shutdown -h now
@@ -279,8 +279,8 @@ mode $timemenu {
 ## }}}
 ## Startup  ------------------------------------------------------- {{{
 exec --no-startup-id $HOME/.screenlayout/displays.sh
-exec --no-startup-id wal -i $HOME/.config/wall.jpg --saturate 0.6
-exec --no-startup-id .scripts/time track QUIET OTHER CPU_START
+#exec --no-startup-id wal -i $HOME/.config/wall.jpg --saturate 0.6
+exec --no-startup-id wal -i $HOME/.config/wall.jpg && wal --theme base16-classic
 exec --no-startup-id dunst &
 # }}}
 ## Deprecated ------------------------------------------------------- {{{
