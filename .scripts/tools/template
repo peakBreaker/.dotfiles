@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TEMPLATEDIR=$HOME/.templates
+
+[ -z $1 ] && echo "Must provide argument" && exit 1
+
+if [ $1 = 'ls' ]; then
+  ls $TEMPLATEDIR
+elif [ -z $2 ]; then 
+  cp -r $TEMPLATEDIR/$1/default ./template_default && exit 0
+elif [ $2 = 'ls' ]; then
+  ls $TEMPLATEDIR/$1/
+else
+  cp -r $TEMPLATEDIR/$1/$2 ./
+fi
+

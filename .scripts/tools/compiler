@@ -14,6 +14,8 @@ cd "$dir" || exit
 
 textype() { \
     command="pdflatex"
+    dir=$dir'/build'
+    mkdir $dir
     ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
     $command --output-directory="$dir" "$base" &&
     grep -i addbibresource "$file" >/dev/null &&
