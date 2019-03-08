@@ -2,15 +2,6 @@
 
 TEMPLATEDIR=$HOME/.templates
 
-[ -z $1 ] && echo "Must provide argument" && exit 1
+cp_template() { cp -r "$(du -a -d 1 $1/ | awk '{print $2}' | fzf)" . ;}
 
-if [ $1 = 'ls' ]; then
-  ls $TEMPLATEDIR
-elif [ -z $2 ]; then 
-  cp -r $TEMPLATEDIR/$1/default ./template_default && exit 0
-elif [ $2 = 'ls' ]; then
-  ls $TEMPLATEDIR/$1/
-else
-  cp -r $TEMPLATEDIR/$1/$2 ./
-fi
-
+[ -z $1 ] && cp_template "$(du -a -d 1 $TEMPLATEDIR | awk '{print $2}' | fzf)" || cp_template $TEMPLATEDIR/$1
