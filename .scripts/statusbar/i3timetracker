@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+case $BLOCK_BUTTON in
+    1) notify-send "<b>Logs for today:</b>
+      $(watson log -d)" ;;
+    3) notify-send "<b>Time Tracking module:</b>
+- Click to get some logs
+- Shows current project and first tag" ;;
+esac
+
+echo -n "$(watson status --project)"
+echo -n " > $(watson status --tags | awk '{print $1}' | sed s/,//g | sed s/[[]//g)"
+echo -n " - $(watson status --elapsed)"

@@ -2,9 +2,19 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
+[timetracker]
+label=🕑
+command=i3timetracker
+interval=30
+
+[gcal]
+label=📅
+command=i3cal
+interval=10
+
 [memory]
 command=i3mem
-label=MEM
+label=💭 RAM
 interval=30
 
 [pacman]
@@ -22,7 +32,7 @@ command=i3internet
 interval=10
 
 [time]
-label=📅
+label=📆
 command=i3date
 interval=30
 

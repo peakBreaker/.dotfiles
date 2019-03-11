@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+get_events() {
+    echo "$(gcalcli agenda | sed 's/    //g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")"
+}
+
+case $BLOCK_BUTTON in
+    1) notify-send "<b>Upcoming events:</b>
+      $(get_events)" ;;
+    3) notify-send "<b>Calendar module:</b>
+- Shows first upcoming event
+- Click to show coming events
+Based on gcalcli" ;;
+esac
+
+gcalcli agenda --nostarted --military | head -2 | tail -1 | sed 's/    //g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed 's/\n//g'
+#echo -e "9:45am  Ukentlig statusmøte Data Engineering\n"
