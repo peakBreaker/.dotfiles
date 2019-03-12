@@ -87,6 +87,7 @@ alias dck-all-clean='docker stop $(docker container ls -a -q) && docker system p
 alias wa="watson"
 alias ws="watson status"
 alias wl="watson log -c"
+alias nb="newsboat"
 
 # Adding color
 alias ls='ls -hN --color=auto --group-directories-first'
