@@ -1,6 +1,8 @@
 [user]
 	name = Anders L. Hurum
 	email = andershurum@gmail.com
+	signinkey = <key>
+	signingkey = <key>
 [alias]
      s = status
      c = commit -e
@@ -30,3 +32,7 @@
         git commit -m\"[AUTO] Added gitignore - ignoring for lang :: [${langignore}]\"
 
 
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2

@@ -282,6 +282,7 @@ exec --no-startup-id $HOME/.screenlayout/displays.sh
 #exec --no-startup-id wal -i $HOME/.config/wall.jpg --saturate 0.6
 exec --no-startup-id wal -i $HOME/.config/wall.jpg && wal --theme base16-classic
 exec --no-startup-id dunst &
+exec --no-startup-id dropbox &
 # }}}
 ## Deprecated ------------------------------------------------------- {{{
 # Use Mouse+$mod to drag floating windows to their wanted position

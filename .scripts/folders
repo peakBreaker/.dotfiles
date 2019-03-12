@@ -11,6 +11,8 @@ fpp ~/Pictures
 fvv ~/Videos
 fs  ~/.scripts
 fcf ~/.config
+ft  ~/.templates
+ftt  ~/.templates/tex
 fG  $GOPATH
 
 # Sensario
@@ -24,7 +26,7 @@ fw1 ~/Documents/Work/data-airflow-composer
 fw11 ~/Documents/Work/data-airflow-jobs
 fw2 $GOPATH/src/github.com/amedia/noctambulant
 fw3 ~/Documents/Work/adpdocs
-# Data Science
+#    Work Data Science
 fwds ~/Documents/Work/DS/
 fwds1 ~/Documents/Work/DS/ds_AB_testing
 
@@ -32,4 +34,4 @@ fwds1 ~/Documents/Work/DS/ds_AB_testing
 fpt ~/Documents/Personal/tut
 fp1 ~/Documents/Personal/PIES
 fp2 ~/Documents/Personal/nansenml
-fp3 ~/Documents/Personal/cheat-sheet
+fp3 ~/Documents/Personal/documentation/cheat-sheet
