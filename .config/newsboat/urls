@@ -1,5 +1,26 @@
-http://lukesmith.xyz/rss.xml
-https://notrelated.libsyn.com/rss
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith (YouTube)"
-https://www.archlinux.org/feeds/news/ "tech"
-https://labs.spotify.com/feed/ "~Spotify labs"
+# Essential tech
+https://www.archlinux.org/feeds/news/ Tech "~Arch official"
+
+# Media
+https://www.ringblad.no/service/rss Media "~Ringerikes blad"
+https://www.nrk.no/toppsaker.rss Media "~NRK Toppsaker"
+
+# Fun tech podcasts
+http://theshipshow.com/podcast.xml podcast Tech
+
+# Big Data Techblogs
+http://lambda-architecture.net/rss Tech BigData "~Lambda Architecture"
+https://labs.spotify.com/feed/ Tech BigData "~Spotify Labs"
+https://medium.com/feed/netflix-techblog Tech BigData "~Netflix Techblog"
+
+# Interesting people
+### Luke Smith
+http://lukesmith.xyz/rss.xml people lukesmith
+https://notrelated.libsyn.com/rss people podcast lukesmith
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA youtube people lukesmith "~Luke Smith (YouTube)"
+
+### Milinda Pathirage, Data Engineering
+http://milinda.pathirage.org/feed.xml people
+
+### Jesse Anderson, Data Engineering
+https://www.jesse-anderson.com/feed people
