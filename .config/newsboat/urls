@@ -1,26 +1,37 @@
 # Essential tech
-https://www.archlinux.org/feeds/news/ Tech "~Arch official"
+https://www.archlinux.org/feeds/news/ Tech "~SYS: Arch official"
 
 # Media
-https://www.ringblad.no/service/rss Media "~Ringerikes blad"
-https://www.nrk.no/toppsaker.rss Media "~NRK Toppsaker"
+https://www.ringblad.no/service/rss Media "~MEDIA: Ringerikes blad"
+https://www.nrk.no/toppsaker.rss Media "~MEDIA: NRK Toppsaker"
 
 # Fun tech podcasts
-http://theshipshow.com/podcast.xml podcast Tech
+http://theshipshow.com/podcast.xml podcast Tech "~DEVOPS: The Ship Show Podcast"
 
 # Big Data Techblogs
-http://lambda-architecture.net/rss Tech BigData "~Lambda Architecture"
-https://labs.spotify.com/feed/ Tech BigData "~Spotify Labs"
-https://medium.com/feed/netflix-techblog Tech BigData "~Netflix Techblog"
+http://lambda-architecture.net/rss Tech BigData "~DE: Lambda Architecture"
+https://labs.spotify.com/feed/ Tech BigData "~DE: Spotify Labs"
+https://medium.com/feed/netflix-techblog Tech BigData "~DE: Netflix Techblog"
+https://eng.uber.com/feed Tech BigData "~DE: Uber Engineering blog"
 
 # Interesting people
 ### Luke Smith
-http://lukesmith.xyz/rss.xml people lukesmith
-https://notrelated.libsyn.com/rss people podcast lukesmith
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA youtube people lukesmith "~Luke Smith (YouTube)"
+http://lukesmith.xyz/rss.xml people "~PEOPLE: LukeSmith Site/blog"
+https://notrelated.libsyn.com/rss people podcast "~PEOPLE: LukeSmith Podcast"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA youtube people "~PEOPLE: Luke Smith YouTube"
 
 ### Milinda Pathirage, Data Engineering
-http://milinda.pathirage.org/feed.xml people
+http://milinda.pathirage.org/feed.xml people "~PEOPLE: Milinda Pathirage Site"
 
 ### Jesse Anderson, Data Engineering
-https://www.jesse-anderson.com/feed people
+https://www.jesse-anderson.com/feed people "~PEOPLE: Jesse Anderson Blog"
+
+# Reddit
+https://www.reddit.com/r/unixporn.rss Reddit "~REDDIT: Unixporn"
+https://www.reddit.com/r/i3wm.rss Reddit "~REDDIT: i3wm"
+https://www.reddit.com/r/dataengineering.rss Reddit "~REDDIT: DataEngineering"
+https://www.reddit.com/r/MachineLearning.rss Reddit "~REDDIT: MachineLearning"
+https://www.reddit.com/r/CryptoCurrency.rss Reddit "~REDDIT: CryptoCurrency"
+https://www.reddit.com/r/Python.rss Reddit "~REDDIT: Python"
+https://www.reddit.com/r/golang.rss Reddit "~REDDIT: Golang"
+https://www.reddit.com/r/commandline.rss Reddit "~REDDIT: CommandLine"

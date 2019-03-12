@@ -2,7 +2,12 @@
 
 case $BLOCK_BUTTON in
     1) notify-send "<b>Logs for today:</b>
-      $(watson log -d)" ;;
+      <br>$(watson log -d | sed 's/\t//g' | awk '
+            {split($0, a, "s")} {
+                print "<b><i>" $1 "</i></b> " $2 " " $5 " " a[2]
+            }' | awk '
+            NR>1 {print $1" " $2 " " $3 " " substr($5, 2);}' |
+              sed 's/.$//')" ;; # split by second, print first params, clean tag
     3) notify-send "<b>Time Tracking module:</b>
 - Click to get some logs
 - Shows current project and first tag" ;;

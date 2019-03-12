@@ -35,3 +35,6 @@ fpt ~/Documents/Personal/tut
 fp1 ~/Documents/Personal/PIES
 fp2 ~/Documents/Personal/nansenml
 fp3 ~/Documents/Personal/documentation/cheat-sheet
+
+# Configurations
+fcnb ~/.config/newsboat
