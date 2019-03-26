@@ -2,11 +2,8 @@
 https://www.archlinux.org/feeds/news/ Tech "~SYS: Arch official"
 
 # Media
-https://www.ringblad.no/service/rss Media "~MEDIA: Ringerikes blad"
-https://www.nrk.no/toppsaker.rss Media "~MEDIA: NRK Toppsaker"
-
-# Fun tech podcasts
-http://theshipshow.com/podcast.xml podcast Tech "~DEVOPS: The Ship Show Podcast"
+https://www.techmeme.com/feed.xml Media Tech "~MEDIA: TechMeme"
+http://news.ycombinator.com/rss Media Tech "~MEDIA: Hackernews"
 
 # Big Data Techblogs
 http://lambda-architecture.net/rss Tech BigData "~DE: Lambda Architecture"
@@ -19,12 +16,17 @@ https://eng.uber.com/feed Tech BigData "~DE: Uber Engineering blog"
 http://lukesmith.xyz/rss.xml people "~PEOPLE: LukeSmith Site/blog"
 https://notrelated.libsyn.com/rss people podcast "~PEOPLE: LukeSmith Podcast"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA youtube people "~PEOPLE: Luke Smith YouTube"
-
 ### Milinda Pathirage, Data Engineering
 http://milinda.pathirage.org/feed.xml people "~PEOPLE: Milinda Pathirage Site"
-
 ### Jesse Anderson, Data Engineering
 https://www.jesse-anderson.com/feed people "~PEOPLE: Jesse Anderson Blog"
+### Martin Fowler, Software Engineering
+https://martinfowler.com/feed.atom people "~PEOPLE: Martin Fowler Blog"
+### The TechLead
+https://www.youtube.com/feeds/videos.xml?channel_id=UC4xKdmAXFh4ACyhpiQ_3qBw youtube people "~PEOPLE: TechLead"
+
+# Fun tech podcasts
+http://theshipshow.com/podcast.xml podcast Tech "~DEVOPS: The Ship Show Podcast"
 
 # Reddit
 https://www.reddit.com/r/unixporn.rss Reddit "~REDDIT: Unixporn"
@@ -35,3 +37,8 @@ https://www.reddit.com/r/CryptoCurrency.rss Reddit "~REDDIT: CryptoCurrency"
 https://www.reddit.com/r/Python.rss Reddit "~REDDIT: Python"
 https://www.reddit.com/r/golang.rss Reddit "~REDDIT: Golang"
 https://www.reddit.com/r/commandline.rss Reddit "~REDDIT: CommandLine"
+
+# Norwegian News
+https://www.ringblad.no/service/rss Media "~MEDIA: Ringerikes blad"
+https://www.nrk.no/toppsaker.rss Media "~MEDIA: NRK Toppsaker"
+
