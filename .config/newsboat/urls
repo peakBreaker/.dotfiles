@@ -1,5 +1,6 @@
 # Essential tech
 https://www.archlinux.org/feeds/news/ Tech "~SYS: Arch official"
+http://feeds.feedburner.com/PythonInsider Tech "~SYS: Python insider"
 
 # Media
 https://www.techmeme.com/feed.xml Media Tech "~MEDIA: TechMeme"
@@ -27,6 +28,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC4xKdmAXFh4ACyhpiQ_3qBw you
 
 # Fun tech podcasts
 http://theshipshow.com/podcast.xml podcast Tech "~DEVOPS: The Ship Show Podcast"
+https://pythonbytes.fm/episodes/rss podcast Tech "~PYTHON: PythonBytes Podcast"
 
 # Reddit
 https://www.reddit.com/r/unixporn.rss Reddit "~REDDIT: Unixporn"

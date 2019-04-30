@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "Pulling and running the dockerimage for analyzing repo"
+
+docker pull luctielen/repo_analyzer && \
+docker run --rm -p 80:8000 -p 8000:8000 -v $(pwd):/app/repo:ro,cached -it luctielen/repo_analyzer
+

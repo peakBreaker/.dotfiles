@@ -1,6 +1,6 @@
 # You can add comments to these files with #
 fh  ~/
-fb  ~/Documents/www/peakBreaker.github.io/
+fb  ~/Documents/Personal/www/peakBreaker.github.io/
 fd  ~/Documents
 fw  ~/Documents/Work
 fp  ~/Documents/Personal
@@ -22,8 +22,11 @@ fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
 fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
-fw1 ~/Documents/Work/data-airflow-composer
-fw11 ~/Documents/Work/data-airflow-jobs
+fwe ~/Documents/Work/etl/
+fw1 ~/Documents/Work/etl/data-airflow-composer
+fw1l1 ~/Documents/Work/etl/ETLPY
+fw1l2 ~/Documents/Work/etl/MockQuerPy
+fw11 ~/Documents/Work/etl/data-airflow-jobs
 fw2 $GOPATH/src/github.com/amedia/noctambulant
 fw3 ~/Documents/Work/adpdocs
 #    Work Data Science

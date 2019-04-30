@@ -1,0 +1,13 @@
+#/usr/bin/env python
+
+process_raw_data() {
+    watson log --from $1 --json | $HOME/.scripts/time_tracking_system/timeanalysis.py
+}
+
+cd $(mktemp -d) && \
+virtualenv venv && source venv/bin/activate && pip install -r ~/.scripts/time_tracking_system/requirements.txt && \
+cp ~/.scripts/time_tracking_system/*.ipynb . && \
+mkdir -p ./reports && \
+process_raw_data $1 && \
+jupyter notebook .
+

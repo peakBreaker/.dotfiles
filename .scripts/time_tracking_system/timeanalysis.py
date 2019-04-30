@@ -8,7 +8,7 @@ import pandas as pd
 
 # Constants
 ANALYSIS_FRAME_DAYS = 1
-START_DATE = date(2019, 2, 1)
+START_DATE = date(2019, 3, 1)
 STRF_FORMAT = '%Y-%m-%d'
 REPORTS_FOLDER = './reports/'
 
@@ -21,7 +21,7 @@ specifics = {'WORK': ["1-57-GA", "1-72-AIRFLOW_MIGRATION", "DS1-9-ABTESTER"],
              }
 main_dfs = {
        'WORK': pd.DataFrame(columns=["INTERRUPT", "HOTFIX", "PLANNED_DEV",
-                                     "LEARN&RESEARCH", "STRAT&PLANNING",
+                                     "LEARN&RESEARCH", "STRAT&PLANNING", "TOOLS",
                                      "SUPPORT", "BREAK", "MEETING", "OTHER",
                                      *[s for s in specifics['WORK']]]),
        'CLIENT': pd.DataFrame(columns=["SENS_MEET", "SENS_DEV"]),
