@@ -9,15 +9,18 @@
 " Email: andershurum@gmail.com
 " Github: https://github.com/peakbreaker
 "
-"                      #      mmmmm                       #                   
-" mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm 
+"                      #      mmmmm                       #
+" mmmm    mmm    mmm   #   m  #    #  m mm   mmm    mmm   #   m   mmm    m mm
 " #" "#  #"  #  "   #  # m"   #mmmm"  #"  " #"  #  "   #  # m"   #"  #   #"  "
-" #   #  #""""  m"""#  #"#    #    #  #     #""""  m"""#  #"#    #""""   #    
-" ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #    
-" #                                                                           
+" #   #  #""""  m"""#  #"#    #    #  #     #""""  m"""#  #"#    #""""   #
+" ##m#"  "#mm"  "mm"#  #  "m  #mmmm"  #     "#mm"  "mm"#  #  "m  "#mm"   #
+" #
 " #
 "
 " Whenever a line has been thoughtfully considered and added, it is indented
+
+" Fix for 2R issue https://github.com/1587/vim/issues/390
+set t_u7=
 
 " Plugins ----------------------------------------------------------------- {{{
 
@@ -50,7 +53,6 @@ call plug#begin()
 
 " Git
     Plug 'jreybert/vimagit'
-    Plug 'zivyangll/git-blame.vim' " deprecate?
     Plug 'airblade/vim-gitgutter'
 
 " Filesystem/Project handling
@@ -285,6 +287,7 @@ vnoremap <Leader>/ :call ToggleComment()<CR>
 
 " For jumping to definition
     nmap <C-[> <C-t>
+    nnoremap <leader>. :CtrlPTag<CR>
 
 " For vimmagit
     nnoremap <leader>gs :Magit <CR>
