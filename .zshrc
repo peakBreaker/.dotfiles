@@ -42,7 +42,7 @@ envg() {
     alias c="gcloud"
     alias cconf="gcloud config"
     alias cconfls="gcloud config list"
-    alias ch="echo -e '--- Configured for GCLOUD SDK ---\n\tc:gcloud\n\tcconf:config\n\tcconfls:ls config\n\tch:help'"
+    alias chelp="echo -e '--- Configured for GCLOUD SDK ---\n\tc:gcloud\n\tcconf:config\n\tcconfls:ls config\n\tch:help'"
     echo "OK!"
 
     # If init is provided, set up a new project

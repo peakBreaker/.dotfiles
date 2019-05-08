@@ -72,6 +72,19 @@ call plug#end()
 
 " Configuring Plugins --------------------------------------------------- {{{
 
+" Kite
+    let g:kite_tab_complete=1
+
+    set completeopt-=menu
+    set completeopt+=menuone   " show the popup menu even when there is only 1 match
+    set completeopt+=preview   " show preview window
+    set completeopt+=noinsert  " don't insert any text until user chooses a match
+    set completeopt-=noselect  " dont select first match
+
+    autocmd CompleteDone * if !pumvisible() | pclose | endif
+
+    let g:kite_documentation_continual=1
+
 " Ultisnips
     let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -131,6 +144,9 @@ call plug#end()
 " Enable modelines
     set modeline
     set modelines=3
+
+" Statusline
+    set laststatus=2  " always display the status line
 
 " UI Basics
     set number
