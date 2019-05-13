@@ -124,6 +124,12 @@ call plug#end()
 " asyncrun now has an option for opening quickfix automatically
   let g:asyncrun_open = 15
 
+" Control-p speedup
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 " }}}
 
 " }}}
