@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+## --- DO NOT COMMIT AND PUSH THIS FILE ---
+## Source this script to use it
+## Source from project root unless your change PROJECT_ROOT to abspath
+
+#export CONTAINER_WORK_DIR=/app
+#export CONTAINER_EXPOSED_PORTS="5000:5000"
+IS_SET=${CONTAINER_WORK_DIR?SOURCEME: Must provide container work directory}
+IS_SET=${CONTAINER_EXPOSED_PORTS?SOURCEME: Must provide container exposed ports}
+unset IS_SET
+
+# Some project configurations
+export PROJECT_NAME="untitled_project"
+export PROJECT_ROOT=$(pwd)  # Change this to proj absolute path if you want
+export RUNNING_LOCAL=TRUE
+export APP_WORKING_TMP_DIR=$(mktemp -d)
+export APP_MAINS_FOLDER=$PROJECT_ROOT/app/
+
+CONTAINER_NAME=$PROJECT_NAME
+TAG_BASE=eu.gcr.io/amedia-analytics-eu/$PROJECT_NAME/
+TAG_V_DEFAULT=dirty
+
+ddebug () {
+  echo "DDEBUG: Running script with configurations :"
+  echo "
+    RUNNING_LOCAL : $RUNNING_LOCAL
+    PROJECT_ROOT : $PROJECT_ROOT
+    APP_WORKING_TMP_DIR : $APP_WORKING_TMP_DIR
+    APP_MAINS_FOLDER : $APP_MAINS_FOLDER
+    CONTAINER_NAME : $CONTAINER_NAME
+    TAG_BASE:TAG_V_DEFAULT : $TAG_BASE:$TAG_V_DEFAULT
+  "
+}
+
+dbuild () {
+  ddebug
+  TAG=$TAG_BASE:${1:-$TAG_V_DEFAULT}
+  TARGET=${2:-dev}
+  echo "DBUILD: Proceeding to build the image : \n\tImage: $TAG\n\tTarget: $TARGET" 
+  docker build --target $TARGET -t $TAG $APP_MAINS_FOLDER
+}
+
+drel () {
+  # May need gcloud auth login && gcloud auth configure-docker first
+  TAG=$TAG_BASE:${1?DREL: Must provide release version}
+  echo "Will now proceed to build and push $TAG"
+  read -p "Press enter to continue"
+  LATEST_TAG=$TAG_BASE:'latest'
+  echo "DREL: Proceeding to build and release : \n\t$TAG\n\t$LATEST_TAG"
+  dbuild $1 prod
+  docker tag $TAG $LATEST_TAG
+  docker push $TAG
+  docker push $LATEST_TAG
+}
+
+ddev () {
+  echo "DDEV: Setting up devenv"
+  APPTYPE=${1:-app}
+  TAG=$TAG_BASE:${2:-$TAG_V_DEFAULT}
+  dbuild ${2:-$TAG_V_DEFAULT} dev
+
+  echo "DDEV: Dev docker image built - Proceeding to run the dev container"
+  if [ "$APPTYPE" = "app" ]; then
+    docker run --rm \
+               --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
+               -p $CONTAINER_EXPOSED_PORTS \
+               --name $CONTAINER_NAME \
+               -it \
+               $TAG
+  elif [ "$APPTYPE" = "interactive" ]; then
+    docker run --rm \
+               --entrypoint="" \
+               --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
+               -p $CONTAINER_EXPOSED_PORTS \
+               --name $CONTAINER_NAME \
+               -it \
+               $TAG /bin/bash
+  else
+    echo "Invalid Apptype, run either '$ ddev' or '$ ddev interactive'"
+  fi
+}
+
