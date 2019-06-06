@@ -26,11 +26,21 @@
      stpop = stash pop
      stap = stash apply
      pl = pull
-    initignore = !read -p 'Ignore languages (seperate w/ "," no spaces): ' langignore && \
+     initignore = !read -p 'Ignore languages (seperate w/ "," no spaces): ' langignore && \
         wget -O .gitignore "https://www.gitignore.io/api/${langignore}" && \
         git add .gitignore && \
         git commit -m\"[AUTO] Added gitignore - ignoring for lang :: [${langignore}]\"
 
+    prefixbranch = !export PREFIX=${1?Missing first argument for prefix} && \
+        export BRANCH_RENAME=$(git branch | fzf | awk '{print $NF}') && \
+        export NEW_BRANCH_NAME=$PREFIX/$BRANCH_RENAME && \
+        echo "Running with prefix : $PREFIX" && \
+        echo "Renaming branch : $BRANCH_RENAME to $NEW_BRANCH_NAME" && \
+        git branch -m $BRANCH_RENAME $NEW_BRANCH_NAME && \
+        echo -e "Successfully renamed branch $NEW_BRANCH_NAME, pushing upstream" && \
+        git push origin :$BRANCH_RENAME && \
+        git push -u origin $NEW_BRANCH_NAME && \
+        echo "New branch name : $NEW_BRANCH_NAME"
 
 [commit]
 	gpgsign = true
