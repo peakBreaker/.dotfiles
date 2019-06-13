@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## --- DO NOT COMMIT AND PUSH THIS FILE ---
+## --- LET ONLY PROJECTOWNERS OR CERTIFIED ENGINEERS COMMIT TO THIS FILE ---
 ## Source this script to use it
 ## Source from project root unless your change PROJECT_ROOT to abspath
 
@@ -8,18 +8,32 @@
 #export CONTAINER_EXPOSED_PORTS="5000:5000"
 IS_SET=${CONTAINER_WORK_DIR?SOURCEME: Must provide container work directory}
 IS_SET=${CONTAINER_EXPOSED_PORTS?SOURCEME: Must provide container exposed ports}
-unset IS_SET
 
 # Some project configurations
-export PROJECT_NAME="untitled_project"
+# export PROJECT_NAME="untitled_project"
+IS_SET=${PROJECT_NAME?SOURCEME: Must set projectname}
 export PROJECT_ROOT=$(pwd)  # Change this to proj absolute path if you want
 export RUNNING_LOCAL=TRUE
 export APP_WORKING_TMP_DIR=$(mktemp -d)
-export APP_MAINS_FOLDER=$PROJECT_ROOT/app/
+export DOCKERFILE_FOLDER=$PROJECT_ROOT/app/  # Where the dockerfile resides
 
+# KMS Configs
+# export ENABLE_KMS=1
+export KMS_PROJECT='untitled_google_project'
+export SECRETFILE_PATH=$PROJECT_ROOT/data/
+export SECRETFILE_OUT_PATH=$(mktemp -d)
+export SECRETFILE=servicekey.json
+export KMS_LOC='europe-north1'
+# export KMS_KEYRING=''
+# export KMS_KEY='' # Ask sysadmin for help here
+
+# Docker configurations
 CONTAINER_NAME=$PROJECT_NAME
-TAG_BASE=eu.gcr.io/amedia-analytics-eu/$PROJECT_NAME/
+TAG_BASE=eu.gcr.io/amedia-analytics-eu/$PROJECT_NAME/app
 TAG_V_DEFAULT=dirty
+
+# Unset the IS_SET to be tidy
+unset IS_SET
 
 ddebug () {
   echo "DDEBUG: Running script with configurations :"
@@ -27,10 +41,35 @@ ddebug () {
     RUNNING_LOCAL : $RUNNING_LOCAL
     PROJECT_ROOT : $PROJECT_ROOT
     APP_WORKING_TMP_DIR : $APP_WORKING_TMP_DIR
-    APP_MAINS_FOLDER : $APP_MAINS_FOLDER
+    DOCKERFILE_FOLDER : $DOCKERFILE_FOLDER
     CONTAINER_NAME : $CONTAINER_NAME
     TAG_BASE:TAG_V_DEFAULT : $TAG_BASE:$TAG_V_DEFAULT
   "
+  if [ $ENABLE_KMS = 1 ]; then
+    echo "
+    KMS_PROJECT : $KMS_PROJECT
+    KMS_SECRETFILE : $SECRETFILE
+    KMS_SECRETFILE_PATH : $SECRETFILE_PATH
+    KMS_SECRETFILE_OUT_PATH : $SECRETFILE_OUT_PATH
+    KMS_LOCATION : $KMS_LOC
+    KMS_KEYRING : $KMS_KEYRING
+    KMS_KEY : $KMS_KEY
+    "
+  else 
+    echo "
+    KMS_ENABLED : False
+    "
+  fi
+}
+
+dkms () {
+  echo "DKMS: Decrypting key to tmp directory"
+  gcloud --project=$KMS_PROJECT kms decrypt \
+         --ciphertext-file=$SECRETFILE_PATH/$SECRETFILE.enc \
+         --plaintext-file=$SECRETFILE_OUT_PATH/$SECRETFILE \
+         --location=$KMS_LOC \
+         --keyring=$KMS_KEYRING \
+         --key=$KMS_KEY
 }
 
 dbuild () {
@@ -38,7 +77,7 @@ dbuild () {
   TAG=$TAG_BASE:${1:-$TAG_V_DEFAULT}
   TARGET=${2:-dev}
   echo "DBUILD: Proceeding to build the image : \n\tImage: $TAG\n\tTarget: $TARGET" 
-  docker build --target $TARGET -t $TAG $APP_MAINS_FOLDER
+  docker build --target $TARGET -t $TAG $DOCKERFILE_FOLDER
 }
 
 drel () {
@@ -64,6 +103,8 @@ ddev () {
   if [ "$APPTYPE" = "app" ]; then
     docker run --rm \
                --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
+               --volume $KMS_SECRETFILE_OUT_PATH:$KMS_SECRETFILE_OUT_PATH \
+               -e GOOGLE_APPLICATION_CREDENTIALS=$KMS_SECRETFILE_OUT_PATH/$SECRETFILE \
                -p $CONTAINER_EXPOSED_PORTS \
                --name $CONTAINER_NAME \
                -it \
@@ -72,6 +113,8 @@ ddev () {
     docker run --rm \
                --entrypoint="" \
                --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
+               --volume $KMS_SECRETFILE_OUT_PATH:$KMS_SECRETFILE_OUT_PATH \
+               -e GOOGLE_APPLICATION_CREDENTIALS=$KMS_SECRETFILE_OUT_PATH/$SECRETFILE \
                -p $CONTAINER_EXPOSED_PORTS \
                --name $CONTAINER_NAME \
                -it \
@@ -79,5 +122,25 @@ ddev () {
   else
     echo "Invalid Apptype, run either '$ ddev' or '$ ddev interactive'"
   fi
+  echo "DDEV: Container exited - Shredding the private key"
+  shred -f -zu $SECRETFILE_OUT_PATH/$SECRETFILE
 }
 
+: ' Add the following to the end of your dockerfile :
+
+################################################################
+# Python development stage
+#
+# Uses deps from last stags and mounts a volume to allow easy
+# development
+################################################################
+
+FROM prod as dev
+
+WORKDIR /appdev
+VOLUME /appdev
+ENV PYTHONPATH=/appdev
+#ENV GOOGLE_APPLICATION_CREDENTIALS="/appdev/data/<key>.json"
+
+ENTRYPOINT python server.server
+'
