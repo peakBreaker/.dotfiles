@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+
+dwatch () {
+  MONITORDIR="./"
+  inotifywait --excludei '.git/**/*' \
+    -mre modify,move,close_write,create,delete,delete_self "${MONITORDIR}" | \
+    while read FILECHANGE
+  do
+    [ -z $PROG_PID ] && echo "no program to kill yet" || kill $PROD_PID
+    # change to match the desired app below
+    gunicorn --bind 0.0.0.0:8000 -w=1 server.server &
+    PROG_PID=$!
+}
+[ "$1" = "watch" ] && dwatch && exit
+
 ## --- LET ONLY PROJECTOWNERS OR CERTIFIED ENGINEERS COMMIT TO THIS FILE ---
 ## Source this script to use it
 ## Source from project root unless your change PROJECT_ROOT to abspath
@@ -15,7 +29,7 @@ IS_SET=${PROJECT_NAME?SOURCEME: Must set projectname}
 export PROJECT_ROOT=$(pwd)  # Change this to proj absolute path if you want
 export RUNNING_LOCAL=TRUE
 export APP_WORKING_TMP_DIR=$(mktemp -d)
-export DOCKERFILE_FOLDER=$PROJECT_ROOT/app/  # Where the dockerfile resides
+export DOCKERFILE_PATH=$PROJECT_ROOT/app/  # Where the dockerfile resides
 
 # KMS Configs
 # export ENABLE_KMS=1
@@ -41,7 +55,7 @@ ddebug () {
     RUNNING_LOCAL : $RUNNING_LOCAL
     PROJECT_ROOT : $PROJECT_ROOT
     APP_WORKING_TMP_DIR : $APP_WORKING_TMP_DIR
-    DOCKERFILE_FOLDER : $DOCKERFILE_FOLDER
+    DOCKERFILE_PATH : $DOCKERFILE_PATH
     CONTAINER_NAME : $CONTAINER_NAME
     TAG_BASE:TAG_V_DEFAULT : $TAG_BASE:$TAG_V_DEFAULT
   "
@@ -75,9 +89,9 @@ dkms () {
 dbuild () {
   ddebug
   TAG=$TAG_BASE:${1:-$TAG_V_DEFAULT}
-  TARGET=${2:-dev}
+  TARGET=${2?DBUILD: Must provide a target stage to build!}
   echo "DBUILD: Proceeding to build the image : \n\tImage: $TAG\n\tTarget: $TARGET" 
-  docker build --target $TARGET -t $TAG $DOCKERFILE_FOLDER
+  docker build --target $TARGET -t $TAG $DOCKERFILE_PATH
 }
 
 drel () {
@@ -97,50 +111,49 @@ ddev () {
   echo "DDEV: Setting up devenv"
   APPTYPE=${1:-app}
   TAG=$TAG_BASE:${2:-$TAG_V_DEFAULT}
-  dbuild ${2:-$TAG_V_DEFAULT} dev
+  dbuild ${2:-$TAG_V_DEFAULT} prod
+  if [ ENABLE_KMS=1 ]; then dkms; fi
 
   echo "DDEV: Dev docker image built - Proceeding to run the dev container"
-  if [ "$APPTYPE" = "app" ]; then
-    docker run --rm \
-               --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
-               --volume $KMS_SECRETFILE_OUT_PATH:$KMS_SECRETFILE_OUT_PATH \
-               -e GOOGLE_APPLICATION_CREDENTIALS=$KMS_SECRETFILE_OUT_PATH/$SECRETFILE \
-               -p $CONTAINER_EXPOSED_PORTS \
-               --name $CONTAINER_NAME \
-               -it \
-               $TAG
-  elif [ "$APPTYPE" = "interactive" ]; then
-    docker run --rm \
-               --entrypoint="" \
-               --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
-               --volume $KMS_SECRETFILE_OUT_PATH:$KMS_SECRETFILE_OUT_PATH \
-               -e GOOGLE_APPLICATION_CREDENTIALS=$KMS_SECRETFILE_OUT_PATH/$SECRETFILE \
-               -p $CONTAINER_EXPOSED_PORTS \
-               --name $CONTAINER_NAME \
-               -it \
-               $TAG /bin/bash
-  else
-    echo "Invalid Apptype, run either '$ ddev' or '$ ddev interactive'"
-  fi
+  # Change the cmdargs to whatever executes the app
+  [ "$APPTYPE" = "app" ] && cmdargs='bash sourceme watch' || cmdargs='/bin/bash'
+  docker run --rm \
+             --entrypoint="" \
+             --volume $PROJECT_ROOT:$CONTAINER_WORK_DIR \
+             --volume $SECRETFILE_OUT_PATH:$SECRETFILE_OUT_PATH \
+             -e GOOGLE_APPLICATION_CREDENTIALS=$SECRETFILE_OUT_PATH/$SECRETFILE \
+             -e PYTHONPATH=$CONTAINER_WORK_DIR/ \
+             -w=$CONTAINER_WORK_DIR \
+             -p $CONTAINER_EXPOSED_PORTS \
+             --name $CONTAINER_NAME \
+             --entrypoint="/bin/bash" \
+             -it \
+             $TAG -c $cmdargs
   echo "DDEV: Container exited - Shredding the private key"
   shred -f -zu $SECRETFILE_OUT_PATH/$SECRETFILE
 }
 
-: ' Add the following to the end of your dockerfile :
+: '
+Getting started with this script:
+=================================
 
-################################################################
-# Python development stage
-#
-# Uses deps from last stags and mounts a volume to allow easy
-# development
-################################################################
+Note that this setup had probably been already done for you by
+sysadmin
 
-FROM prod as dev
+1. Configure all the configs at the top till the script runs
+2. Get a private key for a serviceaccount and encrypt it:
+    $ mv ~/Downloads/<privatekey>.json $SECRETFILE_PATH/$SECRETFILE
+    $ gcloud --project=$KMS_PROJECT encrypt \
+             --location=$KMS_LOC \
+             --keyring=$KMS_KEYRING \
+             --key=$KMS_KEY \
+             --ciphertext-file=$SECRETFILE_PATH/$SECRETFILE.enc \
+             --plaintext-file=$SECRETFILE_PATH/$SECRETFILE
+    $ shred -f -zu $SECRETFILE_PATH/$SECRETFILE # Delete the original file
+    $ git add $SECRETFILE_PATH/$SECRETFILE.enc # Commit the encrypted file
+    $ git commit -m "feat: added encrypted private key"
 
-WORKDIR /appdev
-VOLUME /appdev
-ENV PYTHONPATH=/appdev
-#ENV GOOGLE_APPLICATION_CREDENTIALS="/appdev/data/<key>.json"
-
-ENTRYPOINT python server.server
+TO WATCH FS:
+3. Install inofitywait inside the container
+4. run ddev in watch mode `$ ddev watch` or run sourceme with watch argument `sourceme watch`
 '
