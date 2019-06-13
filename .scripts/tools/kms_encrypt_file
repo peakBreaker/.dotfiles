@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# GET ARGS
+while getopts ":p:r:k:f:l:h" o; do case "${o}" in
+    h)
+    echo -e "Optional arguments for custom use:"
+    echo -e "  -p: kms_project"
+    echo -e "  -r: kms_keyring"
+    echo -e "  -k: kms_key"
+    echo -e "  -f: file to encrypt"
+    echo -e "  -l: location"
+    echo -e "  -h: Show this message"
+    exit
+    ;;
+    r) keyring=${OPTARG} ;;
+    k) key=${OPTARG} ;;
+    p) project=${OPTARG} ;;
+    f) secretfile=${OPTARG} ;;
+    l) location=${OPTARG} ;;
+    *) echo "-$OPTARG is not a valid option." && exit ;;
+esac done
+
+echo -e "running with:
+    - project : ${project?Must provide project}
+    - keyring : ${keyring?Must provide keyring}
+    - key : ${key?Must provide key}
+    - file to encrypt : ${secretfile?Must provide file to encrypt}
+    - location : ${location?Must provide location}
+    "
+
+# Check the keyring
+echo -n "Checking keyring :: $keyring :: "
+res=$( gcloud --project=$project kms keyrings list \
+   --location $location \
+   --format=config \
+   --filter="name: $keyring" \
+      | tail -n 1 | cut -d'/' -f6 )
+
+if [[ "$res" != "$keyring" ]]; then
+    echo "no keyring found. creating new keyring"
+    gcloud --project=$project kms keyrings create $keyring --location $location
+else
+    echo "OK"
+fi
+
+# Check the key
+echo -n "Checking keyring key :: $key :: "
+res=$( gcloud --project=$project kms keys list \
+       --keyring=$keyring \
+       --location $location \
+       | grep -o "$key" )
+echo "got results $res"
+echo "hello"
+
+if [[ "$res" != "$key" ]]; then
+    echo "key $key not found in keyring core-keys. creating new key."
+    gcloud --project=$project kms keys create $key --keyring=$keyring --location $location --purpose=encryption
+else
+    echo "OK"
+fi
+
+echo -n "Encrypting file :: $secretfile :: "
+  $(cat $secretfile | gcloud --project=$project kms encrypt \
+     --location=$location \
+     --keyring=$keyring \
+     --key=$key \
+     --plaintext-file=- \
+     --ciphertext-file=$secretfile.enc) && echo "OK" || echo "FAILURE"
