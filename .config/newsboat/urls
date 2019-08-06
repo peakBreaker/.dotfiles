@@ -1,6 +1,9 @@
 # Essential tech
 https://www.archlinux.org/feeds/news/ Tech "~SYS: Arch official"
 http://feeds.feedburner.com/PythonInsider Tech "~SYS: Python insider"
+https://cloud.google.com/feeds/cloud-composer-release-notes.xml gcloud "~GCLOUD:REL: Composer Release Notes"
+https://cloud.google.com/feeds/kubernetes-engine-release-notes.xml gcloud "~GCLOUD:REL: GKE Release Notes"
+https://cloud.google.com/feeds/stackdriver-profiler-release-notes
 
 # Media
 https://www.techmeme.com/feed.xml Media Tech "~MEDIA: TechMeme"

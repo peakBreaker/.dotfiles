@@ -18,6 +18,11 @@
 " #
 "
 " Whenever a line has been thoughtfully considered and added, it is indented
+"
+" Instructions for non basic things :
+" - <C-j> for jumpmenu
+" - <leader>. for tags
+" - m<space> for deleting all markers
 
 " Fix for 2R issue https://github.com/1587/vim/issues/390
 set t_u7=
@@ -68,6 +73,7 @@ call plug#begin()
     Plug 'vim-scripts/ZoomWin'
     Plug 'janko-m/vim-test'
     Plug 'antoyo/vim-licenses'
+    Plug 'kshenoy/vim-signature'
 call plug#end()
 
 " Configuring Plugins --------------------------------------------------- {{{
@@ -284,6 +290,22 @@ endfunction
 nnoremap <Leader>/ :call ToggleComment()<CR>
 vnoremap <Leader>/ :call ToggleComment()<CR>
 " }}}
+" Jumping  ---------------------------------------------------------------- {{{
+function! GotoJump()
+  jumps
+  let j = input("Please select your jump: ")
+  if j != ''
+    let pattern = '\v\c^\+'
+    if j =~ pattern
+      let j = substitute(j, pattern, '', 'g')
+      execute "normal " . j . "\<c-i>"
+    else
+      execute "normal " . j . "\<c-o>"
+    endif
+  endif
+endfunction
+nnoremap <leader>j :call GotoJump()<CR>
+" }}}
 " Hotkeys  ---------------------------------------------------------------- {{{
 
 " Switching between windows quicker
@@ -297,6 +319,9 @@ vnoremap <Leader>/ :call ToggleComment()<CR>
     nnoremap <leader>bn :next<CR>
     nnoremap <leader>bb :buffers<CR>:buffer<space>
     nnoremap <leader>bd :buffers<CR>:bdelete<space>
+
+" Marks & jumps
+    nnoremap <C-k> <C-i>
 
 " Git blaming
     vnoremap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
@@ -312,7 +337,7 @@ vnoremap <Leader>/ :call ToggleComment()<CR>
     nnoremap <leader>. :CtrlPTag<CR>
 
 " For vimmagit
-    nnoremap <leader>gs :Magit <CR>
+    nnoremap <leader>gs :Magit<CR>
 
 " Copying and pasting with system clipboard
     vnoremap <leader>c "+y
