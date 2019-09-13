@@ -311,8 +311,8 @@ nnoremap <leader>j :call GotoJump()<CR>
 " Switching between windows quicker
     nmap <C-J> <C-W>j
     nmap <C-K> <C-W>k
-    nmap <c-h> <c-w>h
-    nmap <c-l> <c-w>l
+    nmap <C-H> <C-W>h
+    nmap <C-L> <C-W>l
 
 " Buffers
     nnoremap <leader>bp :prev<CR>
@@ -321,7 +321,7 @@ nnoremap <leader>j :call GotoJump()<CR>
     nnoremap <leader>bd :buffers<CR>:bdelete<space>
 
 " Marks & jumps
-    nnoremap <C-k> <C-i>
+    nnoremap <C-Y> <C-I>
 
 " Git blaming
     vnoremap <leader>b :!git blame <C-R>=expand("%:p")<CR> -L '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>'
