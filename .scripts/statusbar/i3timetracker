@@ -13,6 +13,4 @@ case $BLOCK_BUTTON in
 - Shows current project and first tag" ;;
 esac
 
-echo -n "$(watson status --project)"
-echo -n " > $(watson status --tags | awk '{print $1}' | sed s/,//g | sed s/[[]//g | sed s/\&/_/g)"
-echo -n " - $(watson status --elapsed)"
+echo "$(watson status --project) > $(watson status --tags | awk '{print $1}' | sed s/,//g | sed s/[[]//g | sed s/\&/_/g) - $(watson status --elapsed)"
