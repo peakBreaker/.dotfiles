@@ -135,6 +135,8 @@ bindsym $mod+Control+l focus output right
 # bindsym $mod+F12        exec $term -e sudo -A wifi-menu
 # Launching scripts
 bindsym $mod+Control+1  exec dmenuunicode
+bindsym $mod+Control+Shift+m  exec dmenumount
+bindsym $mod+Control+Shift+u  exec dmenuumount
 bindsym $mod+C          exec clipmenu
 
 ## }}}
