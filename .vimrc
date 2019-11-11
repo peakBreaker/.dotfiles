@@ -380,19 +380,15 @@ set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
 
-
 " Allow hidden buffers
 set hidden
 
 " Rendering
 set ttyfast
 
-" Status bar
-set laststatus=2
-
 " Last line
 set showmode
 set showcmd
 
 " Formatting
-map <leader>q gqip
+"map <leader>q gqip

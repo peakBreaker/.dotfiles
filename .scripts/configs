@@ -1,6 +1,7 @@
 cff  ~/.scripts/folders
 cfc  ~/.scripts/configs
 cfz  ~/.zshrc
+cfg  ~/.gitconfig
 cfpr ~/.profile
 cfv  ~/.vimrc
 cfp  ~/.vim/plugged/peakPlugin/

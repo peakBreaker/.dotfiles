@@ -1,9 +1,13 @@
 # Essential tech
 https://www.archlinux.org/feeds/news/ Tech "~SYS: Arch official"
-http://feeds.feedburner.com/PythonInsider Tech "~SYS: Python insider"
-https://cloud.google.com/feeds/cloud-composer-release-notes.xml gcloud "~GCLOUD:REL: Composer Release Notes"
-https://cloud.google.com/feeds/kubernetes-engine-release-notes.xml gcloud "~GCLOUD:REL: GKE Release Notes"
-https://cloud.google.com/feeds/stackdriver-profiler-release-notes
+http://feeds.feedburner.com/PythonInsider Tech releasenotes "~SYS: Python insider"
+https://cloud.google.com/feeds/cloud-composer-release-notes.xml gcloud releasenotes "~GCLOUD:REL: Composer Release Notes"
+https://cloud.google.com/feeds/kubernetes-engine-release-notes.xml gcloud releasenotes "~GCLOUD:REL: GKE Release Notes"
+https://cloud.google.com/feeds/bigquery-release-notes.xml gcloud releasenotes "~GCLOUD:REL: Bigquery Release Notes"
+https://cloud.google.com/feeds/stackdriver-profiler-release-notes gcloud releasenotes "~GCLOUD:REL: Stackdriver profiler release notes"
+
+# Cool programs to keep track of
+https://www.synfig.org/news/rss Tech programs "~PROGRAMS: Synfig studio"
 
 # Media
 https://www.techmeme.com/feed.xml Media Tech "~MEDIA: TechMeme"
@@ -26,6 +30,8 @@ http://milinda.pathirage.org/feed.xml people "~PEOPLE: Milinda Pathirage Site"
 https://www.jesse-anderson.com/feed people "~PEOPLE: Jesse Anderson Blog"
 ### Martin Fowler, Software Engineering
 https://martinfowler.com/feed.atom people "~PEOPLE: Martin Fowler Blog"
+### IBMSystems - You and i
+http://ibmsystemsmag.com/CMSTemplates/IBMSystemsMag/Feeds/You-and-i.aspx "~PEOPLE: IBM Systems - You and i"
 ### The TechLead
 https://www.youtube.com/feeds/videos.xml?channel_id=UC4xKdmAXFh4ACyhpiQ_3qBw youtube people "~PEOPLE: TechLead"
 

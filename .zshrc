@@ -102,10 +102,6 @@ alias ethspeed="speedometer -r enp0s25"
 alias wifispeed="speedometer -r wlp3s0"
 alias starwars="telnet towel.blinkenlights.nl"
 
-# TeX
-alias Txa="cp ~/Documents/LaTeX/article.tex"
-alias Txs="cp ~/Documents/LaTeX/beamer.tex"
-alias Txh="cp ~/Documents/LaTeX/handout.tex"
 ## }}}
 ## SSH IN ENVIRONMENT ----------------------------------------------- {{{
 # Add code to handle the ssh key password in env variable
