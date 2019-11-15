@@ -55,6 +55,8 @@ call plug#begin()
 " Autocomplete/running & other utils
     Plug 'vim-syntastic/syntastic' | Plug 'Valloric/YouCompleteMe' | Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     Plug 'skywind3000/asyncrun.vim'
+    Plug 'othree/vim-autocomplpop'
+    Plug 'vim-scripts/L9'
 
 " Git
     Plug 'jreybert/vimagit'
@@ -121,6 +123,17 @@ call plug#end()
       endif
   endfunction
 
+" Use the Go LSP gopls for autocomplete
+  let g:go_def_mode='gopls'
+  let g:go_info_mode='gopls'
+
+" if &filetype == 'go'
+    " augroup peakbr_go_autocomplete
+        " autocmd!
+        " ...
+    " augroup END
+" endif
+
 " augroup SPACEVIM_ASYNCRUN
 "     autocmd!
 "    " Automatically open the quickfix window
@@ -137,7 +150,7 @@ if executable('ag')
 endif
 
 " }}}
-
+  let g:acp_enableAtStartup = 1
 " }}}
 " Basic configs ----------------------------------------------------------- {{{
 
@@ -328,6 +341,7 @@ nnoremap <leader>j :call GotoJump()<CR>
     vnoremap <leader>B ygv :!git log --pretty=format:"<..> %s %H" -L <C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>:<C-R>=expand("%:p")<CR> --abbrev-commit \| grep "<..>"
     " vmap <leader>B :!git blame <C-R>=expand("%:p")<CR> \| sed -n '<C-R>=line("'<")<CR>,<C-R>=line("'>")<CR>' p
 
+
 " For folding
     nmap <Tab> za
     nnoremap <expr> <leader><Tab> &foldlevel ? 'zM' :'zR'
@@ -338,6 +352,9 @@ nnoremap <leader>j :call GotoJump()<CR>
 
 " For vimmagit
     nnoremap <leader>gs :Magit<CR>
+
+" Autocompleting
+    inoremap <C-Space> <C-X><C-O>
 
 " Copying and pasting with system clipboard
     vnoremap <leader>c "+y
