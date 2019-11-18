@@ -83,6 +83,9 @@ alias dck-containers-clean="docker container rm $(docker ps -a -q)"
 alias dck-images-clean="docker image rm $(docker images -a -q)"
 alias dck-all-clean='docker stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
 
+# Terraform
+alias t="terraform"
+
 # Nice terminal programs
 alias wa="watson"
 alias ws="watson status"
