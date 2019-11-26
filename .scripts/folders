@@ -23,19 +23,22 @@ fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
 # Work shortcuts
 fwe ~/Documents/Work/etl/
-fw1 ~/Documents/Work/etl/data-airflow-composer
-fw1l1 ~/Documents/Work/etl/ETLPY
-fw1l2 ~/Documents/Work/etl/MockQuerPy
-fw11 ~/Documents/Work/etl/data-airflow-jobs
-fw2 $GOPATH/src/github.com/amedia/noctambulant
-fw3 ~/Documents/Work/adpdocs
+fw1 ~/Documents/Work/etl/data-airflow-composer git@github.com:amedia/data-airflow-composer.git
+fw2 $GOPATH/src/github.com/amedia/noctambulant git@github.com:amedia/noctambulant.git
+fw3 ~/Documents/Work/adpdocs git@github.com:amedia/adpdocs.git
+fw4 ~/Documents/Work/gcoat git@github.com:amedia/gcoat.git
+fw5 ~/Documents/Work/libs/thor/ git@github.com:amedia/thor.git
+fw6 ~/Documents/Work/adp-rte/ git@github.com:amedia/adp-rte.git
+
 #    Work Data Science
 fwds ~/Documents/Work/DS/
 fwds1 ~/Documents/Work/DS/ds_AB_testing
+fwds2 ~/Documents/Work/DS/ds_classifier_deployment
+fwds3 ~/Documents/Work/DS/ds_browserID_classification_deployment
 
 # Personal
-fpt ~/Documents/Personal/tut
-fp1 ~/Documents/Personal/PIES
+fpt ~/Documents/Personal/tutorials
+fp1 ~/Documents/Personal/PIES git@github.com:peakBreaker/PIES.git
 fp2 ~/Documents/Personal/nansenml
 fp3 ~/Documents/Personal/documentation/cheat-sheet
 
