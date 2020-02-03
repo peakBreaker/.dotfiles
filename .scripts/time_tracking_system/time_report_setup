@@ -1,4 +1,4 @@
-#/usr/bin/env python
+#/usr/bin/env bash
 
 start_date=${1?Must provide start date for analysis}
 
@@ -7,9 +7,14 @@ process_raw_data() {
 }
 
 cd $(mktemp -d) && \
-virtualenv venv && source venv/bin/activate && pip install -r ~/.scripts/time_tracking_system/requirements.txt && \
-cp ~/.scripts/time_tracking_system/*.ipynb . && \
+echo "\t -- Setting up environment" && \
+virtualenv venv && . venv/bin/activate && \
+which pip && \
+echo "\t -- Installing dependencies!" && \
+pip install -r ~/.scripts/time_tracking_system/requirements.txt && \
+cp ~/.scripts/time_tracking_system/*.ipynb ./ && \
 mkdir -p ./reports && \
+echo "\t -- Processing raw data!" && \
 process_raw_data $start_date && \
 jupyter notebook .
 

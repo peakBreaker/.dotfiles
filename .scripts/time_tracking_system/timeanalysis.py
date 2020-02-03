@@ -13,7 +13,7 @@ STRF_FORMAT = '%Y-%m-%d'
 REPORTS_FOLDER = './reports/'
 
 # Construct our main data collections
-specifics = {'WORK': ["1-57-GA", "1-72-AIRFLOW_MIGRATION", "DS1-9-ABTESTER", "ASM1-115-ETL", "4-GCOAT"],
+specifics = {'WORK': ["1-57-GA", "1-72-AIRFLOW_MIGRATION", "DS1-9-ABTESTER", "ASM1-115-ETL", "4-GCOAT", "0-ADP-RTE"],
              'CLIENT': [],
              'PERS': [],
              'LIFE': [],
