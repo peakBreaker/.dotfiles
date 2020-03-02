@@ -28,19 +28,25 @@ fw2 $GOPATH/src/github.com/amedia/noctambulant git@github.com:amedia/noctambulan
 fw3 ~/Documents/Work/adpdocs git@github.com:amedia/adpdocs.git
 fw4 ~/Documents/Work/gcoat git@github.com:amedia/gcoat.git
 fw5 ~/Documents/Work/libs/thor/ git@github.com:amedia/thor.git
-fw6 ~/Documents/Work/adp-rte/ git@github.com:amedia/adp-rte.git
+fw6 ~/Documents/Work/caesar/ git@github.com:amedia/caesar.git
+fw7 ~/Documents/Work/adp-infrastructure/ git@github.com:amedia/adp-infrastructure.git
+fw8 ~/Documents/Work/augustus/ git@github.com:amedia/augustus.git
+fw9 ~/Documents/Work/incitatus/ git@github.com:amedia/incitatus
 
 #    Work Data Science
 fwds ~/Documents/Work/DS/
 fwds1 ~/Documents/Work/DS/ds_AB_testing
 fwds2 ~/Documents/Work/DS/ds_classifier_deployment
 fwds3 ~/Documents/Work/DS/ds_browserID_classification_deployment
+fwds4 ~/Documents/Work/DS/ei-model-training/ git@github.com:amedia/ei-model-training.git
+fwds5 ~/Documents/Work/DS/boost-segment-cls/ git@github.com:amedia/boost-segment-cls.git
 
 # Personal
 fpt ~/Documents/Personal/tutorials
 fp1 ~/Documents/Personal/PIES git@github.com:peakBreaker/PIES.git
 fp2 ~/Documents/Personal/nansenml
 fp3 ~/Documents/Personal/documentation/cheat-sheet
+fp4 ~/Documents/Personal/st-1/ git@github.com:peakBreaker/st-1.git
 
 # Configurations
 fcnb ~/.config/newsboat

@@ -69,6 +69,7 @@ call plug#begin()
 " Programming lang specifics
     Plug 'nvie/vim-flake8'
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'hashivim/vim-terraform'
 
 " Superpowers
     Plug 'tpope/vim-surround'
@@ -151,6 +152,11 @@ endif
 
 " }}}
   let g:acp_enableAtStartup = 1
+
+  " Terraform
+  let g:terraform_align=1
+  let g:terraform_fold_sections = 1
+  let g:terraform_fmt_on_save=1
 " }}}
 " Basic configs ----------------------------------------------------------- {{{
 

@@ -41,10 +41,12 @@ alias klsns='kubectl get namespaces'
 # Inspecting a resource
 alias kd='kubectl describe'
 alias kdpo='kubectl describe pods'
+alias kdpoi='kubectl describe pods | grep Image:'
 alias klogs='kubectl logs -f'
 alias kex='kubectl exec -it'
 # Select running pods to get logs from
 klogr () { kubectl logs -f $(k get pods | grep 'Running' | awk '{print $1}' | fzf) }
+klogrts () { kubectl logs --timestamps=true -f $(k get pods | grep 'Running' | awk '{print $1}' | fzf) }
 ksshr () { kubectl exec -it $(k get pods | grep 'Running' | awk '{print $1}' | fzf) -- /bin/bash }
 
 # Deleting resources
