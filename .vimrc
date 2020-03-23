@@ -392,6 +392,10 @@ nnoremap <leader>j :call GotoJump()<CR>
 
 
 " }}}
+" Autocmds  ---------------------------------------------------------------- {{{
+  autocmd FileType python nnoremap <buffer> <leader>r :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+  autocmd FileType python inoremap <buffer> <leader>r <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" }}}
 
 " Whitespace
 set shiftwidth=2
