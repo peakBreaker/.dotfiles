@@ -141,7 +141,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 # Set some important env vars
 export TERMINAL="st"
-export BROWSER=firefox
+#export BROWSER=brave
 export GOPATH=$(echo $(go env | awk '$1 ~ /^GOPATH/ {print}' | sed -e 's/[^"]*[^"]//' -e 's/"//g'))
 export DOTFILES_INSTALLED='true'
 ## }}}

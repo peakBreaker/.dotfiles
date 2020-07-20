@@ -145,10 +145,16 @@ call plug#end()
   let g:asyncrun_open = 15
 
 " Control-p speedup
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
+  "" Ignore some sane things
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,venv*/
+  let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$|vendor\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$|venv$',
+    \ 'file': '\.exe$\|\.so$\|\.dat$'
+    \ }
 
 " }}}
   let g:acp_enableAtStartup = 1
