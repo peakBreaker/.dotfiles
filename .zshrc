@@ -71,6 +71,7 @@ alias so="source"
 alias sc="sc-im"
 alias pingg="ping 8.8.8.8" # ping google dns
 alias n="npx" # npm run module shortcut
+alias copy="xclip -selection c" # pipe to copy
 
 # Docker
 alias dck="docker"

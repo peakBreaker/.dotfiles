@@ -65,6 +65,7 @@ call plug#begin()
 " Filesystem/Project handling
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'dkprice/vim-easygrep'
+    Plug 'ludovicchabant/vim-gutentags'
 
 " Programming lang specifics
     Plug 'nvie/vim-flake8'
@@ -145,16 +146,18 @@ call plug#end()
   let g:asyncrun_open = 15
 
 " Control-p speedup
-  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-  if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  endif
   "" Ignore some sane things
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,venv*/
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,venv*/*
   let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$|vendor\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$|venv$',
     \ 'file': '\.exe$\|\.so$\|\.dat$'
     \ }
+
+  "" caching and optimized search
+  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
 
 " }}}
   let g:acp_enableAtStartup = 1
@@ -399,6 +402,7 @@ nnoremap <leader>j :call GotoJump()<CR>
 
 " }}}
 " Autocmds  ---------------------------------------------------------------- {{{
+  autocmd FileType sh nnoremap <buffer> <leader>r :w<CR>:exec '!bash' expand("%")<CR>
   autocmd FileType python nnoremap <buffer> <leader>r :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 " }}}
 
