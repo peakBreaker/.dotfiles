@@ -8,8 +8,8 @@ export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 export PATH=$PATH:$HOME/apps/
 export EDITOR="vim"
 export TERMINAL="st"
-export BROWSER="brave"
-export TRUEBROWSER="brave"
+export BROWSER="firefox"
+export TRUEBROWSER="firefox"
 
 [ -f ~/.scripts/shortcuts.sh ] && ~/.scripts/shortcuts.sh
 

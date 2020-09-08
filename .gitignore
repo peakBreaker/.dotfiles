@@ -56,3 +56,15 @@ Videos/
 
 #files/.vim/plugged
 #files/.vim/.netrwhist
+
+# Various
+.azure*
+.bash_logout
+.config/spotify
+.mono
+.mozilla
+go
+tags*
+.python_history
+mono_crash*
+.gnupg

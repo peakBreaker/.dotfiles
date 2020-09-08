@@ -2,7 +2,7 @@
 ## OH MY ZSH CONFIG ------------------------------------------------- {{{
 
 # Basic configs, add plugins
-ZSH_THEME=avit
+ZSH_THEME=clean
 plugins=(git vi-mode)
 export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
