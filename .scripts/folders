@@ -1,9 +1,12 @@
+# vim: set foldmethod=marker:
+#
 # You can add comments to these files with #
 fh  ~/
-fb  ~/Documents/Personal/www/peakBreaker.github.io/
 fd  ~/Documents
 fw  ~/Documents/Work
 fp  ~/Documents/Personal
+fpw  ~/Documents/Personal/www git@github.com:peakBreaker/peakbreaker.com.git
+fpB  ~/Documents/Personal/www/peakBreaker.com/blog/
 fC  ~/Documents/Clients
 fD  ~/Downloads
 fm  ~/Music
@@ -15,38 +18,61 @@ ft  ~/.templates
 ftt  ~/.templates/tex
 fG  $GOPATH
 
-# Sensario
-fcs ~/Documents/Clients/Sensario
+# Clients ---- {{{
+#
+# 1. All clients get a client code, a character
+
+## Ciber (c) ----- {{{
+
+fCc ~/Documents/Clients/ciber/
+fct ~/Documents/Clients/ciber/
+fctml ~/Documents/Clients/ciber/tut/ml-basics/
+
+fccw ~/Documents/Clients/ciber/
+
+## }}}
+
+## Sensario (s) ----- {{{
+
+fCs ~/Documents/Clients/Sensario
 fse ~/Documents/Clients/Sensario/Embedded
 fs1 ~/Documents/Clients/Sensario/Embedded/vizacontiki
 fs2 ~/Documents/Clients/Sensario/Embedded/ModemFirmware
 
-# Work shortcuts
-fwe ~/Documents/Work/etl/
-fw1 ~/Documents/Work/etl/data-airflow-composer git@github.com:amedia/data-airflow-composer.git
-fw2 $GOPATH/src/github.com/amedia/noctambulant git@github.com:amedia/noctambulant.git
-fw3 ~/Documents/Work/adpdocs git@github.com:amedia/adpdocs.git
-fw4 ~/Documents/Work/gcoat git@github.com:amedia/gcoat.git
-fw5 ~/Documents/Work/libs/thor/ git@github.com:amedia/thor.git
-fw6 ~/Documents/Work/caesar/ git@github.com:amedia/caesar.git
-fw7 ~/Documents/Work/adp-infrastructure/ git@github.com:amedia/adp-infrastructure.git
-fw8 ~/Documents/Work/augustus/ git@github.com:amedia/augustus.git
-fw9 ~/Documents/Work/incitatus/ git@github.com:amedia/incitatus
+## }}}
 
-#    Work Data Science
-fwds ~/Documents/Work/DS/
-fwds1 ~/Documents/Work/DS/ds_AB_testing
-fwds2 ~/Documents/Work/DS/ds_classifier_deployment
-fwds3 ~/Documents/Work/DS/ds_browserID_classification_deployment
-fwds4 ~/Documents/Work/DS/ei-model-training/ git@github.com:amedia/ei-model-training.git
-fwds5 ~/Documents/Work/DS/boost-segment-cls/ git@github.com:amedia/boost-segment-cls.git
+# Amedia (a) ----- {{{
+fae ~/Documents/Work/etl/
+fa1 ~/Documents/Work/etl/data-airflow-composer git@github.com:amedia/data-airflow-composer.git
+fa2 $GOPATH/src/github.com/amedia/noctambulant git@github.com:amedia/noctambulant.git
+fa3 ~/Documents/Work/adpdocs git@github.com:amedia/adpdocs.git
+fa4 ~/Documents/Work/gcoat git@github.com:amedia/gcoat.git
+fa5 ~/Documents/Work/libs/thor/ git@github.com:amedia/thor.git
+fa6 ~/Documents/Work/caesar/ git@github.com:amedia/caesar.git
+fa7 ~/Documents/Work/adp-infrastructure/ git@github.com:amedia/adp-infrastructure.git
+fa8 ~/Documents/Work/augustus/ git@github.com:amedia/augustus.git
+fa9 ~/Documents/Work/incitatus/ git@github.com:amedia/incitatus
 
-# Personal
+#    Amedia Data Science
+fads ~/Documents/Work/DS/
+fads1 ~/Documents/Work/DS/ds_AB_testing
+fads2 ~/Documents/Work/DS/ds_classifier_deployment
+fads3 ~/Documents/Work/DS/ds_browserID_classification_deployment
+fads4 ~/Documents/Work/DS/ei-model-training/ git@github.com:amedia/ei-model-training.git
+fads5 ~/Documents/Work/DS/boost-segment-cls/ git@github.com:amedia/boost-segment-cls.git
+
+## }}}
+
+# Personal ----- {{{
+
 fpt ~/Documents/Personal/tutorials
 fp1 ~/Documents/Personal/PIES git@github.com:peakBreaker/PIES.git
 fp2 ~/Documents/Personal/nansenml
 fp3 ~/Documents/Personal/documentation/cheat-sheet
 fp4 ~/Documents/Personal/st-1/ git@github.com:peakBreaker/st-1.git
+
+## }}}
+# }}}
 
 # Configurations
 fcnb ~/.config/newsboat
